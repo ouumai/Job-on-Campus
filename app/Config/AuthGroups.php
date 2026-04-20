@@ -44,19 +44,19 @@ class AuthGroups extends \CodeIgniter\Shield\Config\AuthGroups
     public array $groups = [
         'student' => [
             'title'       => 'pelajar',
-            'description' => 'Pelajar dengan No. Matrik (Format: A/Pxxxxxx).',
+            'description' => 'Pelajar (A/Pxxxxxx)',
         ],
         'supervisor' => [
             'title'       => 'penyelia',
-            'description' => 'Kakitangan dengan UKMPer (Format: K/KS/KQxxxxxx).',
+            'description' => 'Kakitangan (K/KS/KQxxxxxx)',
         ],
         'kp' => [
             'title'       => 'Ketua Pentadbiran (PTJ)',
-            'description' => 'Ketua Pentadbiran yang meluluskan iklan & tuntutan bajet PTJ.',
+            'description' => 'Meluluskan iklan/tuntutan PTJ',
         ],
         'career' => [
             'title'       => 'urusetia',
-            'description' => 'Staf Kerjaya (Rujukan table pjoc011murusetia).',
+            'description' => 'Staf Kerjaya (Rujuk pjoc011murusetia)',
         ],
     ];
 
@@ -87,28 +87,26 @@ class AuthGroups extends \CodeIgniter\Shield\Config\AuthGroups
      * This defines group-level permissions.
      */
     public array $matrix = [
-        'superadmin' => [
-            'admin.*',
-            'users.*',
-            'beta.*',
+        'student' => [
+            'ads.read', 
+            'apply.job', 
+            'timesheet.submit', 
+            'claim.submit'
         ],
-        'admin' => [
-            'admin.access',
-            'users.create',
-            'users.edit',
-            'users.delete',
-            'beta.access',
+        'supervisor' => [
+            'ads.create', 
+            'ads.manage', 
+            'candidate.manage', 
+            'timesheet.verify'
         ],
-        'developer' => [
-            'admin.access',
-            'admin.settings',
-            'users.create',
-            'users.edit',
-            'beta.access',
+        'kp' => [
+            'ads.approve_ptj', 
+            'claim.approve_ptj'
         ],
-        'user' => [],
-        'beta' => [
-            'beta.access',
+        'career' => [
+            'ads.approve_all', 
+            'budget.manage', 
+            'payroll.export'
         ],
     ];
 }
