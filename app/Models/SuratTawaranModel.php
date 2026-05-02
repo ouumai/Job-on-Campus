@@ -6,13 +6,15 @@ use CodeIgniter\Model;
 
 class SuratTawaranModel extends Model
 {
-    protected $table            = 'surattawarans';
+    protected $table            = 'pjoc004msurattawaran';
     protected $primaryKey       = 'id';
     protected $useAutoIncrement = true;
-    protected $returnType       = 'array';
+    protected $returnType       = 'object';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = [];
+    protected $allowedFields    = [
+        'matrik', 'letter_file', 'respon_pelajar', 'tarikh_respon'
+    ];
 
     protected bool $allowEmptyInserts = false;
     protected bool $updateOnlyChanged = true;
@@ -43,4 +45,20 @@ class SuratTawaranModel extends Model
     protected $afterFind      = [];
     protected $beforeDelete   = [];
     protected $afterDelete    = [];
+
+    // Cari surat tawaran untuk pelajar tertentu
+    public function getByStudent($matrik)
+    {
+        return $this->where('matrik', $matrik)
+                    ->orderBy('id', 'DESC')
+                    ->findAll();
+    }
+
+    // Cari tawaran yang masih menunggu maklum balas pelajar
+    public function getPending()
+    {
+        return $this->where('respon_pelajar', 'pending')
+                    ->findAll();
+    }
+
 }
