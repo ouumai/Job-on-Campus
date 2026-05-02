@@ -6,13 +6,13 @@ use CodeIgniter\Model;
 
 class UrusetiaModel extends Model
 {
-    protected $table            = 'urusetias';
+    protected $table            = 'pjoc011murusetia';
     protected $primaryKey       = 'id';
     protected $useAutoIncrement = true;
-    protected $returnType       = 'array';
+    protected $returnType       = 'object';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = [];
+    protected $allowedFields = ['ukmper', 'nama', 'tahap_akses', 'aktif'];
 
     protected bool $allowEmptyInserts = false;
     protected bool $updateOnlyChanged = true;
@@ -43,4 +43,10 @@ class UrusetiaModel extends Model
     protected $afterFind      = [];
     protected $beforeDelete   = [];
     protected $afterDelete    = [];
+
+
+    public function isUrusetia($id) {
+        return $this->where(['ukmper' => $id, 'aktif' => 1])->first() !== null;
+    }
+
 }
