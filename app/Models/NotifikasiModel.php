@@ -6,13 +6,13 @@ use CodeIgniter\Model;
 
 class NotifikasiModel extends Model
 {
-    protected $table            = 'notifikasis';
+    protected $table            = 'pjoc010mnotifications';
     protected $primaryKey       = 'id';
     protected $useAutoIncrement = true;
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = [];
+    protected $allowedFields = ['matrik', 'tajuk', 'mesej', 'pautan', 'telah_dibaca'];
 
     protected bool $allowEmptyInserts = false;
     protected bool $updateOnlyChanged = true;
@@ -43,4 +43,9 @@ class NotifikasiModel extends Model
     protected $afterFind      = [];
     protected $beforeDelete   = [];
     protected $afterDelete    = [];
+
+    public function countUnread($matrik) {
+        return $this->where(['matrik' => $matrik, 'telah_dibaca' => 0])->countAllResults();
+    }
+
 }
