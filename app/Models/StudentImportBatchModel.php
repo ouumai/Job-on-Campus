@@ -6,13 +6,13 @@ use CodeIgniter\Model;
 
 class StudentImportBatchModel extends Model
 {
-    protected $table            = 'studentimportbatches';
+    protected $table            = 'pjoc008mbatchimportpelajar';
     protected $primaryKey       = 'id';
     protected $useAutoIncrement = true;
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = [];
+    protected $allowedFields = ['id_kerja', 'file_name', 'jumlah_rows', 'jumlah_berjaya', 'jumlah_gagal', 'status'];
 
     protected bool $allowEmptyInserts = false;
     protected bool $updateOnlyChanged = true;
