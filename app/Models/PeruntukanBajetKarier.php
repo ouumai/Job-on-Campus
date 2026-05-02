@@ -6,13 +6,13 @@ use CodeIgniter\Model;
 
 class PeruntukanBajetKarier extends Model
 {
-    protected $table            = 'peruntukanbajetkariers';
+    protected $table            = 'pjoc007mperuntukanbajetcareer';
     protected $primaryKey       = 'id';
     protected $useAutoIncrement = true;
-    protected $returnType       = 'array';
+    protected $returnType       = 'object';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = [];
+    protected $allowedFields = ['tahun', 'jumlah_diperuntukkan', 'jumlah_dibelanjakan', 'baki'];
 
     protected bool $allowEmptyInserts = false;
     protected bool $updateOnlyChanged = true;
@@ -43,4 +43,9 @@ class PeruntukanBajetKarier extends Model
     protected $afterFind      = [];
     protected $beforeDelete   = [];
     protected $afterDelete    = [];
+
+    public function getCurrentYear() {
+        return $this->where('tahun', date('Y'))->first();
+    }
+
 }
