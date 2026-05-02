@@ -6,13 +6,16 @@ use CodeIgniter\Model;
 
 class TimesheetModel extends Model
 {
-    protected $table            = 'timesheets';
+    protected $table            = 'pjoc005mtimesheets';
     protected $primaryKey       = 'id';
     protected $useAutoIncrement = true;
-    protected $returnType       = 'array';
+    protected $returnType       = 'object';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = [];
+    protected $allowedFields    = [
+        'matrik', 'minggu_bermula', 'minggu_berakhir', 
+        'jumlah_jam', 'remarks', 'status', 'id_sah', 'tkh_sah'
+    ];
 
     protected bool $allowEmptyInserts = false;
     protected bool $updateOnlyChanged = true;
@@ -43,4 +46,36 @@ class TimesheetModel extends Model
     protected $afterFind      = [];
     protected $beforeDelete   = [];
     protected $afterDelete    = [];
+
+    // Cari timesheet milik pelajar tertentu
+    public function getByStudent($matrik)
+    {
+        return $this->where('matrik', $matrik)
+                    ->orderBy('minggu_bermula', 'DESC')
+                    ->findAll();
+    }
+
+    /**
+     * Kira jumlah jam bekerja pelajar untuk bulan tertentu
+     * Penting untuk pengiraan tuntutan bulanan.
+     */
+    public function getTotalHoursForMonth($matrik, $month)
+    {
+        return $this->selectSum('jumlah_jam')
+                    ->where('matrik', $matrik)
+                    ->where("FORMAT(minggu_bermula, 'yyyy-MM') =", $month)
+                    ->where('status', 'verified')
+                    ->first();
+    }
+
+    // Cari timesheet yang menunggu pengesahan penyelia
+    public function getPendingBySupervisor($ukmper)
+    {
+        // Logic ini akan join dengan iklan kerja untuk pastikan penyelia yang betul
+        return $this->select('pjoc005mtimesheets.*')
+                    ->join('pjoc002miklanpekerjaan', 'pjoc002miklanpekerjaan.id = pjoc005mtimesheets.id_kerja', 'left') // Note: id_kerja perlu ada dalam schema timesheet jika perlu rujukan terus
+                    ->where('pjoc005mtimesheets.status', 'pending')
+                    ->findAll();
+    }
+
 }
