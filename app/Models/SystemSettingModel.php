@@ -6,13 +6,13 @@ use CodeIgniter\Model;
 
 class SystemSettingModel extends Model
 {
-    protected $table            = 'systemsettings';
+    protected $table            = 'pjoc001msettings';
     protected $primaryKey       = 'id';
     protected $useAutoIncrement = true;
-    protected $returnType       = 'array';
+    protected $returnType       = 'object';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = [];
+    protected $allowedFields    = ['key', 'value'];
 
     protected bool $allowEmptyInserts = false;
     protected bool $updateOnlyChanged = true;
@@ -43,4 +43,31 @@ class SystemSettingModel extends Model
     protected $afterFind      = [];
     protected $beforeDelete   = [];
     protected $afterDelete    = [];
+
+    /**
+     * Ambil nilai tetapan berdasarkan kunci (key)
+     * Contoh: getSetting('kadar_jam_default', '6.50')
+     */
+    public function getSetting($key, $default = null)
+    {
+        $result = $this->where('key', $key)->first();
+        
+        return $result ? $result->value : $default;
+    }
+
+    // Kemaskini atau cipta tetapan baru
+    public function setSetting($key, $value)
+    {
+        $existing = $this->where('key', $key)->first();
+
+        if ($existing) {
+            return $this->update($existing->id, ['value' => $value]);
+        }
+
+        return $this->insert([
+            'key'   => $key,
+            'value' => $value
+        ]);
+    }
+
 }
