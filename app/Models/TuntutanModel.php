@@ -6,13 +6,16 @@ use CodeIgniter\Model;
 
 class TuntutanModel extends Model
 {
-    protected $table            = 'tuntutans';
+    protected $table            = 'pjoc006mtuntutan';
     protected $primaryKey       = 'id';
     protected $useAutoIncrement = true;
-    protected $returnType       = 'array';
+    protected $returnType       = 'object';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = [];
+    protected $allowedFields = [
+        'matrik', 'bulan', 'jumlah_jam', 'jumlah_bayaran', 
+        'fail_bukti', 'pautan_bukti', 'status', 'sebab_penolakan'
+    ];
 
     protected bool $allowEmptyInserts = false;
     protected bool $updateOnlyChanged = true;
@@ -43,4 +46,9 @@ class TuntutanModel extends Model
     protected $afterFind      = [];
     protected $beforeDelete   = [];
     protected $afterDelete    = [];
+
+    public function getByStudent($matrik) {
+        return $this->where('matrik', $matrik)->orderBy('bulan', 'DESC')->findAll();
+    }
+
 }
