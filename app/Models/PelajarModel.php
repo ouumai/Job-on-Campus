@@ -6,10 +6,10 @@ use CodeIgniter\Model;
 
 class PelajarModel extends Model
 {
-    protected $table            = 'pelajars';
+    protected $table            = 'v_psmpv001asaspelajar';
     protected $primaryKey       = 'id';
     protected $useAutoIncrement = true;
-    protected $returnType       = 'array';
+    protected $returnType       = 'object';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
     protected $allowedFields    = [];
@@ -43,4 +43,9 @@ class PelajarModel extends Model
     protected $afterFind      = [];
     protected $beforeDelete   = [];
     protected $afterDelete    = [];
+
+    public function getStudentData($matrik) {
+        return $this->where('matrik', $matrik)->first();
+    }
+
 }
