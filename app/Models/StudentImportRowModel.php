@@ -6,13 +6,13 @@ use CodeIgniter\Model;
 
 class StudentImportRowModel extends Model
 {
-    protected $table            = 'studentimportrows';
+    protected $table            = 'pjoc009mstudentimport';
     protected $primaryKey       = 'id';
     protected $useAutoIncrement = true;
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = [];
+    protected $allowedFields = ['batch_id', 'row_number', 'row_data', 'matrik', 'status', 'error_message'];
 
     protected bool $allowEmptyInserts = false;
     protected bool $updateOnlyChanged = true;
