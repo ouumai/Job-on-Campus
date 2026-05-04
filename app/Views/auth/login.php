@@ -161,7 +161,7 @@ License: For each use you must have a valid license purchased only from above li
 									<!--begin::Sign up-->
 									<div class="text-gray-500 text-center fw-semibold fs-6">
 										<span data-kt-translate="sign-in-head-desc">Not a Member yet?</span>
-										<a href="authentication/layouts/overlay/sign-up.html" class="link-primary" data-kt-translate="sign-in-head-link">Sign up</a>
+										<a href="<?= base_url('signup') ?>" class="link-primary" data-kt-translate="sign-in-head-link">Sign up</a>
 									</div>
 									<!--end::Sign up-->
 								</form>

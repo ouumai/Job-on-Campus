@@ -9,3 +9,4 @@ $routes->get('/', 'Home::index');
 
 
 $routes->get('login', 'AuthController::index');
+$routes->get('signup', 'AuthController::signup');

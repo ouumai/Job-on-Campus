@@ -24,6 +24,10 @@ var KTAuthI18nDemo = function () {
             eng: "Or with email",
             ms: "Atau dengan emel"
         },
+        "general-or": {
+            eng: "Or",
+            ms: "Atau"
+        },
         "general-progress": {
             eng: "Please wait...",
             ms: "Sila tunggu..."
@@ -51,6 +55,50 @@ var KTAuthI18nDemo = function () {
         "sign-in-head-link": {
             eng: "Sign up",
             ms: "Daftar"
+        },
+        "sign-up-head-desc": {
+            eng: "Already a member ?",
+            ms: "Sudah menjadi ahli?"
+        },
+        "sign-up-head-link": {
+            eng: "Sign In",
+            ms: "Log Masuk"
+        },
+        "sign-up-title": {
+            eng: "Create an Account",
+            ms: "Cipta Akaun"
+        },
+        "sign-up-desc": {
+            eng: "Get unlimited access & earn money",
+            ms: "Dapatkan akses tanpa had & jana pendapatan"
+        },
+        "sign-up-input-first-name": {
+            eng: "First Name",
+            ms: "Nama Pertama"
+        },
+        "sign-up-input-last-name": {
+            eng: "Last Name",
+            ms: "Nama Akhir"
+        },
+        "sign-up-input-email": {
+            eng: "Email",
+            ms: "Emel"
+        },
+        "sign-up-input-password": {
+            eng: "Password",
+            ms: "Kata Laluan"
+        },
+        "sign-up-input-confirm-password": {
+            eng: "Confirm Password",
+            ms: "Sahkan Kata Laluan"
+        },
+        "sign-up-hint": {
+            eng: "Use 8 or more characters with a mix of letters, numbers & symbols.",
+            ms: "Guna 8 aksara atau lebih dengan gabungan huruf, nombor & simbol."
+        },
+        "sign-up-submit": {
+            eng: "Submit",
+            ms: "Hantar"
         },
         "footer-terms": {
             eng: "Terms",

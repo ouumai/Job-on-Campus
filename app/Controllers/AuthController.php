@@ -22,4 +22,14 @@ class AuthController extends BaseController
 
         return view('auth/login', $data); // Pastikan fail kau nama login.php dalam folder Views/auth/
     }
+
+    public function signup()
+    {
+        $data = [
+            'metronic' => $this->locationService->getMetronic(),
+            'asset'    => $this->locationService->getAssets(),
+        ];
+
+        return view('auth/signup', $data);
+    }
 }
