@@ -5,10 +5,11 @@
 <!DOCTYPE html>
 <html lang="eng">
 	<head>
-		<title>Create an Account</title>
+		<title>JoC System | Create an Account</title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
-		<link rel="shortcut icon" href="<?= $metronic ?>media/logos/favicon.ico" />
+		<link rel="icon" type="image/png" sizes="512x512" href="<?= base_url('assets/media/logos/JoCLogo-favicon.png?v=3') ?>" />
+		<link rel="shortcut icon" href="<?= base_url('assets/media/logos/JoCLogo-favicon.png?v=3') ?>" />
 		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,400,500,600,700" />
 		<link href="<?= $metronic ?>plugins/global/plugins.bundle.css" rel="stylesheet" type="text/css" />
 		<link href="<?= $metronic ?>css/style.bundle.css" rel="stylesheet" type="text/css" />
