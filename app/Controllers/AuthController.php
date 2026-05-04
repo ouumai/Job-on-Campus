@@ -2,7 +2,7 @@
 
 namespace App\Controllers;
 
-use App\Services\LocationService; // Call LocationService untuk dapatkan path ke assets dan Metronic
+use App\Services\LocationService;
 
 class AuthController extends BaseController
 {
@@ -10,18 +10,16 @@ class AuthController extends BaseController
 
     public function __construct()
     {
-        $this->locationService = new LocationService(); // Inisialisasi
+        $this->locationService = new LocationService();
     }
 
-    public function login()
+    public function index()
     {
-        // Data untuk dihantar ke view
         $data = [
-            'title'   => 'Login | JoC System',
-            'asset'   => $this->locationService->getAssets(),   // Path ke /public/assets/
-            'metronic' => $this->locationService->getMetronic(), // Path ke Metronic Demo 2
+            'metronic' => $this->locationService->getMetronic(),
+            'asset'    => $this->locationService->getAssets(),
         ];
 
-        return view('auth/login', $data); 
+        return view('auth/login', $data); // Pastikan fail kau nama login.php dalam folder Views/auth/
     }
 }
