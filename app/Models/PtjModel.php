@@ -6,7 +6,7 @@ use CodeIgniter\Model;
 
 class PtjModel extends Model
 {
-    protected $table            = 'ptjs';
+    protected $table            = '';
     protected $primaryKey       = 'id';
     protected $useAutoIncrement = true;
     protected $returnType       = 'array';
@@ -43,4 +43,10 @@ class PtjModel extends Model
     protected $afterFind      = [];
     protected $beforeDelete   = [];
     protected $afterDelete    = [];
+
+    public function getPtj() {
+        // Query ke database SMK smk.smk.ku02kdjbt
+        return $this->db->query("SELECT kod_ptj, nama_ptj FROM smk.smk.ku02kdjbt")->getResult();
+    }
+
 }
