@@ -148,7 +148,7 @@
 									<!--begin::Heading-->
 									<div class="text-center mb-11">
 										<!--begin::Title-->
-										<h1 class="text-gray-900 fw-bolder mb-3" data-kt-translate="sign-in-title">Sign In</h1>
+										<h1 class="text-gray-900 fw-bolder mb-3" data-kt-translate="sign-in-title">Login</h1>
 										<!--end::Title-->
 										<!--begin::Subtitle-->
 										<div class="text-gray-500 fw-semibold fs-6" data-kt-translate="sign-in-desc">Your Social Campaigns</div>
@@ -161,7 +161,7 @@
 										<div class="col-md-6">
 											<!--begin::Google link=-->
 											<a href="#" class="btn btn-flex btn-outline btn-text-gray-700 btn-active-color-primary bg-state-light flex-center text-nowrap w-100">
-											<img alt="Logo" src="<?= $metronic ?>media/svg/brand-logos/google-icon.svg" class="h-15px me-3" /><span class="auth-social-label" data-kt-translate="sign-in-google">Sign in with Google</span></a>
+											<img alt="Logo" src="<?= $metronic ?>media/svg/brand-logos/google-icon.svg" class="h-15px me-3" /><span class="auth-social-label" data-kt-translate="sign-in-google"> Login with Google</span></a>
 											<!--end::Google link=-->
 										</div>
 										<!--end::Col-->
@@ -170,7 +170,7 @@
 											<!--begin::Google link=-->
 											<a href="#" class="btn btn-flex btn-outline btn-text-gray-700 btn-active-color-primary bg-state-light flex-center text-nowrap w-100">
 											<img alt="Logo" src="<?= $metronic ?>media/svg/brand-logos/apple-black.svg" class="theme-light-show h-15px me-3" />
-											<img alt="Logo" src="<?= $metronic ?>media/svg/brand-logos/apple-black-dark.svg" class="theme-dark-show h-15px me-3" /><span class="auth-social-label" data-kt-translate="sign-in-apple">Sign in with Apple</span></a>
+											<img alt="Logo" src="<?= $metronic ?>media/svg/brand-logos/apple-black-dark.svg" class="theme-dark-show h-15px me-3" /><span class="auth-social-label" data-kt-translate="sign-in-apple">Login with Apple</span></a>
 											<!--end::Google link=-->
 										</div>
 										<!--end::Col-->
@@ -206,7 +206,7 @@
 									<div class="d-grid mb-10">
 										<button type="submit" id="kt_sign_in_submit" class="btn btn-primary">
 											<!--begin::Indicator label-->
-											<span class="indicator-label" data-kt-translate="sign-in-submit">Sign In</span>
+											<span class="indicator-label" data-kt-translate="sign-in-submit">Login</span>
 											<!--end::Indicator label-->
 											<!--begin::Indicator progress-->
 											<span class="indicator-progress"><span data-kt-translate="general-progress">Please wait...</span>

@@ -19,107 +19,120 @@
 
 		<div class="d-flex flex-column flex-root">
 			<style>
-                /* 1. Paksa gradient cover 100% tanpa sebarang gangguan lapisan */
-                html, body, #kt_body { 
-                    background: linear-gradient(135deg, #87CEEB 0%, #B0C4DE 50%, #ADD8E6 100%) !important;
-                    height: 100% !important;
-                    margin: 0 !important;
-                    padding: 0 !important;
-                    overflow-x: hidden;
-                    filter: none !important; /* Buang sebarang filter */
-                }
+            /* 1. RESET GLOBAL & BACKGROUND */
+            html, body, #kt_body { 
+                background: linear-gradient(135deg, #87CEEB 0%, #B0C4DE 50%, #ADD8E6 100%) !important;
+                height: 100% !important;
+                margin: 0 !important;
+                padding: 0 !important;
+                overflow-x: hidden;
+                filter: none !important;
+            }
 
-                /* 2. KILL semua lapisan overlay gelap Metronic (Punca bayangan bawah tu) */
-                .flex-root, .flex-column-fluid, .auth-bg {
-                    background: transparent !important;
-                }
+            /* Buang overlay gelap Metronic */
+            .flex-root, .flex-column-fluid, .auth-bg {
+                background: transparent !important;
+            }
 
-                .flex-root::before, .flex-root::after,
-                .flex-column-fluid::before, .flex-column-fluid::after,
-                body::before, body::after,
-                #kt_body::before, #kt_body::after { 
-                    display: none !important; 
-                    content: none !important;
-                }
+            body::before, #kt_body::before, body::after, #kt_body::after,
+            .flex-root::before, .flex-root::after { 
+                display: none !important; 
+                content: none !important;
+            }
 
-                /* 3. Nipiskan shadow panel supaya tak nampak kusam[cite: 2] */
-                .signup-hero { 
-                    background: var(--bs-body-bg); 
-                    /* Tambah ni supaya bucu atas dia bulat ikut shell */
-                    border-radius: 1.25rem 1.25rem 0 0 !important; 
-                }
+            /* 2. PANEL / SHELL STYLING */
+            .signup-shell { 
+                max-width: 580px !important; /* Saiz yang lebih kompak[cite: 4] */
+                position: relative; 
+                z-index: 10; 
+                box-shadow: 0 10px 40px rgba(0,0,0,0.06) !important; 
+                border: none !important;
+                border-radius: 1.25rem !important;
+                overflow: hidden;
+            }
 
-                .signup-shell { 
-                    max-width: 620px; 
-                    position: relative; 
-                    z-index: 10; 
-                    box-shadow: 0 10px 40px rgba(0,0,0,0.06) !important; 
-                    border: none !important;
-                    border-radius: 1.25rem !important; /* Pastikan shell pun ada radius */
-                    overflow: hidden; /* Tambah ni untuk 'potong' apa-apa yang terkeluar */
-                }
+            /* 3. HEADER / HERO SECTION */
+            .signup-hero { 
+                padding-top: 1rem !important; 
+                padding-bottom: 2.5rem !important; 
+                background: var(--bs-body-bg); 
+                border-radius: 1.25rem 1.25rem 0 0 !important; 
+            }
 
-                /* 4. Pane kiri telus sepenuhnya[cite: 2] */
-                .auth-left-pane { background: transparent !important; }
+            /* 4. FORM SPACING */
+            /* Pastikan margin-top ni 0 atau positif, jangan pakai negatif */
+            .signup-form {
+                margin-top: 0 !important; 
+            }
 
-                .auth-left-glass { 
-                    width: min(520px, 100%); 
-                    padding: 2.25rem; 
-                    border: 1px solid rgba(255, 255, 255, .35); 
-                    border-radius: 1.25rem; 
-                    background: rgba(255, 255, 255, .18); 
-                    box-shadow: none !important;
-                    backdrop-filter: blur(14px); 
-                    -webkit-backdrop-filter: blur(14px); 
-                }
+            /* Kalau nak tajuk tu rapat lagi dengan subtitle */
+            .signup-hero h1 { 
+                font-size: 2.5rem !important; 
+                margin-top: 0 !important; /* Pastikan tiada margin atas pada text tajuk */
+                margin-bottom: 0.1rem !important; 
+            }
 
-                .auth-left-glass .auth-left-title, 
-                .auth-left-glass .auth-left-text { 
-                    color: #fff !important; 
-                    text-shadow: 0 1px 18px rgba(0, 26, 76, .25); 
-                }
+            /* 4. FORM SPACING (KONSISTENSI Jarak) */
+            /* Kita paksa reset margin pada row dan fv-row supaya mb-5 kat HTML berfungsi penuh[cite: 4] */
+            .signup-form .fv-row, 
+            .signup-form .row { 
+                margin-bottom: 1.5rem !important; 
+            }
 
-                /* Styling tambahan untuk elemen signup[cite: 2] */
-                /* 1. Kurangkan padding utama dalam shell */
-                .signup-shell { 
-                    max-width: 580px !important; /* Kecikkan sikit lebar dari 600px ke 580px */
-                }
+            .signup-form .row .fv-row {
+                margin-bottom: 0 !important;
+            }
 
-                /* 2. Kurangkan padding bahagian hero (Header) */
-                .signup-hero { 
-                    padding-top: 1.5rem !important; /* Dari pt-10 ke 1.5rem */
-                    padding-bottom: 2.5rem !important; /* Dari pb-8 ke 0.5rem */
-                }
+            /* 5. INPUT BOX STYLING */
+            .signup-input { 
+                height: 55px !important; 
+                /* Tambah border halus macam skrin login */
+                border: 1px solid var(--bs-gray-300) !important; 
+                box-shadow: none !important; 
+                background-color: transparent !important; /* Buat telus macam login page */
+                border-radius: 0.75rem !important; /* Bulatkan sikit bucu dia */
+                padding-left: 1.25rem !important;
+            }
 
-                /* 3. Kurangkan margin bawah title dan input group */
-                .signup-hero h1 { 
-                    font-size: 2rem !important; /* Kecikkan sikit saiz font tajuk */
-                    margin-bottom: 0.25rem !important; /* Rapatkan dengan subtitle */
-                }
+            /* Tambah kesan bila user klik (focus) pada kotak tu */
+            .signup-input:focus {
+                border-color: var(--bs-primary) !important;
+                background-color: #fff !important;
+            }
 
-                /* Padam atau tukar semua ni supaya konsisten (contoh: 1.25rem) */
-                .signup-form .fv-row { 
-                    margin-bottom: 1.25rem !important; 
-                }
+            /* 6. GLASSMORPHISM (Pane Kiri)[cite: 4] */
+            .auth-left-pane { background: transparent !important; }
 
-                /* Buang selector spesifik yang kacau jarak tadi */
-                .signup-form .row.mb-8, 
-                .signup-form .fv-row.mb-8 { 
-                    margin-bottom: 1.25rem !important; 
-                }
+            .auth-left-glass { 
+                width: min(520px, 100%); 
+                padding: 2.25rem; 
+                border: 1px solid rgba(255, 255, 255, .35); 
+                border-radius: 1.25rem; 
+                background: rgba(255, 255, 255, .18); 
+                box-shadow: none !important;
+                backdrop-filter: blur(14px); 
+                -webkit-backdrop-filter: blur(14px); 
+            }
 
-                /* 4. Kecikkan padding container form */
-                .px-10.pb-10 { 
-                    padding-left: 2.5rem !important; 
-                    padding-right: 2.5rem !important;
-                    padding-bottom: 2rem !important; /* Kurangkan dari pb-10 */
-                }
+            .auth-left-glass .auth-left-title, 
+            .auth-left-glass .auth-left-text { 
+                color: #fff !important; 
+                text-shadow: 0 1px 18px rgba(0, 26, 76, .25); 
+            }
 
-                /* 5. Jarak butang submit dengan social icons */
-                .mb-20 { 
-                    margin-bottom: 1.5rem !important; /* Kurangkan dari mb-20[cite: 2] */
-                }
-            </style>
+            /* 7. FOOTER & SOCIAL BUTTONS[cite: 4] */
+            .mb-20 { 
+                margin-bottom: 1.5rem !important; 
+            }
+
+            .signup-social-icon { 
+                width: 38px; 
+                height: 38px; 
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+        </style>
 
 			<div class="d-flex flex-column flex-lg-row flex-column-fluid">
 				<div class="d-flex flex-lg-row-fluid">
@@ -151,7 +164,7 @@
 								</a>
 								<div class="fw-semibold fs-6">
 									<span class="text-gray-400" data-kt-translate="sign-up-head-desc">Already a member ?</span>
-									<a href="<?= base_url('login') ?>" class="link-primary ms-2" data-kt-translate="sign-up-head-link">Sign In</a>
+									<a href="<?= base_url('login') ?>" class="link-primary ms-2" data-kt-translate="sign-up-head-link">Login</a>
 								</div>
 							</div>
 							<div class="pt-8">
@@ -163,7 +176,7 @@
 						<div class="px-10 pb-10">
 							<div class="signup-form mx-auto">
 								<form class="form w-100" novalidate="novalidate" id="kt_sign_up_form" data-kt-redirect-url="<?= base_url('login') ?>" action="#">
-									<div class="row g-5 mb-1">
+									<div class="row g-5 mb-5">
 										<div class="col-6 fv-row">
 											<input type="text" name="first-name" autocomplete="off" class="form-control form-control-lg bg-light signup-input signup-name-input" data-kt-translate="sign-up-input-first-name" />
 										</div>
@@ -172,7 +185,7 @@
 										</div>
 									</div>
 
-									<div class="fv-row mb-10">
+									<div class="fv-row mb-5">
 										<input type="text" name="email" autocomplete="off" class="form-control form-control-lg bg-light signup-input" data-kt-translate="sign-up-input-email" />
 									</div>
 
@@ -207,7 +220,7 @@
 											<span class="indicator-progress"><span data-kt-translate="general-progress">Please wait...</span>
 											<span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
 										</button>
-										<div class="d-flex align-items-center gap-6 fw-semibold text-gray-500">
+										<div class="d-flex align-items-center gap-2 fw-semibold text-gray-500">
 											<span data-kt-translate="general-or">Or</span>
 											<a href="#" class="btn btn-icon btn-light bg-transparent signup-social-icon" aria-label="Google">
 												<img alt="Google" src="<?= $metronic ?>media/svg/brand-logos/google-icon.svg" class="h-20px" />
