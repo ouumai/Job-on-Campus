@@ -30,6 +30,6 @@ class LocationService
      */
     public function getMetronic()
     {
-        return base_url('assets/templates/metronic/html/d2/assets/');
+        return base_url('assets/');
     }
 }
