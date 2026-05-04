@@ -1,15 +1,8 @@
+<?php
+    $metronic = $metronic ?? base_url('assets/');
+    $asset = $asset ?? $metronic;
+?>
 <!DOCTYPE html>
-<!--
-Author: Keenthemes
-Product Name: MetronicProduct Version: 8.3.3
-Purchase: https://1.envato.market/EA4JP
-Website: http://www.keenthemes.com
-Contact: support@keenthemes.com
-Follow: www.twitter.com/keenthemes
-Dribbble: www.dribbble.com/keenthemes
-Like: www.facebook.com/keenthemes
-License: For each use you must have a valid license purchased only from above link in order to legally use the theme for your project.
--->
 <html lang="eng">
 	<!--begin::Head-->
 	<head>
@@ -46,35 +39,98 @@ License: For each use you must have a valid license purchased only from above li
 		<div class="d-flex flex-column flex-root">
 			<!--begin::Page bg image-->
 			<style>
-                body { background-image: url('<?= $asset ?>media/auth/bg10.jpeg'); } 
-                [data-bs-theme="dark"] body { background-image: url('<?= $asset ?>media/auth/bg10-dark.jpeg'); }
-                .auth-panel { max-width: 680px; }
-                .auth-form-wrap { max-width: 480px; }
-                .auth-social-label { min-width: 0; }
-                .auth-footer-links { column-gap: 1.5rem !important; }
-                .auth-separator-label { width: auto; padding-left: 1rem; padding-right: 1rem; white-space: nowrap; }
-            </style>
+				/* Target terus body atau id kt_body untuk gradient yang bersih */
+				body, #kt_body { 
+					background: linear-gradient(135deg, #87CEEB 0%, #B0C4DE 50%, #ADD8E6 100%) !important;
+					min-height: 100vh !important;
+					margin: 0;
+					/* Pastikan tiada filter atau overlay */
+					filter: none !important;
+				}
+
+				/* Paksa hilangkan sebarang lapisan overlay gelap dari Metronic */
+				body::before, #kt_body::before, 
+				body::after, #kt_body::after { 
+					display: none !important; 
+					content: none !important;
+				}
+
+				.auth-panel { 
+					/* Samakan dengan signup-shell (600px atau 620px ikut citarasa kau) */
+					max-width: 600px !important; 
+					position: relative; 
+					z-index: 10; 
+					/* Guna shadow yang nipis macam kita buat kat signup tadi */
+					box-shadow: 0 10px 40px rgba(0,0,0,0.06) !important; 
+					border-radius: 1.25rem !important;
+				}
+
+				/* Kekalkan styling lain */
+				.flex-root { position: relative; z-index: 1; }
+				.auth-left-pane { position: relative; overflow: hidden; }
+				.auth-left-glass { 
+					width: min(520px, 100%); 
+					padding: 2.25rem; 
+					border: 1px solid rgba(255, 255, 255, .35); 
+					border-radius: 1.25rem; 
+					background: rgba(255, 255, 255, .18); 
+					box-shadow: 0 24px 70px rgba(0, 32, 96, .24); 
+					backdrop-filter: blur(14px); 
+					-webkit-backdrop-filter: blur(14px); 
+				}
+
+				/* Guna styling ni supaya 'Or with email' duduk dalam satu baris dengan garis */
+				.separator.separator-content {
+					display: flex;
+					align-items: center;
+					text-align: center;
+					width: 100%;
+				}
+
+				.separator.separator-content::before,
+				.separator.separator-content::after {
+					content: "";
+					flex: 1;
+					border-bottom: 1px solid var(--bs-gray-300); /* Garis nipis */
+				}
+
+				.separator.separator-content::before {
+					margin-right: 1rem; /* Jarak antara garis kiri dengan teks */
+				}
+
+				.separator.separator-content::after {
+					margin-left: 1rem; /* Jarak antara garis kanan dengan teks */
+				}
+
+				.auth-separator-label {
+					white-space: nowrap; /* Paksa teks duduk dalam satu baris sahaja */
+					padding: 0 !important;
+				}
+
+			</style>
 			<!--end::Page bg image-->
 			<!--begin::Authentication - Sign-in -->
 			<div class="d-flex flex-column flex-lg-row flex-column-fluid">
 				<!--begin::Aside-->
 				<div class="d-flex flex-lg-row-fluid">
 					<!--begin::Content-->
-					<div class="d-flex flex-column flex-center pb-0 pb-lg-10 p-10 w-100">
+					<div class="d-flex flex-column flex-center pb-0 pb-lg-10 p-10 w-100 auth-left-pane">
+						<div class="auth-left-glass text-center">
 						<!--begin::Image-->
 						<img class="theme-light-show mx-auto mw-100 w-150px w-lg-300px mb-10 mb-lg-20" src="<?= $metronic ?>media/auth/agency.png" alt="" />
 						<img class="theme-dark-show mx-auto mw-100 w-150px w-lg-300px mb-10 mb-lg-20" src="<?= $metronic ?>media/auth/agency-dark.png" alt="" />
 						<!--end::Image-->
 						<!--begin::Title-->
-						<h1 class="text-gray-800 fs-2qx fw-bold text-center mb-7">Fast, Efficient and Productive</h1>
+						<h1 class="text-gray-800 fs-2qx fw-bold text-center mb-7 auth-left-title">Fast, Efficient and Productive</h1>
 						<!--end::Title-->
 						<!--begin::Text-->
-						<div class="text-gray-600 fs-base text-center fw-semibold">In this kind of post, 
+						<div class="text-gray-600 fs-base text-center fw-semibold auth-left-text">In this kind of post, 
 						<a href="#" class="opacity-75-hover text-primary me-1">the blogger</a>introduces a person they’ve interviewed 
 						<br />and provides some background information about 
 						<a href="#" class="opacity-75-hover text-primary me-1">the interviewee</a>and their 
 						<br />work following this is a transcript of the interview.</div>
 						<!--end::Text-->
+						</div>
 					</div>
 					<!--end::Content-->
 				</div>
@@ -82,7 +138,7 @@ License: For each use you must have a valid license purchased only from above li
 				<!--begin::Body-->
 				<div class="d-flex flex-column-fluid flex-lg-row-auto justify-content-center justify-content-lg-end p-12">
 					<!--begin::Wrapper-->
-					<div class="bg-body d-flex flex-column flex-center rounded-4 w-100 w-md-650px p-10 auth-panel">
+					<div class="bg-body d-flex flex-column flex-center rounded-4 w-100 w-md-600px p-10 auth-panel">
 						<!--begin::Content-->
 						<div class="d-flex flex-center flex-column align-items-stretch h-lg-100 w-100 w-md-450px auth-form-wrap">
 							<!--begin::Wrapper-->

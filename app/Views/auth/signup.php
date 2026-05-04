@@ -19,30 +19,121 @@
 
 		<div class="d-flex flex-column flex-root">
 			<style>
-                body { background-image: url('<?= $asset ?>media/auth/bg10.jpeg'); }
-                [data-bs-theme="dark"] body { background-image: url('<?= $asset ?>media/auth/bg10-dark.jpeg'); }
-                .signup-shell { max-width: 620px; overflow: hidden; }
-                .signup-hero { background: var(--bs-body-bg); }
-                .signup-back { width: 44px; height: 44px; }
-                .signup-form { max-width: 450px; }
-                .signup-input { height: 82px; border: 0; box-shadow: none; }
-                .signup-input:focus { box-shadow: none; }
-                .signup-name-input { border-radius: .625rem .625rem 0 0; }
-                .signup-social-icon { width: 34px; height: 34px; }
-                .signup-lang-chevron { color: currentColor; }
+                /* 1. Paksa gradient cover 100% tanpa sebarang gangguan lapisan */
+                html, body, #kt_body { 
+                    background: linear-gradient(135deg, #87CEEB 0%, #B0C4DE 50%, #ADD8E6 100%) !important;
+                    height: 100% !important;
+                    margin: 0 !important;
+                    padding: 0 !important;
+                    overflow-x: hidden;
+                    filter: none !important; /* Buang sebarang filter */
+                }
+
+                /* 2. KILL semua lapisan overlay gelap Metronic (Punca bayangan bawah tu) */
+                .flex-root, .flex-column-fluid, .auth-bg {
+                    background: transparent !important;
+                }
+
+                .flex-root::before, .flex-root::after,
+                .flex-column-fluid::before, .flex-column-fluid::after,
+                body::before, body::after,
+                #kt_body::before, #kt_body::after { 
+                    display: none !important; 
+                    content: none !important;
+                }
+
+                /* 3. Nipiskan shadow panel supaya tak nampak kusam[cite: 2] */
+                .signup-hero { 
+                    background: var(--bs-body-bg); 
+                    /* Tambah ni supaya bucu atas dia bulat ikut shell */
+                    border-radius: 1.25rem 1.25rem 0 0 !important; 
+                }
+
+                .signup-shell { 
+                    max-width: 620px; 
+                    position: relative; 
+                    z-index: 10; 
+                    box-shadow: 0 10px 40px rgba(0,0,0,0.06) !important; 
+                    border: none !important;
+                    border-radius: 1.25rem !important; /* Pastikan shell pun ada radius */
+                    overflow: hidden; /* Tambah ni untuk 'potong' apa-apa yang terkeluar */
+                }
+
+                /* 4. Pane kiri telus sepenuhnya[cite: 2] */
+                .auth-left-pane { background: transparent !important; }
+
+                .auth-left-glass { 
+                    width: min(520px, 100%); 
+                    padding: 2.25rem; 
+                    border: 1px solid rgba(255, 255, 255, .35); 
+                    border-radius: 1.25rem; 
+                    background: rgba(255, 255, 255, .18); 
+                    box-shadow: none !important;
+                    backdrop-filter: blur(14px); 
+                    -webkit-backdrop-filter: blur(14px); 
+                }
+
+                .auth-left-glass .auth-left-title, 
+                .auth-left-glass .auth-left-text { 
+                    color: #fff !important; 
+                    text-shadow: 0 1px 18px rgba(0, 26, 76, .25); 
+                }
+
+                /* Styling tambahan untuk elemen signup[cite: 2] */
+                /* 1. Kurangkan padding utama dalam shell */
+                .signup-shell { 
+                    max-width: 580px !important; /* Kecikkan sikit lebar dari 600px ke 580px */
+                }
+
+                /* 2. Kurangkan padding bahagian hero (Header) */
+                .signup-hero { 
+                    padding-top: 1.5rem !important; /* Dari pt-10 ke 1.5rem */
+                    padding-bottom: 2.5rem !important; /* Dari pb-8 ke 0.5rem */
+                }
+
+                /* 3. Kurangkan margin bawah title dan input group */
+                .signup-hero h1 { 
+                    font-size: 2rem !important; /* Kecikkan sikit saiz font tajuk */
+                    margin-bottom: 0.25rem !important; /* Rapatkan dengan subtitle */
+                }
+
+                /* Padam atau tukar semua ni supaya konsisten (contoh: 1.25rem) */
+                .signup-form .fv-row { 
+                    margin-bottom: 1.25rem !important; 
+                }
+
+                /* Buang selector spesifik yang kacau jarak tadi */
+                .signup-form .row.mb-8, 
+                .signup-form .fv-row.mb-8 { 
+                    margin-bottom: 1.25rem !important; 
+                }
+
+                /* 4. Kecikkan padding container form */
+                .px-10.pb-10 { 
+                    padding-left: 2.5rem !important; 
+                    padding-right: 2.5rem !important;
+                    padding-bottom: 2rem !important; /* Kurangkan dari pb-10 */
+                }
+
+                /* 5. Jarak butang submit dengan social icons */
+                .mb-20 { 
+                    margin-bottom: 1.5rem !important; /* Kurangkan dari mb-20[cite: 2] */
+                }
             </style>
 
 			<div class="d-flex flex-column flex-lg-row flex-column-fluid">
 				<div class="d-flex flex-lg-row-fluid">
-					<div class="d-flex flex-column flex-center pb-0 pb-lg-10 p-10 w-100">
+					<div class="d-flex flex-column flex-center pb-0 pb-lg-10 p-10 w-100 auth-left-pane">
+						<div class="auth-left-glass text-center">
 						<img class="theme-light-show mx-auto mw-100 w-150px w-lg-300px mb-10 mb-lg-20" src="<?= $metronic ?>media/auth/agency.png" alt="" />
 						<img class="theme-dark-show mx-auto mw-100 w-150px w-lg-300px mb-10 mb-lg-20" src="<?= $metronic ?>media/auth/agency-dark.png" alt="" />
-						<h1 class="text-gray-800 fs-2qx fw-bold text-center mb-7">Fast, Efficient and Productive</h1>
-						<div class="text-gray-600 fs-base text-center fw-semibold">In this kind of post,
+						<h1 class="text-gray-800 fs-2qx fw-bold text-center mb-7 auth-left-title">Fast, Efficient and Productive</h1>
+						<div class="text-gray-600 fs-base text-center fw-semibold auth-left-text">In this kind of post,
 						<a href="#" class="opacity-75-hover text-primary me-1">the blogger</a>introduces a person they have interviewed
 						<br />and provides some background information about
 						<a href="#" class="opacity-75-hover text-primary me-1">the interviewee</a>and their
 						<br />work following this is a transcript of the interview.</div>
+						</div>
 					</div>
 				</div>
 
@@ -72,29 +163,29 @@
 						<div class="px-10 pb-10">
 							<div class="signup-form mx-auto">
 								<form class="form w-100" novalidate="novalidate" id="kt_sign_up_form" data-kt-redirect-url="<?= base_url('login') ?>" action="#">
-									<div class="row g-5 mb-8">
+									<div class="row g-5 mb-1">
 										<div class="col-6 fv-row">
-											<input type="text" name="first-name" value="Umairah" autocomplete="off" class="form-control form-control-lg bg-light signup-input signup-name-input" data-kt-translate="sign-up-input-first-name" />
+											<input type="text" name="first-name" autocomplete="off" class="form-control form-control-lg bg-light signup-input signup-name-input" data-kt-translate="sign-up-input-first-name" />
 										</div>
 										<div class="col-6 fv-row">
-											<input type="text" name="last-name" value="Sabri" autocomplete="off" class="form-control form-control-lg bg-light signup-input signup-name-input" data-kt-translate="sign-up-input-last-name" />
+											<input type="text" name="last-name" autocomplete="off" class="form-control form-control-lg bg-light signup-input signup-name-input" data-kt-translate="sign-up-input-last-name" />
 										</div>
 									</div>
 
-									<div class="fv-row mb-8">
-										<input type="text" name="email" value="n.umairahsabri@gmail.com" autocomplete="off" class="form-control form-control-lg bg-light signup-input" data-kt-translate="sign-up-input-email" />
+									<div class="fv-row mb-10">
+										<input type="text" name="email" autocomplete="off" class="form-control form-control-lg bg-light signup-input" data-kt-translate="sign-up-input-email" />
 									</div>
 
-									<div class="fv-row mb-8" data-kt-password-meter="true">
+									<div class="fv-row mb-5" data-kt-password-meter="true">
 										<div class="mb-1">
 											<div class="position-relative mb-3">
-												<input class="form-control form-control-lg bg-light signup-input" type="password" value="password123" name="password" autocomplete="off" data-kt-translate="sign-up-input-password" />
+												<input class="form-control form-control-lg bg-light signup-input" type="password" name="password" autocomplete="off" data-kt-translate="sign-up-input-password" />
 												<span class="btn btn-sm btn-icon position-absolute translate-middle top-50 end-0 me-n2" data-kt-password-meter-control="visibility">
 													<i class="ki-duotone ki-eye-slash fs-2"></i>
 													<i class="ki-duotone ki-eye fs-2 d-none"></i>
 												</span>
 											</div>
-											<div class="d-flex align-items-center mb-3" data-kt-password-meter-control="highlight">
+											<div class="d-flex align-items-center mb-5" data-kt-password-meter-control="highlight">
 												<div class="flex-grow-1 bg-secondary bg-active-success rounded h-5px me-2"></div>
 												<div class="flex-grow-1 bg-secondary bg-active-success rounded h-5px me-2"></div>
 												<div class="flex-grow-1 bg-secondary bg-active-success rounded h-5px me-2"></div>
@@ -104,7 +195,7 @@
 										<div class="text-muted" data-kt-translate="sign-up-hint">Use 8 or more characters with a mix of letters, numbers & symbols.</div>
 									</div>
 
-									<div class="fv-row mb-8">
+									<div class="fv-row mb-5">
 										<input name="confirm-password" type="password" autocomplete="off" class="form-control form-control-lg bg-light signup-input" placeholder="Confirm Password" data-kt-translate="sign-up-input-confirm-password" />
 									</div>
 
@@ -120,9 +211,6 @@
 											<span data-kt-translate="general-or">Or</span>
 											<a href="#" class="btn btn-icon btn-light bg-transparent signup-social-icon" aria-label="Google">
 												<img alt="Google" src="<?= $metronic ?>media/svg/brand-logos/google-icon.svg" class="h-20px" />
-											</a>
-											<a href="#" class="btn btn-icon btn-light bg-transparent signup-social-icon" aria-label="Facebook">
-												<img alt="Facebook" src="<?= $metronic ?>media/svg/brand-logos/facebook-3.svg" class="h-20px" />
 											</a>
 											<a href="#" class="btn btn-icon btn-light bg-transparent signup-social-icon" aria-label="Apple">
 												<img alt="Apple" src="<?= $metronic ?>media/svg/brand-logos/apple-black.svg" class="theme-light-show h-20px" />
