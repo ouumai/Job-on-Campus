@@ -7,6 +7,8 @@ use CodeIgniter\Router\RouteCollection;
  */
 $routes->get('/', 'Home::index');
 
-
+# -- AUTHENTICATION --
 $routes->get('login', 'AuthController::index');
+
 $routes->get('signup', 'AuthController::signup');
+$routes->post('signup', 'AuthController::registerAction');

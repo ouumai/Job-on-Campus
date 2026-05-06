@@ -14,6 +14,7 @@ declare(strict_types=1);
 namespace Config;
 
 use CodeIgniter\Shield\Config\Auth as ShieldAuth;
+use CodeIgniter\Shield\Actions\EmailActivator;
 use CodeIgniter\Shield\Authentication\Actions\ActionInterface;
 use CodeIgniter\Shield\Authentication\AuthenticatorInterface;
 use CodeIgniter\Shield\Authentication\Authenticators\AccessTokens;
@@ -103,7 +104,7 @@ class Auth extends ShieldAuth
      * @var array<string, class-string<ActionInterface>|null>
      */
     public array $actions = [
-        'register' => null,
+        'register' => \CodeIgniter\Shield\Authentication\Actions\EmailActivator::class,
         'login'    => null,
     ];
 

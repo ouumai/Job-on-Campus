@@ -177,8 +177,8 @@
 					<div class="bg-body d-flex flex-column rounded-4 w-100 w-md-600px signup-shell">
 						<div class="signup-hero px-10 pt-10 pb-8">
 							<div class="d-flex align-items-center justify-content-between mb-12">
-								<a href="<?= base_url('login') ?>" class="btn btn-icon btn-light rounded-circle signup-back" aria-label="Back">
-									<span class="svg-icon svg-icon-2 text-gray-900">
+								<a href="<?= base_url('login') ?>" class="btn btn-icon btn-light rounded-circle signup-back d-flex justify-content-center align-items-center" aria-label="Back">
+									<span class="svg-icon svg-icon-2 text-gray-900" style="transform: translateX(-1px);">
 										<svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
 											<path d="M11.25 4.5L6.75 9L11.25 13.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
 											<path d="M7.25 9H15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
