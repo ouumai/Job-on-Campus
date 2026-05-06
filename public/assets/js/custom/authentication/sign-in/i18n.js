@@ -4,6 +4,7 @@ var KTAuthI18nDemo = function () {
     var menu;
 
     var translationStrings = {
+        
         "sign-in-title": {
             eng: "Sign In",
             ms: "Log Masuk"
@@ -100,6 +101,27 @@ var KTAuthI18nDemo = function () {
             eng: "Submit",
             ms: "Hantar"
         },
+
+        "sign-up-input-category": {
+            eng: "Select Category",
+            ms: "Pilih Kategori"
+        },
+
+        "sign-up-option-student": {
+            eng: "Student",
+            ms: "Pelajar"
+        },
+
+        "sign-up-option-staff": {
+            eng: "Staff",
+            ms: "Kakitangan"
+        },
+
+        "sign-up-input-identity": {
+            eng: "Matric No. or UKMPer",
+            ms: "No. Matrik atau UKMPer"
+        },
+
         "footer-terms": {
             eng: "Terms",
             ms: "Terma"
@@ -117,17 +139,23 @@ var KTAuthI18nDemo = function () {
     var translate = function (lang) {
         Object.keys(translationStrings).forEach(function (label) {
             var translatedText = translationStrings[label][lang];
-            var labelElement = document.querySelector('[data-kt-translate="' + label + '"]');
+            var labelElements = document.querySelectorAll('[data-kt-translate="' + label + '"]');
 
-            if (!translatedText || labelElement === null) {
+            if (!translatedText || labelElements.length === 0) {
                 return;
             }
 
-            if (labelElement.tagName === "INPUT") {
-                labelElement.setAttribute("placeholder", translatedText);
-            } else {
-                labelElement.textContent = translatedText;
-            }
+            labelElements.forEach(function(labelElement) {
+                if (labelElement.tagName === "INPUT") {
+                    labelElement.setAttribute("placeholder", translatedText);
+                } else {
+                    labelElement.textContent = translatedText;
+                }
+            });
+        });
+
+        $('[data-control="select2"]').select2({
+            minimumResultsForSearch: Infinity // Ini pun boleh tolong sorok search box
         });
     };
 

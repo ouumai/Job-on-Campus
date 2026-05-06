@@ -100,6 +100,29 @@
                 background-color: #fff !important;
             }
 
+			/* Styling khusus untuk Select2 supaya sama tinggi dengan input box */
+			.select2-container--bootstrap5 .select2-selection--single {
+				height: 55px !important;
+				border: 1px solid var(--bs-gray-300) !important;
+				background-color: transparent !important;
+				display: flex;
+				align-items: center;
+				border-radius: 0.75rem !important;
+			}
+
+			/* Pastikan teks dalam Select2 sejajar dengan input box lain */
+			.select2-container--bootstrap5 .select2-selection--single .select2-selection__rendered {
+				padding-left: 1.25rem !important; /* Sama dengan padding-left input kau */
+				line-height: 55px !important;    /* Bagi dia duduk tengah-tengah secara vertical */
+				color: var(--bs-gray-700) !important;
+			}
+
+			/* Hilangkan arrow default yang mungkin kacau alignment */
+			.select2-container--bootstrap5 .select2-selection__arrow {
+				height: 55px !important;
+				top: 0 !important;
+			}
+
             /* 6. GLASSMORPHISM (Pane Kiri)[cite: 4] */
             .auth-left-pane { background: transparent !important; }
 
@@ -184,6 +207,72 @@
 											<input type="text" name="last-name" autocomplete="off" class="form-control form-control-lg bg-light signup-input signup-name-input" data-kt-translate="sign-up-input-last-name" />
 										</div>
 									</div>
+
+									<div class="fv-row mb-5">
+										<input type="text" name="identity_no" data-kt-translate="sign-up-input-identity" placeholder="Matric No. or UKMPer" class="form-control form-control-lg bg-light signup-input" />
+									</div>
+
+									<div class="fv-row mb-5 position-relative">
+										<!-- Custom Dropdown matching language switcher -->
+										<button id="category_dropdown_btn" type="button" class="form-control form-control-lg bg-light signup-input d-flex justify-content-between align-items-center w-100 rotate" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-start" data-kt-menu-offset="0px, 0px">
+											<span id="category_display" data-kt-translate="sign-up-input-category" class="text-gray-500 text-start">Select Category</span>
+											<span class="svg-icon svg-icon-5 text-muted m-0 rotate-180" aria-hidden="true">
+												<svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+													<path d="M3 4.5L6 7.5L9 4.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+												</svg>
+											</span>
+										</button>
+										<div id="category_dropdown_menu" class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-800 menu-state-bg-light-primary fw-semibold py-4 fs-5" data-kt-menu="true">
+											<div class="menu-item px-3">
+												<a href="#" class="menu-link px-5 category-select-option" data-value="pelajar" data-translate-key="sign-up-option-student">
+													<span data-kt-translate="sign-up-option-student">Student (Matric No.)</span>
+												</a>
+											</div>
+											<div class="menu-item px-3">
+												<a href="#" class="menu-link px-5 category-select-option" data-value="kakitangan" data-translate-key="sign-up-option-staff">
+													<span data-kt-translate="sign-up-option-staff">Staff (UKMPer)</span>
+												</a>
+											</div>
+										</div>
+										<input type="hidden" name="user_category" id="user_category_input" />
+									</div>
+
+									<script>
+										document.addEventListener('DOMContentLoaded', function() {
+											var categoryInput = document.getElementById('user_category_input');
+											var categoryText = document.getElementById('category_display');
+											var options = document.querySelectorAll('.category-select-option');
+											var categoryBtn = document.getElementById('category_dropdown_btn');
+											var categoryMenu = document.getElementById('category_dropdown_menu');
+
+											// Match dropdown width to button width
+											categoryBtn.addEventListener('click', function() {
+												categoryMenu.style.width = categoryBtn.offsetWidth + 'px';
+											});
+
+											options.forEach(function(option) {
+												option.addEventListener('click', function(e) {
+													e.preventDefault();
+													var val = this.getAttribute('data-value');
+													var translateKey = this.getAttribute('data-translate-key');
+													var spanText = this.querySelector('span').innerText;
+													
+													categoryInput.value = val;
+													
+													categoryText.innerText = spanText;
+													categoryText.setAttribute('data-kt-translate', translateKey);
+													categoryText.classList.remove('text-gray-500');
+													categoryText.classList.add('text-gray-900');
+
+													// Highlight selected option
+													options.forEach(function(opt) {
+														opt.classList.remove('active');
+													});
+													this.classList.add('active');
+												});
+											});
+										});
+									</script>
 
 									<div class="fv-row mb-5">
 										<input type="text" name="email" autocomplete="off" class="form-control form-control-lg bg-light signup-input" data-kt-translate="sign-up-input-email" />
