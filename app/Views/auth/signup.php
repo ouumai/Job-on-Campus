@@ -199,7 +199,7 @@
 						<div class="px-10 pb-10">
 							<div class="signup-form mx-auto">
 								<form class="form w-100" novalidate="novalidate" id="kt_sign_up_form" data-kt-redirect-url="<?= base_url('login') ?>" action="#">
-									<div class="row g-5 mb-5">
+									<div class="row gx-5 mb-5">
 										<div class="col-6 fv-row">
 											<input type="text" name="first-name" autocomplete="off" class="form-control form-control-lg bg-light signup-input signup-name-input" data-kt-translate="sign-up-input-first-name" />
 										</div>
@@ -235,44 +235,44 @@
 											</div>
 										</div>
 										<input type="hidden" name="user_category" id="user_category_input" />
-									</div>
+									
+										<script>
+											document.addEventListener('DOMContentLoaded', function() {
+												var categoryInput = document.getElementById('user_category_input');
+												var categoryText = document.getElementById('category_display');
+												var options = document.querySelectorAll('.category-select-option');
+												var categoryBtn = document.getElementById('category_dropdown_btn');
+												var categoryMenu = document.getElementById('category_dropdown_menu');
 
-									<script>
-										document.addEventListener('DOMContentLoaded', function() {
-											var categoryInput = document.getElementById('user_category_input');
-											var categoryText = document.getElementById('category_display');
-											var options = document.querySelectorAll('.category-select-option');
-											var categoryBtn = document.getElementById('category_dropdown_btn');
-											var categoryMenu = document.getElementById('category_dropdown_menu');
+												// Match dropdown width to button width
+												categoryBtn.addEventListener('click', function() {
+													categoryMenu.style.width = categoryBtn.offsetWidth + 'px';
+												});
 
-											// Match dropdown width to button width
-											categoryBtn.addEventListener('click', function() {
-												categoryMenu.style.width = categoryBtn.offsetWidth + 'px';
-											});
+												options.forEach(function(option) {
+													option.addEventListener('click', function(e) {
+														e.preventDefault();
+														var val = this.getAttribute('data-value');
+														var translateKey = this.getAttribute('data-translate-key');
+														var spanText = this.querySelector('span').innerText;
+														
+														categoryInput.value = val;
+														
+														categoryText.innerText = spanText;
+														categoryText.setAttribute('data-kt-translate', translateKey);
+														categoryText.classList.remove('text-gray-500');
+														categoryText.classList.add('text-gray-900');
 
-											options.forEach(function(option) {
-												option.addEventListener('click', function(e) {
-													e.preventDefault();
-													var val = this.getAttribute('data-value');
-													var translateKey = this.getAttribute('data-translate-key');
-													var spanText = this.querySelector('span').innerText;
-													
-													categoryInput.value = val;
-													
-													categoryText.innerText = spanText;
-													categoryText.setAttribute('data-kt-translate', translateKey);
-													categoryText.classList.remove('text-gray-500');
-													categoryText.classList.add('text-gray-900');
-
-													// Highlight selected option
-													options.forEach(function(opt) {
-														opt.classList.remove('active');
+														// Highlight selected option
+														options.forEach(function(opt) {
+															opt.classList.remove('active');
+														});
+														this.classList.add('active');
 													});
-													this.classList.add('active');
 												});
 											});
-										});
-									</script>
+										</script>
+									</div>
 
 									<div class="fv-row mb-5">
 										<input type="text" name="email" autocomplete="off" class="form-control form-control-lg bg-light signup-input" data-kt-translate="sign-up-input-email" />

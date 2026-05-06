@@ -411,6 +411,11 @@ class Auth extends ShieldAuth
      *
      * @var array<string, string>
      */
+
+    public array $models = [
+        'users' => \App\Models\UserModel::class,
+    ];
+
     public array $tables = [
         'users'             => 'users',
         'identities'        => 'auth_identities',
