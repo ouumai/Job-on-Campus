@@ -198,13 +198,13 @@
 
 						<div class="px-10 pb-10">
 							<div class="signup-form mx-auto">
-								<form class="form w-100" novalidate="novalidate" id="kt_sign_up_form" data-kt-redirect-url="<?= base_url('login') ?>" action="#">
+								<form class="form w-100" novalidate="novalidate" id="kt_sign_up_form" method="POST" action="<?= base_url('signup') ?>">
 									<div class="row gx-5 mb-5">
 										<div class="col-6 fv-row">
-											<input type="text" name="first-name" autocomplete="off" class="form-control form-control-lg bg-light signup-input signup-name-input" data-kt-translate="sign-up-input-first-name" />
+											<input type="text" name="first_name" autocomplete="off" class="form-control form-control-lg bg-light signup-input signup-name-input" data-kt-translate="sign-up-input-first-name" />
 										</div>
 										<div class="col-6 fv-row">
-											<input type="text" name="last-name" autocomplete="off" class="form-control form-control-lg bg-light signup-input signup-name-input" data-kt-translate="sign-up-input-last-name" />
+											<input type="text" name="last_name" autocomplete="off" class="form-control form-control-lg bg-light signup-input signup-name-input" data-kt-translate="sign-up-input-last-name" />
 										</div>
 									</div>
 
@@ -298,7 +298,7 @@
 									</div>
 
 									<div class="fv-row mb-5">
-										<input name="confirm-password" type="password" autocomplete="off" class="form-control form-control-lg bg-light signup-input" placeholder="Confirm Password" data-kt-translate="sign-up-input-confirm-password" />
+										<input name="confirm_password" type="password" autocomplete="off" class="form-control form-control-lg bg-light signup-input" placeholder="Confirm Password" data-kt-translate="sign-up-input-confirm-password" />
 									</div>
 
 									<input class="d-none" type="checkbox" name="toc" value="1" checked />
@@ -320,6 +320,7 @@
 											</a>
 										</div>
 									</div>
+									<?= csrf_field() ?>
 								</form>
 
 								<div class="d-flex flex-stack">

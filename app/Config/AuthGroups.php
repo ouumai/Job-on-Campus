@@ -43,17 +43,20 @@ class AuthGroups extends \CodeIgniter\Shield\Config\AuthGroups
 
     public array $groups = [
         'student' => [
-            'title'       => 'pelajar',
-            'description' => 'Pelajar (A/Pxxxxxx)',
+        'title'       => 'pelajar',
+        'description' => 'Pelajar (A/Pxxxxxx)',
         ],
+
         'supervisor' => [
             'title'       => 'penyelia',
             'description' => 'Kakitangan (K/KS/KQxxxxxx)',
         ],
+
         'kp' => [
             'title'       => 'Ketua Pentadbiran (PTJ)',
             'description' => 'Meluluskan iklan/tuntutan PTJ',
         ],
+        
         'career' => [
             'title'       => 'urusetia',
             'description' => 'Staf Kerjaya (Rujuk pjoc011murusetia)',

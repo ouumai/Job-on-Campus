@@ -38,10 +38,10 @@ class AuthController extends BaseController
     {
         $users = model(UserModel::class);
 
-        // 1. Set Validation Rules (Format En. Faiz)
+        // 1. Set Validation Rules
         $rules = [
-            'first_name'    => 'required|min_length',
-            'last_name'     => 'required|min_length',
+            'first_name'    => 'required|min_length[1]',
+            'last_name'     => 'required|min_length[1]',
             'user_category' => 'required|in_list[pelajar,kakitangan]',
             'identity_no'   => [
                 'rules' => 'required|is_unique[users.identity_no]|' . ($this->request->getPost('user_category') == 'pelajar' 
@@ -72,10 +72,31 @@ class AuthController extends BaseController
         // 3. Simpan ke Database
         $users->save($user);
 
-        // 4. Bagi Role (Optional - Default Pelajar)
-        $user = $users->findById($users->getInsertID());
-        $user->addGroup($this->request->getPost('user_category'));
+        // 2. Ambil balik ID user yang baru masuk
+        $userId = $users->getInsertID();
+        $user = $users->findById($userId);
 
-        return redirect()->to(base_url('login'))->with('message', 'Akaun berjaya dicipta!');
+        // 3. Tambah Group (Guna key yang betul: 'student' atau 'supervisor')
+        $category = $this->request->getPost('user_category');
+        if ($category === 'pelajar') {
+            $user->addGroup('student');
+        } else {
+            $user->addGroup('supervisor');
+        }
+
+        // 4. Trigger Shield Registration Action and redirect
+        // Lepas addGroup
+        
+        /** @var \CodeIgniter\Shield\Authentication\Authenticators\Session $authenticator */
+        $authenticator = auth('session')->getAuthenticator();
+        $authenticator->startLogin($user);
+        
+        $hasAction = $authenticator->startUpAction('register', $user);
+        if ($hasAction) {
+            return redirect()->route('auth-action-show')->with('message', 'Sila semak emel untuk kod pengesahan pendaftaran.');
+        }
+
+        $user->activate();
+        return redirect()->to(base_url('login'))->with('message', 'Pendaftaran berjaya!');
     }
 }
