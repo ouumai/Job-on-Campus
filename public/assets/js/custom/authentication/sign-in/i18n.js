@@ -133,6 +133,32 @@ var KTAuthI18nDemo = function () {
         "footer-contact": {
             eng: "Contact Us",
             ms: "Hubungi Kami"
+        },
+
+        // OTP / Two-Step Verification
+        "two-step-title": {
+            eng: "Verify Your Email",
+            ms: "Sahkan Emel Anda"
+        },
+        "two-step-desc": {
+            eng: "Enter the verification code we sent to",
+            ms: "Masukkan kod pengesahan yang dihantar ke"
+        },
+        "two-step-input-label": {
+            eng: "Type your 6 digit security code",
+            ms: "Taipkan kod keselamatan 6 digit anda"
+        },
+        "two-step-submit": {
+            eng: "Verify Account",
+            ms: "Sahkan Akaun"
+        },
+        "two-step-resend-text": {
+            eng: "Didn’t get the code?",
+            ms: "Tidak menerima kod?"
+        },
+        "two-step-resend-link": {
+            eng: "Resend Email",
+            ms: "Hantar Semula Emel"
         }
     };
 
