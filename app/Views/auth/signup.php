@@ -198,7 +198,7 @@
 
 						<div class="px-10 pb-10">
 							<div class="signup-form mx-auto">
-								<form class="form w-100" novalidate="novalidate" id="kt_sign_up_form" method="POST" action="<?= base_url('signup') ?>">
+								<form class="form w-100" novalidate="novalidate" id="kt_sign_up_form" method="POST" action="<?= base_url('signup') ?>" onsubmit="sessionStorage.setItem('joctab_active', '1');">
 									<div class="row gx-5 mb-5">
 										<div class="col-6 fv-row">
 											<input type="text" name="first_name" autocomplete="off" class="form-control form-control-lg bg-light signup-input signup-name-input" data-kt-translate="sign-up-input-first-name" />

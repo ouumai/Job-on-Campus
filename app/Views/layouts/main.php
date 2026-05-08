@@ -13,6 +13,12 @@ License: For each use you must have a valid license purchased only from above li
 <html lang="en">
 	<!--begin::Head-->
 	<head>
+		<script>
+			// Force logout if tab session is not active (tab was closed and reopened, or opened in new tab without inheritance)
+			if (sessionStorage.getItem('joctab_active') !== '1') {
+				window.location.href = "<?= site_url('logout') ?>";
+			}
+		</script>
 		<title>Metronic - The World's #1 Selling Tailwind CSS & Bootstrap Admin Template by KeenThemes</title>
 		<meta charset="utf-8" />
 		<meta name="description" content="The most advanced Tailwind CSS & Bootstrap 5 Admin Theme with 40 unique prebuilt layouts on Themeforest trusted by 100,000 beginners and professionals. Multi-demo, Dark Mode, RTL support and complete React, Angular, Vue, Asp.Net Core, Rails, Spring, Blazor, Django, Express.js, Node.js, Flask, Symfony & Laravel versions. Grab your copy now and get life-time updates for free." />
@@ -1529,10 +1535,12 @@ License: For each use you must have a valid license purchased only from above li
 													</div>
 													<div class="d-flex flex-column">
 														<div class="fw-bold d-flex align-items-center fs-5">
-															<?= $currentUser->username ?>
-															<span class="badge badge-light-success fw-bold fs-8 px-2 py-1 ms-2">Active</span>
+															<?= $currentUser ? $currentUser->username : 'Guest' ?>
+															<?php if ($currentUser): ?>
+																<span class="badge badge-light-success fw-bold fs-8 px-2 py-1 ms-2">Active</span>
+															<?php endif; ?>
 														</div>
-														<a href="#" class="fw-semibold text-muted text-hover-primary fs-7"><?= $currentUser->email ?></a>
+														<a href="#" class="fw-semibold text-muted text-hover-primary fs-7"><?= $currentUser ? $currentUser->getEmail() : '' ?></a>
 													</div>
 												</div>
 											</div>

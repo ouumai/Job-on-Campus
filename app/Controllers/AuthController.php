@@ -33,10 +33,53 @@ class AuthController extends BaseController
         return view('auth/signup', $data);
     }
 
+    // FUNGSI BARU: Proses Log Masuk
+    public function loginAction()
+    {
+        $rules = [
+            'email'    => 'required|valid_email',
+            'password' => 'required',
+        ];
+
+        if (! $this->validate($rules)) {
+            return redirect()->back()->withInput()->with('error', 'Sila masukkan emel dan kata laluan yang sah.');
+        }
+
+        $credentials = [
+            'email'    => $this->request->getPost('email'),
+            'password' => $this->request->getPost('password'),
+        ];
+        $remember = (bool) $this->request->getPost('remember');
+
+        /** @var \CodeIgniter\Shield\Authentication\Authenticators\Session $authenticator */
+        $authenticator = auth('session')->getAuthenticator();
+
+        // Check if user exists and password is correct
+        $result = $authenticator->remember($remember)->attempt($credentials);
+        
+        if (! $result->isOK()) {
+            return redirect()->route('login')->withInput()->with('error', $result->reason());
+        }
+
+        $user = $result->extraInfo();
+
+        // If the user has a pending action (like OTP verification), redirect them
+        if ($authenticator->hasAction()) {
+            return redirect()->route('auth-action-show')->withCookies();
+        }
+
+        // Complete the login process explicitly
+        return redirect()->to(config('Auth')->loginRedirect())->withCookies();
+    }
+
     // FUNGSI BARU: Proses Pendaftaran
     public function registerAction()
     {
         $users = model(UserModel::class);
+
+        $language = session()->get('lang') ?? 'en';
+    
+        service('language')->setLocale($language);
 
         // 1. Set Validation Rules
         $rules = [

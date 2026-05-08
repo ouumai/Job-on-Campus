@@ -47,6 +47,18 @@
                         <form class="form w-100 mb-10" novalidate="novalidate" method="POST" action="<?= url_to('auth-action-verify') ?>" id="otp_form">
                             <?= csrf_field() ?>
 
+                            <?php if (session('error')) : ?>
+                                <div class="alert alert-danger" role="alert">
+                                    <?= session('error') ?>
+                                </div>
+                            <?php endif ?>
+
+                            <?php if (session('message')) : ?>
+                                <div class="alert alert-success" role="alert">
+                                    <?= session('message') ?>
+                                </div>
+                            <?php endif ?>
+
                             <div class="text-center mb-10">
                                 <div class="d-flex flex-center mx-auto mb-7" style="width: 100px; height: 100px; background-color: #f1faff; border-radius: 50%;">
                                     <i class="bi bi-inbox-fill text-primary" style="font-size: 3.5rem;"></i>
@@ -189,6 +201,10 @@
                     });
                     fullTokenInput.value = combinedValue;
                 }
+
+                document.getElementById('otp_form').addEventListener('submit', function(e) {
+                    updateFullToken();
+                });
             });
         </script>
     </body>

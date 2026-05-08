@@ -144,7 +144,21 @@
 							<!--begin::Wrapper-->
 							<div class="d-flex flex-center flex-column flex-column-fluid pb-15 pb-lg-20">
 								<!--begin::Form-->
-								<form class="form w-100" novalidate="novalidate" id="kt_sign_in_form" data-kt-redirect-url="/index.html" action="<?= base_url('login') ?>">
+								<form class="form w-100" id="kt_sign_in_form" method="POST" action="<?= base_url('login') ?>" onsubmit="sessionStorage.setItem('joctab_active', '1');">
+									<?= csrf_field() ?>
+
+									<?php if (session('error')) : ?>
+										<div class="alert alert-danger" role="alert">
+											<?= session('error') ?>
+										</div>
+									<?php endif ?>
+
+									<?php if (session('message')) : ?>
+										<div class="alert alert-success" role="alert">
+											<?= session('message') ?>
+										</div>
+									<?php endif ?>
+
 									<!--begin::Heading-->
 									<div class="text-center mb-11">
 										<!--begin::Title-->
@@ -292,7 +306,7 @@
 		<script src="<?= $metronic ?>js/scripts.bundle.js"></script>
 		<!--end::Global Javascript Bundle-->
 		<!--begin::Custom Javascript(used for this page only)-->
-		<script src="<?= $metronic ?>js/custom/authentication/sign-in/general.js"></script>
+		<!-- <script src="<?= $metronic ?>js/custom/authentication/sign-in/general.js"></script> -->
 		<script src="<?= $metronic ?>js/custom/authentication/sign-in/i18n.js"></script>
 		<!--end::Custom Javascript-->
 		<!--end::Javascript-->
