@@ -14,32 +14,42 @@
 
         <tr>
             <td style="padding: 40px 30px;">
+                <?php 
+                    $display_name = 'User'; 
+                    try {
+                        // Tarik user object sama ada dari Shield atau Auth session
+                        $currentUser = $user ?? auth()->user();
+                        if ($currentUser) {
+                            $userModel = model('UserModel');
+                            $id = is_object($currentUser) ? ($currentUser->id ?? null) : ($currentUser['id'] ?? null);
+                            if ($id) {
+                                $userData = $userModel->find($id);
+                                if ($userData) {
+                                    $fName = $userData->first_name ?? '';
+                                    $lName = $userData->last_name ?? '';
+                                    $display_name = trim($fName . ' ' . $lName) ?: ($userData->username ?? 'User');
+                                }
+                            }
+                        }
+                    } catch (\Throwable $e) { $display_name = 'User'; }
+
+                    // LOGIK TOKEN: Shield guna $hash kalau startUpAction manual
+                    $realToken = $token ?? $hash ?? (isset($user) ? $user->auth_token : null) ?? '000000';
+                ?>
+
                 <h2 style="color: #181c32; margin-bottom: 20px; font-size: 22px; text-align: center;">
                     <?= lang('Email.activation_title') ?>
                 </h2>
 
-                <?php 
-                    // Pengecekan selamat untuk username
-                    $display_name = 'User';
-                    if (isset($user) && is_object($user)) {
-                        $display_name = $user->username;
-                    } elseif (isset($username)) {
-                        $display_name = $username;
-                    }
-                ?>
-
                 <p style="color: #5e6278; font-size: 16px; line-height: 1.6; text-align: center;">
-                    <?= lang('Email.activation_greeting') ?> <strong><?= $display_name ?></strong>,<br>
+                    <?= lang('Email.activation_greeting') ?> <strong><?= esc((string)$display_name) ?></strong>,<br>
                     <?= lang('Email.activation_message') ?>
                 </p>
 
                 <div style="text-align: center; margin: 40px 0;">
                     <div style="display: inline-block; padding: 15px 40px; background-color: #f1faff; border: 2px dashed #63A7FF; border-radius: 8px;">
                         <span style="font-size: 36px; font-weight: bold; color: #0095E8; letter-spacing: 10px;">
-                            <?php 
-                                // Guna hash jika token tak wujud (Shield hantar $hash atau $token)
-                                echo $token ?? $hash ?? '000000'; 
-                            ?>
+                            <?= $realToken ?>
                         </span>
                     </div>
                 </div>

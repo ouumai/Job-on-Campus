@@ -21,10 +21,11 @@ class Validation extends BaseConfig
      * @var list<string>
      */
     public array $ruleSets = [
-        Rules::class,
-        FormatRules::class,
-        FileRules::class,
-        CreditCardRules::class,
+        \CodeIgniter\Validation\Rules::class,
+        \CodeIgniter\Validation\StrictRules\Rules::class,
+        \CodeIgniter\Validation\StrictRules\FormatRules::class,
+        \CodeIgniter\Validation\StrictRules\FileRules::class,
+        \CodeIgniter\Shield\Authentication\Passwords\ValidationRules::class,
     ];
 
     /**

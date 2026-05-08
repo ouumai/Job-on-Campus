@@ -7,6 +7,8 @@ use CodeIgniter\Router\RouteCollection;
  */
 $routes->get('/', 'Home::index');
 
+$routes->get('lang', 'Language::index');
+
 # -- AUTHENTICATION --
 $routes->get('login', 'AuthController::index');
 $routes->post('login', 'AuthController::loginAction');
