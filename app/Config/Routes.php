@@ -12,6 +12,7 @@ $routes->get('lang', 'Language::index');
 # -- AUTHENTICATION --
 $routes->get('login', 'AuthController::index');
 $routes->post('login', 'AuthController::loginAction');
+$routes->get('logout', 'AuthController::logout');
 
 $routes->get('signup', 'AuthController::signup');
 $routes->post('signup', 'AuthController::registerAction');

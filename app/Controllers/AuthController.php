@@ -34,6 +34,18 @@ class AuthController extends BaseController
         return view('auth/signup', $data);
     }
 
+    public function logout()
+    {
+        if (auth()->loggedIn()) {
+            auth()->logout();
+        }
+
+        session()->remove(['user', 'otp_wrong', 'message', 'error', 'joctab_active']);
+
+        return redirect()->to(base_url('login'))
+            ->with('message', 'You have been signed out.');
+    }
+
     public function showVerifyTokenPage()
     {
         if (! auth()->loggedIn()) {
