@@ -16,6 +16,11 @@ $routes->get('logout', 'AuthController::logout');
 
 $routes->get('signup', 'AuthController::signup');
 $routes->post('signup', 'AuthController::registerAction');
+$routes->get('forgot-password', 'MagicLinkController::loginView', ['as' => 'magic-link']);
+$routes->post('forgot-password', 'MagicLinkController::loginAction');
+$routes->get('magic-link', 'MagicLinkController::verify', ['as' => 'magic-link-verify']);
+$routes->get('reset-password', 'MagicLinkController::resetPasswordView');
+$routes->post('reset-password', 'MagicLinkController::resetPasswordAction');
 $routes->get('verify-token', 'AuthController::showVerifyTokenPage');
 $routes->post('verify-token', 'AuthController::verifyToken');
 $routes->post('resend-otp', 'AuthController::resendOtp');

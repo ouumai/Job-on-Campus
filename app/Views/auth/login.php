@@ -1,6 +1,9 @@
 <?php
     $metronic = $metronic ?? base_url('assets/');
     $asset = $asset ?? $metronic;
+	$currentLang = session()->get('lang') ?? 'en';
+	$currentLangName = $currentLang === 'ms' ? 'Bahasa Melayu' : 'English';
+	$currentLangFlag = $currentLang === 'ms' ? 'malaysia.svg' : 'united-states.svg';
 ?>
 <!DOCTYPE html>
 <html lang="eng">
@@ -212,7 +215,7 @@
 									<div class="d-flex flex-stack flex-wrap gap-3 fs-base fw-semibold mb-8">
 										<div></div>
 										<!--begin::Link-->
-										<a href="authentication/layouts/overlay/reset-password.html" class="link-primary" data-kt-translate="sign-in-forgot-password">Forgot Password ?</a>
+										<a href="<?= base_url('forgot-password') ?>" class="link-primary" data-kt-translate="sign-in-forgot-password">Forgot Password ?</a>
 										<!--end::Link-->
 									</div>
 									<!--end::Wrapper-->
@@ -245,8 +248,8 @@
 								<div class="me-10">
 									<!--begin::Toggle-->
 									<button class="btn btn-flex btn-link btn-color-gray-700 btn-active-color-primary rotate fs-base" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-start" data-kt-menu-offset="0px, 0px">
-										<img data-kt-element="current-lang-flag" class="w-20px h-20px rounded me-3" src="<?= $metronic ?>media/flags/united-states.svg" alt="" />
-										<span data-kt-element="current-lang-name" class="me-1">English</span>
+										<img data-kt-element="current-lang-flag" class="w-20px h-20px rounded me-3" src="<?= $metronic ?>media/flags/<?= esc($currentLangFlag) ?>" alt="" />
+										<span data-kt-element="current-lang-name" class="me-1"><?= esc($currentLangName) ?></span>
 										<span class="svg-icon svg-icon-5 text-muted rotate-180 m-0" aria-hidden="true">
 											<svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
 												<path d="M3 4.5L6 7.5L9 4.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
@@ -258,7 +261,7 @@
 									<div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-800 menu-state-bg-light-primary fw-semibold w-200px py-4 fs-7" data-kt-menu="true" id="kt_auth_lang_menu">
 										<!-- English -->
 										<div class="menu-item px-3">
-											<a href="#" class="menu-link d-flex px-5" data-kt-lang="eng">
+											<a href="<?= base_url('lang?lang=en') ?>" class="menu-link d-flex px-5" data-kt-lang="en">
 												<span class="symbol symbol-20px me-4">
 													<img data-kt-element="lang-flag" class="rounded-1" src="<?= $metronic ?>media/flags/united-states.svg" alt="" />
 												</span>
@@ -268,7 +271,7 @@
 
 										<!-- Malaysia (ms) -->
 										<div class="menu-item px-3">
-											<a href="#" class="menu-link d-flex px-5" data-kt-lang="ms">
+											<a href="<?= base_url('lang?lang=ms') ?>" class="menu-link d-flex px-5" data-kt-lang="ms">
 												<span class="symbol symbol-20px me-4">
 													<img data-kt-element="lang-flag" class="rounded-1" src="<?= $metronic ?>media/flags/malaysia.svg" alt="" />
 												</span>
