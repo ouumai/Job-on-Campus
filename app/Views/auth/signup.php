@@ -1,6 +1,7 @@
 <?php
     $metronic = $metronic ?? base_url('assets/');
     $asset = $asset ?? $metronic;
+    $currentLang = session()->get('lang') ?? 'en';
 ?>
 <!DOCTYPE html>
 <html lang="eng">
@@ -199,6 +200,7 @@
 						<div class="px-10 pb-10">
 							<div class="signup-form mx-auto">
 								<form class="form w-100" novalidate="novalidate" id="kt_sign_up_form" method="POST" action="<?= base_url('signup') ?>" onsubmit="sessionStorage.setItem('joctab_active', '1');">
+                                    <input type="hidden" name="signup_lang" value="<?= esc($currentLang) ?>" />
 									<div class="row gx-5 mb-5">
 										<div class="col-6 fv-row">
 											<input type="text" name="first_name" autocomplete="off" class="form-control form-control-lg bg-light signup-input signup-name-input" data-kt-translate="sign-up-input-first-name" />
@@ -336,7 +338,7 @@
 										</button>
 										<div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-800 menu-state-bg-light-primary fw-semibold w-200px py-4 fs-7" data-kt-menu="true" id="kt_auth_lang_menu">
 											<div class="menu-item px-3">
-												<a href="#" class="menu-link d-flex px-5" data-kt-lang="eng">
+												<a href="<?= base_url('lang?lang=en') ?>" class="menu-link d-flex px-5" data-kt-lang="en">
 													<span class="symbol symbol-20px me-4">
 														<img data-kt-element="lang-flag" class="rounded-1" src="<?= $metronic ?>media/flags/united-states.svg" alt="" />
 													</span>
@@ -344,7 +346,7 @@
 												</a>
 											</div>
 											<div class="menu-item px-3">
-												<a href="#" class="menu-link d-flex px-5" data-kt-lang="ms">
+												<a href="<?= base_url('lang?lang=ms') ?>" class="menu-link d-flex px-5" data-kt-lang="ms">
 													<span class="symbol symbol-20px me-4">
 														<img data-kt-element="lang-flag" class="rounded-1" src="<?= $metronic ?>media/flags/malaysia.svg" alt="" />
 													</span>

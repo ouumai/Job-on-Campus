@@ -15,6 +15,9 @@ $routes->post('login', 'AuthController::loginAction');
 
 $routes->get('signup', 'AuthController::signup');
 $routes->post('signup', 'AuthController::registerAction');
+$routes->get('verify-token', 'AuthController::showVerifyTokenPage');
+$routes->post('verify-token', 'AuthController::verifyToken');
+$routes->post('resend-otp', 'AuthController::resendOtp');
 
 # -- SHIELD ACTION ROUTES (Email Activation, etc) --
 $routes->get('auth/a/show', '\CodeIgniter\Shield\Controllers\ActionController::show', ['as' => 'auth-action-show']);

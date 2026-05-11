@@ -33,9 +33,7 @@
                         }
                     } catch (\Throwable $e) { $display_name = 'User'; }
 
-                    // LOGIK TOKEN: Shield guna $hash kalau startUpAction manual
-                    $realToken = $token ?? $hash ?? (isset($user) ? $user->auth_token : null) ?? '000000';
-                ?>
+                    $realToken = (string) ($token ?? '');                ?>
 
                 <h2 style="color: #181c32; margin-bottom: 20px; font-size: 22px; text-align: center;">
                     <?= lang('Email.activation_title') ?>
@@ -49,7 +47,7 @@
                 <div style="text-align: center; margin: 40px 0;">
                     <div style="display: inline-block; padding: 15px 40px; background-color: #f1faff; border: 2px dashed #63A7FF; border-radius: 8px;">
                         <span style="font-size: 36px; font-weight: bold; color: #0095E8; letter-spacing: 10px;">
-                            <?= $realToken ?>
+                            <?= esc((string)$realToken) ?>                        
                         </span>
                     </div>
                 </div>
