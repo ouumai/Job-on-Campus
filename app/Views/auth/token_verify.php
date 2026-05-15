@@ -39,7 +39,7 @@
 
     <body id="kt_body" class="auth-bg">
         <?php
-            $lang = session()->get('lang') ?? 'en';
+            $lang = session()->get('lang') ?? 'ms';
             $isMs = ($lang === 'ms');
             $pageTitle = $isMs ? 'Sahkan Emel Anda' : 'Verify Your Email';
             $subTitle = $isMs ? 'Masukkan kod pengesahan yang dihantar ke' : 'Enter the verification code sent to';

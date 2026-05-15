@@ -18,6 +18,10 @@ class AuthController extends BaseController
 
     public function index()
     {
+        // Ensure default language is set
+        $language = session()->get('lang') ?? 'ms';
+        service('language')->setLocale($language);
+
         $data = [
             'metronic' => $this->locationService->getMetronic(),
             'asset'    => $this->locationService->getAssets(),
@@ -27,6 +31,10 @@ class AuthController extends BaseController
 
     public function signup()
     {
+        // Ensure default language is set
+        $language = session()->get('lang') ?? 'ms';
+        service('language')->setLocale($language);
+
         $data = [
             'metronic' => $this->locationService->getMetronic(),
             'asset'    => $this->locationService->getAssets(),
@@ -53,7 +61,7 @@ class AuthController extends BaseController
                 ->with('error', 'Sila log masuk terlebih dahulu.');
         }
 
-        $language = session()->get('lang') ?? 'en';
+        $language = session()->get('lang') ?? 'ms';
         service('language')->setLocale($language);
 
         return view('auth/token_verify', [
@@ -130,7 +138,7 @@ class AuthController extends BaseController
         $postedLang = strtolower((string) $this->request->getPost('signup_lang'));
         $language = in_array($postedLang, ['en', 'ms'], true)
             ? $postedLang
-            : (session()->get('lang') ?? 'en');
+            : (session()->get('lang') ?? 'ms');
         session()->set('lang', $language);
         service('language')->setLocale($language);
 
@@ -211,7 +219,7 @@ class AuthController extends BaseController
                 ->with('error', 'Sila log masuk terlebih dahulu.');
         }
 
-        $language = session()->get('lang') ?? 'en';
+        $language = session()->get('lang') ?? 'ms';
         service('language')->setLocale($language);
 
         $users = model(UserModel::class);

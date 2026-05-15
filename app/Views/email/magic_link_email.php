@@ -7,7 +7,7 @@
 </head>
 <body style="margin: 0; padding: 0; font-family: 'Inter', Helvetica, Arial, sans-serif; background-color: #f4f7f9;">
     <?php
-        $currentLang = session()->get('lang') ?? 'en';
+        $currentLang = session()->get('lang') ?? 'ms';
         $isMs = $currentLang === 'ms';
         $activityTitle = $isMs ? 'Pautan Tetapan Semula Kata Laluan' : 'Password Reset Link';
         $description = $isMs

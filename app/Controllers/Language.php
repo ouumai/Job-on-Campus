@@ -23,7 +23,7 @@ class Language extends BaseController
         if ($this->request->isAJAX()) {
             return $this->response->setJSON([
                 'status' => 'ok',
-                'lang'   => session()->get('lang') ?? 'en',
+                'lang'   => session()->get('lang') ?? 'ms',
             ]);
         }
 

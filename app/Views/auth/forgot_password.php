@@ -1,6 +1,7 @@
 <?php
 $metronic = base_url('assets/');
-$currentLang = session()->get('lang') ?? 'en';
+$sessionLang = session()->get('lang');
+$currentLang = is_string($sessionLang) ? $sessionLang : 'ms';
 $langName = $currentLang === 'ms' ? 'Bahasa Melayu' : 'English';
 $langFlag = $currentLang === 'ms' ? 'malaysia.svg' : 'united-states.svg';
 $title = $currentLang === 'ms' ? 'Lupa Kata Laluan' : 'Forgot Password';
@@ -48,7 +49,7 @@ $loginText = $currentLang === 'ms' ? 'Log Masuk' : 'Login';
         <div class="d-flex flex-lg-row-fluid">
             <div class="d-flex flex-column flex-center pb-0 pb-lg-10 p-10 w-100">
                 <div class="auth-left-glass text-center">
-                    <img class="mx-auto mw-100 w-150px w-lg-300px mb-10 mb-lg-20" src="<?= $metronic ?>media/auth/agency.png" alt="" />
+                    <img class="mx-auto mw-100 w-150px w-lg-300px mb-10 mb-lg-20" src="<?= $metronic ?>media/auth/JobSearch.png" alt="" />
                     <h1 class="text-gray-800 fs-2qx fw-bold text-center mb-7"><?= esc($heroTitle) ?></h1>
                     <div class="text-gray-600 fs-base text-center fw-semibold"><?= esc($subtitle) ?></div>
                 </div>

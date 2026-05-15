@@ -44,6 +44,10 @@ abstract class BaseController extends Controller
         $lang = session()->get('lang');
         if (is_string($lang) && in_array($lang, ['en', 'ms'], true)) {
             service('language')->setLocale($lang);
+        } else {
+            // Set default language to Malay if not set
+            session()->set('lang', 'ms');
+            service('language')->setLocale('ms');
         }
     }
 }

@@ -1,7 +1,7 @@
 <?php
     $metronic = $metronic ?? base_url('assets/');
     $asset = $asset ?? $metronic;
-    $currentLang = session()->get('lang') ?? 'en';
+    $currentLang = session()->get('lang') ?? 'ms';
 ?>
 <!DOCTYPE html>
 <html lang="eng">
@@ -162,8 +162,7 @@
 				<div class="d-flex flex-lg-row-fluid">
 					<div class="d-flex flex-column flex-center pb-0 pb-lg-10 p-10 w-100 auth-left-pane">
 						<div class="auth-left-glass text-center">
-						<img class="theme-light-show mx-auto mw-100 w-150px w-lg-300px mb-10 mb-lg-20" src="<?= $metronic ?>media/auth/agency.png" alt="" />
-						<img class="theme-dark-show mx-auto mw-100 w-150px w-lg-300px mb-10 mb-lg-20" src="<?= $metronic ?>media/auth/agency-dark.png" alt="" />
+						<img class="mx-auto mw-100 w-150px w-lg-300px mb-10 mb-lg-20" src="<?= $metronic ?>media/auth/JobSearch.png" alt="" />
 						<h1 class="text-gray-800 fs-2qx fw-bold text-center mb-7 auth-left-title">Fast, Efficient and Productive</h1>
 						<div class="text-gray-600 fs-base text-center fw-semibold auth-left-text">In this kind of post,
 						<a href="#" class="opacity-75-hover text-primary me-1">the blogger</a>introduces a person they have interviewed
@@ -187,13 +186,13 @@
 									</span>
 								</a>
 								<div class="fw-semibold fs-6">
-									<span class="text-gray-400" data-kt-translate="sign-up-head-desc">Already a member ?</span>
-									<a href="<?= base_url('login') ?>" class="link-primary ms-2" data-kt-translate="sign-up-head-link">Login</a>
+									<span class="text-gray-400" data-kt-translate="sign-up-head-desc"><?= $currentLang === 'ms' ? 'Sudah menjadi ahli?' : 'Already a member?' ?></span>
+									<a href="<?= base_url('login') ?>" class="link-primary ms-2" data-kt-translate="sign-up-head-link"><?= $currentLang === 'ms' ? 'Log Masuk' : 'Login' ?></a>
 								</div>
 							</div>
 							<div class="pt-8">
-								<h1 class="text-gray-900 fw-bolder fs-3x mb-3" data-kt-translate="sign-up-title">Create an Account</h1>
-								<div class="text-gray-400 fw-semibold fs-6" data-kt-translate="sign-up-desc">Get unlimited access & earn money</div>
+								<h1 class="text-gray-900 fw-bolder fs-3x mb-3" data-kt-translate="sign-up-title"><?= $currentLang === 'ms' ? 'Buat Akaun' : 'Create an Account' ?></h1>
+								<div class="text-gray-400 fw-semibold fs-6" data-kt-translate="sign-up-desc"><?= $currentLang === 'ms' ? 'Dapatkan akses tanpa had & hasilkan wang' : 'Get unlimited access & earn money' ?></div>
 							</div>
 						</div>
 
@@ -211,7 +210,7 @@
 									</div>
 
 									<div class="fv-row mb-5">
-										<input type="text" name="identity_no" data-kt-translate="sign-up-input-identity" placeholder="Matric No. or UKMPer" class="form-control form-control-lg bg-light signup-input" />
+										<input type="text" name="identity_no" data-kt-translate="sign-up-input-identity" placeholder="<?= $currentLang === 'ms' ? 'No. Matrik atau UKMPer' : 'Matric No. or UKMPer' ?>" class="form-control form-control-lg bg-light signup-input" />
 									</div>
 
 									<div class="fv-row mb-5 position-relative">
@@ -300,7 +299,7 @@
 									</div>
 
 									<div class="fv-row mb-5">
-										<input name="confirm_password" type="password" autocomplete="off" class="form-control form-control-lg bg-light signup-input" placeholder="Confirm Password" data-kt-translate="sign-up-input-confirm-password" />
+										<input name="confirm_password" type="password" autocomplete="off" class="form-control form-control-lg bg-light signup-input" placeholder="<?= $currentLang === 'ms' ? 'Sahkan Kata Laluan' : 'Confirm Password' ?>" data-kt-translate="sign-up-input-confirm-password" />
 									</div>
 
 									<input class="d-none" type="checkbox" name="toc" value="1" checked />

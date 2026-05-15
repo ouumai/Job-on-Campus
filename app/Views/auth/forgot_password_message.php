@@ -1,6 +1,6 @@
 <?php
 $metronic = base_url('assets/');
-$currentLang = session()->get('lang') ?? 'en';
+$currentLang = session()->get('lang') ?? 'ms';
 $title = $currentLang === 'ms' ? 'Semak Emel Anda' : 'Check Your Email';
 $desc = $currentLang === 'ms'
     ? 'Jika emel wujud dalam sistem, pautan log masuk automatik telah dihantar.'

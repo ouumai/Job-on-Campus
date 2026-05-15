@@ -12,9 +12,9 @@ class MagicLinkController extends \CodeIgniter\Shield\Controllers\MagicLinkContr
 {
     private function applyLocaleFromSession(): void
     {
-        $lang = session()->get('lang') ?? 'en';
+        $lang = session()->get('lang') ?? 'ms';
         if (! in_array($lang, ['en', 'ms'], true)) {
-            $lang = 'en';
+            $lang = 'ms';
         }
         service('language')->setLocale($lang);
     }

@@ -1,7 +1,7 @@
 <?php
     $metronic = $metronic ?? base_url('assets/');
     $asset = $asset ?? $metronic;
-	$currentLang = session()->get('lang') ?? 'en';
+	$currentLang = session()->get('lang') ?? 'ms';
 	$currentLangName = $currentLang === 'ms' ? 'Bahasa Melayu' : 'English';
 	$currentLangFlag = $currentLang === 'ms' ? 'malaysia.svg' : 'united-states.svg';
 ?>
@@ -120,8 +120,7 @@
 					<div class="d-flex flex-column flex-center pb-0 pb-lg-10 p-10 w-100 auth-left-pane">
 						<div class="auth-left-glass text-center">
 						<!--begin::Image-->
-						<img class="theme-light-show mx-auto mw-100 w-150px w-lg-300px mb-10 mb-lg-20" src="<?= $metronic ?>media/auth/agency.png" alt="" />
-						<img class="theme-dark-show mx-auto mw-100 w-150px w-lg-300px mb-10 mb-lg-20" src="<?= $metronic ?>media/auth/agency-dark.png" alt="" />
+						<img class="mx-auto mw-100 w-150px w-lg-300px mb-10 mb-lg-20" src="<?= $metronic ?>media/auth/JobSearch.png" alt="" />
 						<!--end::Image-->
 						<!--begin::Title-->
 						<h1 class="text-gray-800 fs-2qx fw-bold text-center mb-7 auth-left-title">Fast, Efficient and Productive</h1>
@@ -165,10 +164,10 @@
 									<!--begin::Heading-->
 									<div class="text-center mb-11">
 										<!--begin::Title-->
-										<h1 class="text-gray-900 fw-bolder mb-3" data-kt-translate="sign-in-title">Login</h1>
+										<h1 class="text-gray-900 fw-bolder mb-3" data-kt-translate="sign-in-title"><?= $currentLang === 'ms' ? 'Log Masuk' : 'Login' ?></h1>
 										<!--end::Title-->
 										<!--begin::Subtitle-->
-										<div class="text-gray-500 fw-semibold fs-6" data-kt-translate="sign-in-desc">Your Social Campaigns</div>
+										<div class="text-gray-500 fw-semibold fs-6" data-kt-translate="sign-in-desc"><?= $currentLang === 'ms' ? 'Kempen Sosial Anda' : 'Your Social Campaigns' ?></div>
 										<!--end::Subtitle=-->
 									</div>
 									<!--begin::Heading-->
@@ -178,7 +177,7 @@
 										<div class="col-md-6">
 											<!--begin::Google link=-->
 											<a href="#" class="btn btn-flex btn-outline btn-text-gray-700 btn-active-color-primary bg-state-light flex-center text-nowrap w-100">
-											<img alt="Logo" src="<?= $metronic ?>media/svg/brand-logos/google-icon.svg" class="h-15px me-3" /><span class="auth-social-label" data-kt-translate="sign-in-google"> Login with Google</span></a>
+											<img alt="Logo" src="<?= $metronic ?>media/svg/brand-logos/google-icon.svg" class="h-15px me-3" /><span class="auth-social-label" data-kt-translate="sign-in-google"> <?= $currentLang === 'ms' ? 'Log masuk dengan Google' : 'Login with Google' ?></span></a>
 											<!--end::Google link=-->
 										</div>
 										<!--end::Col-->
@@ -187,7 +186,7 @@
 											<!--begin::Google link=-->
 											<a href="#" class="btn btn-flex btn-outline btn-text-gray-700 btn-active-color-primary bg-state-light flex-center text-nowrap w-100">
 											<img alt="Logo" src="<?= $metronic ?>media/svg/brand-logos/apple-black.svg" class="theme-light-show h-15px me-3" />
-											<img alt="Logo" src="<?= $metronic ?>media/svg/brand-logos/apple-black-dark.svg" class="theme-dark-show h-15px me-3" /><span class="auth-social-label" data-kt-translate="sign-in-apple">Login with Apple</span></a>
+											<img alt="Logo" src="<?= $metronic ?>media/svg/brand-logos/apple-black-dark.svg" class="theme-dark-show h-15px me-3" /><span class="auth-social-label" data-kt-translate="sign-in-apple"><?= $currentLang === 'ms' ? 'Log masuk dengan Apple' : 'Login with Apple' ?></span></a>
 											<!--end::Google link=-->
 										</div>
 										<!--end::Col-->
@@ -195,19 +194,19 @@
 									<!--end::Login options-->
 									<!--begin::Separator-->
 									<div class="separator separator-content my-14">
-										<span class="auth-separator-label text-gray-500 fw-semibold fs-7" data-kt-translate="general-or-email">Or with email</span>
+										<span class="auth-separator-label text-gray-500 fw-semibold fs-7" data-kt-translate="general-or-email"><?= $currentLang === 'ms' ? 'Atau dengan emel' : 'Or with email' ?></span>
 									</div>
 									<!--end::Separator-->
 									<!--begin::Input group=-->
 									<div class="fv-row mb-8">
 										<!--begin::Email-->
-										<input type="text" placeholder="Email" name="email" autocomplete="off" class="form-control bg-transparent" data-kt-translate="sign-in-input-email" />
+										<input type="text" placeholder="<?= $currentLang === 'ms' ? 'Emel' : 'Email' ?>" name="email" autocomplete="off" class="form-control bg-transparent" data-kt-translate="sign-in-input-email" />
 										<!--end::Email-->
 									</div>
 									<!--end::Input group=-->
 									<div class="fv-row mb-3">
 										<!--begin::Password-->
-										<input type="password" placeholder="Password" name="password" autocomplete="off" class="form-control bg-transparent" data-kt-translate="sign-in-input-password" />
+										<input type="password" placeholder="<?= $currentLang === 'ms' ? 'Kata Laluan' : 'Password' ?>" name="password" autocomplete="off" class="form-control bg-transparent" data-kt-translate="sign-in-input-password" />
 										<!--end::Password-->
 									</div>
 									<!--end::Input group=-->
@@ -215,7 +214,7 @@
 									<div class="d-flex flex-stack flex-wrap gap-3 fs-base fw-semibold mb-8">
 										<div></div>
 										<!--begin::Link-->
-										<a href="<?= base_url('forgot-password') ?>" class="link-primary" data-kt-translate="sign-in-forgot-password">Forgot Password ?</a>
+										<a href="<?= base_url('forgot-password') ?>" class="link-primary" data-kt-translate="sign-in-forgot-password"><?= $currentLang === 'ms' ? 'Lupa Kata Laluan?' : 'Forgot Password?' ?></a>
 										<!--end::Link-->
 									</div>
 									<!--end::Wrapper-->
@@ -223,10 +222,10 @@
 									<div class="d-grid mb-10">
 										<button type="submit" id="kt_sign_in_submit" class="btn btn-primary">
 											<!--begin::Indicator label-->
-											<span class="indicator-label" data-kt-translate="sign-in-submit">Login</span>
+											<span class="indicator-label" data-kt-translate="sign-in-submit"><?= $currentLang === 'ms' ? 'Log Masuk' : 'Login' ?></span>
 											<!--end::Indicator label-->
 											<!--begin::Indicator progress-->
-											<span class="indicator-progress"><span data-kt-translate="general-progress">Please wait...</span>
+											<span class="indicator-progress"><span data-kt-translate="general-progress"><?= $currentLang === 'ms' ? 'Sila tunggu...' : 'Please wait...' ?></span>
 											<span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
 											<!--end::Indicator progress-->
 										</button>
@@ -234,8 +233,8 @@
 									<!--end::Submit button-->
 									<!--begin::Sign up-->
 									<div class="text-gray-500 text-center fw-semibold fs-6">
-										<span data-kt-translate="sign-in-head-desc">Not a Member yet?</span>
-										<a href="<?= base_url('signup') ?>" class="link-primary" data-kt-translate="sign-in-head-link">Sign up</a>
+										<span data-kt-translate="sign-in-head-desc"><?= $currentLang === 'ms' ? 'Belum menjadi ahli?' : 'Not a Member yet?' ?></span>
+										<a href="<?= base_url('signup') ?>" class="link-primary" data-kt-translate="sign-in-head-link"><?= $currentLang === 'ms' ? 'Daftar' : 'Sign up' ?></a>
 									</div>
 									<!--end::Sign up-->
 								</form>

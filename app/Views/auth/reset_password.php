@@ -1,7 +1,7 @@
 <?php
 $metronic = base_url('assets/');
 $sessionLang = session()->get('lang');
-$currentLang = is_string($sessionLang) && $sessionLang !== '' ? $sessionLang : 'en';
+$currentLang = is_string($sessionLang) && $sessionLang !== '' ? $sessionLang : 'ms';
 $isMs = $currentLang === 'ms';
 $title = $isMs ? 'Tetapan Semula Kata Laluan' : 'Reset Password';
 $subtitle = $isMs ? 'Cipta kata laluan baharu untuk akaun anda.' : 'Create a new password for your account.';
@@ -34,7 +34,7 @@ $langFlag = $isMs ? 'malaysia.svg' : 'united-states.svg';
         <div class="d-flex flex-lg-row-fluid">
             <div class="d-flex flex-column flex-center pb-0 pb-lg-10 p-10 w-100">
                 <div style="width:min(520px,100%); padding:2.25rem; border:1px solid rgba(255,255,255,.35); border-radius:1.25rem; background:rgba(255,255,255,.18); backdrop-filter:blur(14px); -webkit-backdrop-filter:blur(14px);" class="text-center">
-                    <img class="mx-auto mw-100 w-150px w-lg-300px mb-10 mb-lg-20" src="<?= $metronic ?>media/auth/agency.png" alt="" />
+                    <img class="mx-auto mw-100 w-150px w-lg-300px mb-10 mb-lg-20" src="<?= $metronic ?>media/auth/JobSearch.png" alt="" />
                     <h1 class="text-gray-800 fs-2qx fw-bold text-center mb-7"><?= $isMs ? 'Pantas, Efisien dan Produktif' : 'Fast, Efficient and Productive' ?></h1>
                     <div class="text-gray-600 fs-base text-center fw-semibold"><?= esc($subtitle) ?></div>
                 </div>
