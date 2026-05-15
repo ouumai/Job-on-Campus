@@ -1,7 +1,8 @@
 <?php
     $metronic = $metronic ?? base_url('assets/');
     $asset = $asset ?? $metronic;
-    $currentLang = session()->get('lang') ?? 'ms';
+    $sessionLang = session()->get('lang');
+    $currentLang = is_string($sessionLang) ? $sessionLang : 'ms';
 ?>
 <!DOCTYPE html>
 <html lang="eng">
@@ -128,7 +129,7 @@
             .auth-left-pane { background: transparent !important; }
 
             .auth-left-glass { 
-                width: min(520px, 100%); 
+                width: min(600px, 100%); 
                 padding: 2.25rem; 
                 border: 1px solid rgba(255, 255, 255, .35); 
                 border-radius: 1.25rem; 
@@ -162,13 +163,9 @@
 				<div class="d-flex flex-lg-row-fluid">
 					<div class="d-flex flex-column flex-center pb-0 pb-lg-10 p-10 w-100 auth-left-pane">
 						<div class="auth-left-glass text-center">
-						<img class="mx-auto mw-100 w-150px w-lg-300px mb-10 mb-lg-20" src="<?= $metronic ?>media/auth/JobSearch.png" alt="" />
-						<h1 class="text-gray-800 fs-2qx fw-bold text-center mb-7 auth-left-title">Fast, Efficient and Productive</h1>
-						<div class="text-gray-600 fs-base text-center fw-semibold auth-left-text">In this kind of post,
-						<a href="#" class="opacity-75-hover text-primary me-1">the blogger</a>introduces a person they have interviewed
-						<br />and provides some background information about
-						<a href="#" class="opacity-75-hover text-primary me-1">the interviewee</a>and their
-						<br />work following this is a transcript of the interview.</div>
+						<img class="mx-auto mw-100 w-150px w-lg-300px mb-5 mb-lg-10" src="<?= $metronic ?>media/auth/JobSearch.png" alt="" />
+						<h1 class="text-gray-800 fs-2qx fw-bold text-center mb-3 auth-left-title">Job on Campus</h1>
+						<div class="text-gray-600 fs-base text-center fw-semibold auth-left-text"><?= $currentLang === 'ms' ? 'Menyokong Kerjaya Pelajar Dalam Komuniti Universiti.' : 'Supporting Student Careers Within the University Community.' ?></div>
 						</div>
 					</div>
 				</div>

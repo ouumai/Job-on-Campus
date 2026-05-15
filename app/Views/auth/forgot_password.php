@@ -5,10 +5,8 @@ $currentLang = is_string($sessionLang) ? $sessionLang : 'ms';
 $langName = $currentLang === 'ms' ? 'Bahasa Melayu' : 'English';
 $langFlag = $currentLang === 'ms' ? 'malaysia.svg' : 'united-states.svg';
 $title = $currentLang === 'ms' ? 'Lupa Kata Laluan' : 'Forgot Password';
-$heroTitle = $currentLang === 'ms' ? 'Pantas, Efisien dan Produktif' : 'Fast, Efficient and Productive';
-$subtitle = $currentLang === 'ms'
-    ? 'Masukkan emel berdaftar anda untuk terima pautan tetapan semula kata laluan.'
-    : 'Enter your registered email to receive a password reset link.';
+$heroTitle = 'Job on Campus';
+$subtitle = $currentLang === 'ms' ? 'Menyokong Kerjaya Pelajar Dalam Komuniti Universiti.' : 'Supporting Student Careers Within the University Community.';
 $sendText = $currentLang === 'ms' ? 'Hantar Pautan Tetapan Semula' : 'Send Reset Link';
 $backText = $currentLang === 'ms' ? 'Kembali ke' : 'Back to';
 $loginText = $currentLang === 'ms' ? 'Log Masuk' : 'Login';
@@ -33,7 +31,7 @@ $loginText = $currentLang === 'ms' ? 'Log Masuk' : 'Login';
         body::before, #kt_body::before, body::after, #kt_body::after { display:none !important; content:none !important; }
         .auth-panel { max-width: 600px !important; box-shadow: 0 10px 40px rgba(0,0,0,0.06) !important; border-radius: 1.25rem !important; }
         .auth-left-glass {
-            width: min(520px, 100%);
+            width: min(600px, 100%);
             padding: 2.25rem;
             border: 1px solid rgba(255,255,255,.35);
             border-radius: 1.25rem;
@@ -49,8 +47,8 @@ $loginText = $currentLang === 'ms' ? 'Log Masuk' : 'Login';
         <div class="d-flex flex-lg-row-fluid">
             <div class="d-flex flex-column flex-center pb-0 pb-lg-10 p-10 w-100">
                 <div class="auth-left-glass text-center">
-                    <img class="mx-auto mw-100 w-150px w-lg-300px mb-10 mb-lg-20" src="<?= $metronic ?>media/auth/JobSearch.png" alt="" />
-                    <h1 class="text-gray-800 fs-2qx fw-bold text-center mb-7"><?= esc($heroTitle) ?></h1>
+                    <img class="mx-auto mw-100 w-150px w-lg-300px mb-5 mb-lg-10" src="<?= $metronic ?>media/auth/JobSearch.png" alt="" />
+                    <h1 class="text-gray-800 fs-2qx fw-bold text-center mb-3"><?= esc($heroTitle) ?></h1>
                     <div class="text-gray-600 fs-base text-center fw-semibold"><?= esc($subtitle) ?></div>
                 </div>
             </div>
