@@ -195,7 +195,7 @@ class MagicLinkController extends \CodeIgniter\Shield\Controllers\MagicLinkContr
             return redirect()->back()->withInput()->with('errors', ['password' => $result->reason()]);
         }
         $user->fill(['password' => $newPassword]);
-        $user->saveEmailIdentity();
+        $userModel->save($user);
 
         /** @var RememberModel $rememberModel */
         $rememberModel = model(RememberModel::class);
