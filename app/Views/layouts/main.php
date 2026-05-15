@@ -11,6 +11,59 @@
     <link href="<?= base_url('assets/plugins/global/plugins.bundle.css') ?>" rel="stylesheet" type="text/css" />
     <link href="<?= base_url('assets/css/style.bundle.css') ?>" rel="stylesheet" type="text/css" />
     
+    <style>
+        /* 1. Background Gradient Keseluruhan (Ikut Style Login) */
+        .wrapper {
+            background: linear-gradient(135deg, #87CEEB 0%, #B0C4DE 50%, #ADD8E6 100%) !important;
+            background-attachment: fixed !important;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* 2. Nav Bar (Header) dengan Background Glassmorphism */
+        #kt_header {
+        background: rgba(255, 255, 255, 0.15) !important;
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.05);
+        z-index: 1000 !important; 
+    }
+
+        /* 3. Pastikan Toolbar & Content telus */
+        .toolbar, .content {
+            background: transparent !important;
+        }
+
+        /* Buang lapisan geometri asal Metronic */
+        .wrapper::before, .wrapper::after {
+            display: none !important;
+        }
+
+        /* Ejas sikit warna text menu supaya kontra dengan background cerah */
+        .menu-link .menu-title {
+            color: #444 !important;
+        }
+        
+        .menu-item:hover > .menu-link .menu-title,
+        .menu-item.here > .menu-link .menu-title {
+            color: #009ef7 !important;
+        }
+
+		#kt_footer {
+        background: rgba(255, 255, 255, 0.15) !important; /* Background lutsinar */
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        border-top: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .footer-text {
+        color: #444 !important; /* Warna text supaya jelas */
+        font-weight: 500;
+		z-index: 900 !important;
+    }
+    </style>
+
     <?= $this->renderSection('extra-css') ?>
 </head>
 
@@ -43,7 +96,6 @@
                                                 <span class="menu-title"><?= lang('Joc.nav_my_status') ?></span>
                                             </a>
                                         </div>
-
                                     <?php elseif (auth()->user()->inGroup('supervisor')): ?>
                                         <div class="menu-item me-lg-1">
                                             <a class="menu-link py-3" href="<?= site_url('penyelia/iklan') ?>">
@@ -104,7 +156,6 @@
 
                             <div class="d-flex align-items-center ms-1 ms-lg-3" id="kt_header_user_menu_toggle">
                                 <?php 
-                                    $user = auth()->user();
                                     $initials = strtoupper(substr($user->first_name, 0, 1) . substr($user->last_name, 0, 1));
                                 ?>
                                 <div class="cursor-pointer symbol symbol-30px symbol-md-40px" data-kt-menu-trigger="click" data-kt-menu-attach="parent" data-kt-menu-placement="bottom-end">
@@ -153,25 +204,17 @@
 
                 <div id="kt_content_container" class="d-flex flex-column-fluid align-items-start container-xxl">
                     <div class="content flex-row-fluid" id="kt_content">
-                        <?php if (session('success')): ?>
-                            <div class="alert alert-success d-flex align-items-center p-5 mb-10">
-                                <i class="ki-duotone ki-check-circle fs-2hx text-success me-4"><span class="path1"></span><span class="path2"></span></i>
-                                <div class="d-flex flex-column"><span><?= session('success') ?></span></div>
-                            </div>
-                        <?php endif; ?>
-                        
                         <?= $this->renderSection('content') ?>
                     </div>
                 </div>
 
-                <div class="footer py-4 d-flex flex-lg-column" id="kt_footer">
-                    <div class="container-xxl d-flex flex-column flex-md-row align-items-center justify-content-between">
-                        <div class="text-gray-900 order-2 order-md-1">
-                            <span class="text-muted fw-semibold me-1">2026&copy;</span>
-                            <a href="#" class="text-gray-800 text-hover-primary">JoC System v1.6</a>
-                        </div>
-                    </div>
-                </div>
+                <div class="footer py-6 d-flex flex-lg-column" id="kt_footer">
+				<div class="container-xxl text-center">
+					<div class="footer-text">
+						<span>&copy; 2026 Pusat Teknologi Digital (DigitalUKM). All rights reserved.</span>
+					</div>
+				</div>
+			</div>
             </div>
         </div>
     </div>
