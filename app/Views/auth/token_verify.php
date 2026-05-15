@@ -19,6 +19,7 @@
                 max-width: 500px !important; 
                 box-shadow: 0 10px 40px rgba(0,0,0,0.06) !important; 
                 border-radius: 1.25rem !important;
+                overflow: hidden;
             }
             .otp-input {
                 width: 50px !important;
@@ -33,35 +34,12 @@
                 border-color: var(--bs-primary) !important;
                 background-color: #fff !important;
             }
-            .otp-error-banner {
-                width: 100%;
-                margin: 0 0 1.5rem 0;
-                padding: 0.95rem 1rem;
-                background: rgba(241, 65, 108, 0.16);
-                border: 1px solid rgba(241, 65, 108, 0.35);
-                backdrop-filter: blur(12px);
-                -webkit-backdrop-filter: blur(12px);
-                color: #b4233f;
-                font-weight: 700;
-                font-size: 1rem;
-                text-align: center;
-                border-radius: 1.25rem 1.25rem 0 0;
-                letter-spacing: 0.2px;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-            }
-
-            .otp-success-banner {
-                text-align: center;
-            }
-
         </style>
     </head>
 
     <body id="kt_body" class="auth-bg">
         <?php
-            $lang = $lang ?? (session()->get('lang') ?? 'en');
+            $lang = session()->get('lang') ?? 'en';
             $isMs = ($lang === 'ms');
             $pageTitle = $isMs ? 'Sahkan Emel Anda' : 'Verify Your Email';
             $subTitle = $isMs ? 'Masukkan kod pengesahan yang dihantar ke' : 'Enter the verification code sent to';
@@ -73,16 +51,25 @@
             $langName = $isMs ? 'Bahasa Melayu' : 'English';
             $langFlag = $isMs ? 'malaysia.svg' : 'united-states.svg';
 
+            // Fixed User Email Logic
             $userEmail = '';
-            if (isset($user)) {
-                $userEmail = is_object($user) ? ($user->email ?? '') : ($user['email'] ?? '');
+            $currentUser = $user ?? auth()->user();
+            if ($currentUser) {
+                $userEmail = is_object($currentUser) ? $currentUser->email : ($currentUser['email'] ?? '');
+            }
+            
+            if (empty($userEmail) && session()->has('user')) {
+                $userSession = session('user');
+                $userEmail = is_array($userSession) ? ($userSession['email'] ?? '') : '';
             }
         ?>
+
         <div class="d-flex flex-column flex-root">
             <div class="d-flex flex-column flex-column-fluid align-items-center justify-content-center p-10">
                 
                 <div class="bg-body d-flex flex-column rounded-4 w-100 w-md-500px token-shell">
-                    <?php if (session('otp_wrong')) : ?>
+                    
+                    <?php if (session('error')) : ?>
                         <div class="otp-error-banner" style="width: calc(100% - 40px); margin: 20px 20px 0 20px; padding: 1rem; background-color: #fff5f8; border: 1px solid #f1416c; color: #d0003c; font-weight: 500; font-size: 0.95rem; text-align: center; border-radius: 0.475rem; display: flex; align-items: center; justify-content: center;">
                             <i class="bi bi-exclamation-circle-fill me-3" style="font-size: 1.2rem; color: #f1416c;"></i>
                             <?= session('error') ?>
@@ -97,7 +84,7 @@
                     <?php endif; ?>
 
                     <div class="d-flex flex-center flex-column p-10">
-                        <form class="form w-100 mb-10" novalidate="novalidate" method="POST" action="<?= base_url('verify-token') ?>" id="otp_form">
+                        <form class="form w-100 mb-10" method="POST" action="<?= base_url('verify-token') ?>" id="otp_form">
                             <?= csrf_field() ?>
 
                             <div class="text-center mb-10">
@@ -107,9 +94,9 @@
                             </div>
 
                             <div class="text-center mb-10">
-                                <h1 class="text-gray-900 mb-3" style="font-size: 2.5rem; text-align: center;"><?= esc($pageTitle) ?></h1>
-                                <div class="text-muted fw-semibold fs-5 mb-5" style="text-align: center;"><?= esc($subTitle) ?></div>
-                                <div class="fw-bold text-primary fs-3 text-center">
+                                <h1 class="text-gray-900 mb-3" style="font-size: 2.5rem;"><?= esc($pageTitle) ?></h1>
+                                <div class="text-muted fw-semibold fs-5 mb-5"><?= esc($subTitle) ?></div>
+                                <div class="fw-bold text-primary fs-3">
                                     <?= esc((string)($userEmail ?: $fallbackEmail)) ?>
                                 </div>
                             </div>
@@ -127,56 +114,33 @@
                                 <input type="hidden" name="token" id="full_token_input" />
                             </div>
 
-                            <div class="d-flex flex-center">
-                                <button type="submit" class="btn btn-lg btn-primary fw-bold w-100">
-                                    <span class="indicator-label"><?= esc($submitLabel) ?></span>
-                                </button>
-                            </div>
+                            <button type="submit" class="btn btn-lg btn-primary fw-bold w-100">
+                                <?= esc($submitLabel) ?>
+                            </button>
                         </form>
 
                         <div class="text-center fw-semibold fs-5 mb-10">
                             <span class="text-muted me-1"><?= esc($noCodeText) ?></span>
-                            <form method="POST" action="<?= base_url('resend-otp') ?>" class="d-inline">
-                                <?= csrf_field() ?>
-                                <button type="submit" class="btn btn-link link-primary fs-5 p-0 align-baseline"><?= esc($resendText) ?></button>
-                            </form>
+                            <a href="<?= base_url('resend-otp') ?>" class="link-primary fs-5"><?= esc($resendText) ?></a>
                         </div>
 
-                        <div class="d-flex flex-stack">
-                            <div class="me-10">
-                                <button class="btn btn-flex btn-link btn-color-gray-700 btn-active-color-primary rotate fs-base px-0" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-start" data-kt-menu-offset="0px, 0px">
-                                    <img class="w-20px h-20px rounded me-3" src="<?= base_url('assets/media/flags/' . $langFlag) ?>" alt="lang" />
-                                    <span class="me-1"><?= esc($langName) ?></span>
-                                    <span class="svg-icon svg-icon-5 text-muted rotate-180 m-0" aria-hidden="true">
-                                        <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                            <path d="M3 4.5L6 7.5L9 4.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                                        </svg>
-                                    </span>
-                                </button>
-                                <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-800 menu-state-bg-light-primary fw-semibold w-200px py-4 fs-7" data-kt-menu="true">
-                                    <div class="menu-item px-3">
-                                        <a href="<?= base_url('lang?lang=en') ?>" class="menu-link d-flex px-5">
-                                            <span class="symbol symbol-20px me-4">
-                                                <img class="rounded-1" src="<?= base_url('assets/media/flags/united-states.svg') ?>" alt="EN" />
-                                            </span>
-                                            <span>English</span>
-                                        </a>
-                                    </div>
-                                    <div class="menu-item px-3">
-                                        <a href="<?= base_url('lang?lang=ms') ?>" class="menu-link d-flex px-5">
-                                            <span class="symbol symbol-20px me-4">
-                                                <img class="rounded-1" src="<?= base_url('assets/media/flags/malaysia.svg') ?>" alt="MS" />
-                                            </span>
-                                            <span>Bahasa Melayu</span>
-                                        </a>
-                                    </div>
+                        <div class="me-10">
+                            <button class="btn btn-flex btn-link btn-color-gray-700 btn-active-color-primary fs-base px-0" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-start">
+                                <img class="w-20px h-20px rounded me-3" src="<?= base_url('assets/media/flags/' . $langFlag) ?>" />
+                                <span class="me-1"><?= esc($langName) ?></span>
+                            </button>
+                            <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-800 w-200px py-4" data-kt-menu="true">
+                                <div class="menu-item px-3">
+                                    <a href="<?= base_url('lang?lang=en') ?>" class="menu-link px-5">English</a>
+                                </div>
+                                <div class="menu-item px-3">
+                                    <a href="<?= base_url('lang?lang=ms') ?>" class="menu-link px-5">Bahasa Melayu</a>
                                 </div>
                             </div>
                         </div>
 
                     </div>
                 </div>
-
             </div>
         </div>
 
@@ -188,15 +152,12 @@
                 const fullTokenInput = document.getElementById('full_token_input');
 
                 otpInputs.forEach((input, index) => {
-                    // Auto-tab ke kotak seterusnya
                     input.addEventListener('input', (e) => {
                         if (e.target.value.length === 1 && index < otpInputs.length - 1) {
                             otpInputs[index + 1].focus();
                         }
                         updateFullToken();
                     });
-
-                    // Backspace tab balik ke kotak sebelum
                     input.addEventListener('keydown', (e) => {
                         if (e.key === 'Backspace' && !e.target.value && index > 0) {
                             otpInputs[index - 1].focus();

@@ -3,11 +3,10 @@
 namespace App\Controllers;
 
 use CodeIgniter\I18n\Time;
-use CodeIgniter\Shield\Entities\User;
 use CodeIgniter\Shield\Authentication\Authenticators\Session as SessionAuthenticator;
 use CodeIgniter\Shield\Models\RememberModel;
-use CodeIgniter\Shield\Models\UserModel;
 use CodeIgniter\Shield\Models\UserIdentityModel;
+use App\Models\UserModel;
 
 class MagicLinkController extends \CodeIgniter\Shield\Controllers\MagicLinkController
 {
@@ -51,15 +50,28 @@ class MagicLinkController extends \CodeIgniter\Shield\Controllers\MagicLinkContr
             return redirect()->route('magic-link')->with('error', lang('Auth.invalidEmail', [$emailAddress]));
         }
 
+        $userId = $user->id ?? null;
+        if ($userId === null) {
+            return redirect()->route('magic-link')->with('error', 'Pengguna tidak lengkap. Sila cuba lagi.');
+        }
+
+        $userModel = model(UserModel::class);
+        $user = $userModel->findById($userId);
+        if ($user === null) {
+            return redirect()->route('magic-link')->with('error', 'Pengguna tidak ditemui.');
+        }
+
         /** @var UserIdentityModel $identityModel */
         $identityModel = model(UserIdentityModel::class);
-        $identityModel->deleteIdentitiesByType($user, SessionAuthenticator::ID_TYPE_MAGIC_LINK);
+        $identityModel->where('user_id', $userId)
+            ->where('type', SessionAuthenticator::ID_TYPE_MAGIC_LINK)
+            ->delete();
 
         helper('text');
         $token = random_string('crypto', 20);
 
         $identityModel->insert([
-            'user_id' => $user->id,
+            'user_id' => $userId,
             'type'    => SessionAuthenticator::ID_TYPE_MAGIC_LINK,
             'secret'  => $token,
             'expires' => Time::now()->addSeconds(setting('Auth.magicLinkLifetime')),
@@ -131,7 +143,14 @@ class MagicLinkController extends \CodeIgniter\Shield\Controllers\MagicLinkContr
                 ->with('error', 'Sesi tetapan semula kata laluan tidak sah atau telah tamat.');
         }
 
-        return view('auth/reset_password');
+        $userModel = model(UserModel::class);
+        $user = $userModel->findById((int) $resetUserId);
+        if ($user === null) {
+            return redirect()->to(base_url('forgot-password'))
+                ->with('error', 'Pengguna tidak ditemui.');
+        }
+
+        return view('auth/reset_password', ['user' => $user]);
     }
 
     public function resetPasswordAction()
@@ -145,7 +164,8 @@ class MagicLinkController extends \CodeIgniter\Shield\Controllers\MagicLinkContr
         }
 
         $rules = [
-            'password' => 'required|strong_password',
+            'user_id' => 'required|integer',
+            'password' => 'required',
             'confirm_password' => 'required|matches[password]',
         ];
 
@@ -153,20 +173,30 @@ class MagicLinkController extends \CodeIgniter\Shield\Controllers\MagicLinkContr
             return redirect()->back()->withInput()->with('errors', $this->validator->getErrors());
         }
 
-        /** @var UserModel $users */
-        $users = model(UserModel::class);
-        /** @var User|null $user */
-        $user = $users->findById((int) $resetUserId);
+        $postedUserId = (int) $this->request->getPost('user_id');
+        if ($postedUserId !== (int) $resetUserId) {
+            return redirect()->to(base_url('forgot-password'))
+                ->with('error', 'Pengguna tidak sah untuk sesi ini.');
+        }
 
-        if (! $user) {
+        $userModel = model(UserModel::class);
+        $user = $userModel->findById($postedUserId);
+        if ($user === null) {
             return redirect()->to(base_url('forgot-password'))
                 ->with('error', 'Pengguna tidak ditemui.');
         }
 
-        $user->password = (string) $this->request->getPost('password');
-        $users->save($user);
+        $newPassword = (string) $this->request->getPost('password');
+        
+        // Manual password strength check to prevent LogicException with incomplete User object
+        $checker = service('passwords');
+        $result = $checker->check($newPassword, $user);
+        if (! $result->isOK()) {
+            return redirect()->back()->withInput()->with('errors', ['password' => $result->reason()]);
+        }
+        $user->fill(['password' => $newPassword]);
+        $user->saveEmailIdentity();
 
-        // Buang semua token "remember me" lama supaya hanya kata laluan baharu sah digunakan
         /** @var RememberModel $rememberModel */
         $rememberModel = model(RememberModel::class);
         $rememberModel->where('user_id', $user->id)->delete();

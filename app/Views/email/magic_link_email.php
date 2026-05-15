@@ -17,7 +17,8 @@
         $warning = $isMs
             ? 'Pautan ini sah untuk 5 minit sahaja'
             : 'This link is valid for 5 minutes only.';
-        $magicLinkUrl = base_url('magic-link') . '?token=' . urlencode((string) $token);
+        $tokenValue = isset($token) ? (string) $token : '';
+        $magicLinkUrl = base_url('magic-link') . '?token=' . urlencode($tokenValue);
     ?>
     <table align="center" border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width: 600px; margin: 20px auto; background-color: #ffffff; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 10px rgba(0,0,0,0.05);">
         <tr>

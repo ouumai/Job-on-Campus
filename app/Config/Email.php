@@ -28,7 +28,7 @@ class Email extends BaseConfig
     /**
      * SMTP Server Hostname
      */
-    public string $SMTPHost = 'sandbox.smtp.mailtrap.io';
+    public string $SMTPHost = 'smtp.gmail.com';
 
     /**
      * Which SMTP authentication method to use: login, plain
@@ -38,17 +38,17 @@ class Email extends BaseConfig
     /**
      * SMTP Username
      */
-    public string $SMTPUser = '43be73b2e3c1ac';
+    public string $SMTPUser = 'n.umairahsabri@gmail.com';
 
     /**
      * SMTP Password
      */
-    public string $SMTPPass = '26db5688683790';
+    public string $SMTPPass = 'mwnbdfekilhqlnwc';
 
     /**
      * SMTP Port
      */
-    public int $SMTPPort = 2525;
+    public int $SMTPPort = 587;
 
     /**
      * SMTP Timeout (in seconds)

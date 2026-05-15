@@ -1,12 +1,16 @@
 <?php
 $metronic = base_url('assets/');
-$currentLang = session()->get('lang') ?? 'en';
+$sessionLang = session()->get('lang');
+$currentLang = is_string($sessionLang) && $sessionLang !== '' ? $sessionLang : 'en';
 $isMs = $currentLang === 'ms';
 $title = $isMs ? 'Tetapan Semula Kata Laluan' : 'Reset Password';
 $subtitle = $isMs ? 'Cipta kata laluan baharu untuk akaun anda.' : 'Create a new password for your account.';
 $passLabel = $isMs ? 'Kata Laluan Baharu' : 'New Password';
 $confirmLabel = $isMs ? 'Sahkan Kata Laluan Baharu' : 'Confirm New Password';
 $submitText = $isMs ? 'Simpan Kata Laluan' : 'Save Password';
+$passwordHint = $isMs
+    ? 'Gunakan 8 atau lebih aksara dengan gabungan huruf, nombor dan simbol.'
+    : 'Use 8 or more characters with a mix of letters, numbers & symbols.';
 $langName = $isMs ? 'Bahasa Melayu' : 'English';
 $langFlag = $isMs ? 'malaysia.svg' : 'united-states.svg';
 ?>
@@ -42,13 +46,56 @@ $langFlag = $isMs ? 'malaysia.svg' : 'united-states.svg';
                 <div class="d-flex flex-center flex-column align-items-stretch h-lg-100 w-100 w-md-450px mx-auto">
                     <form class="form w-100" method="POST" action="<?= base_url('reset-password') ?>">
                         <?= csrf_field() ?>
+                        <input type="hidden" name="user_id" value="<?= esc((string) ($user->id ?? '')) ?>">
 
                         <?php if (session('error')) : ?>
-                            <div class="alert alert-danger" role="alert"><?= session('error') ?></div>
+                            <div class="alert alert-danger" role="alert">
+                            <?php
+                            $error = session('error');
+                            $messages = [];
+
+                            if (is_array($error)) {
+                                foreach ($error as $err) {
+                                    if (is_array($err)) {
+                                        foreach ($err as $message) {
+                                            $messages[] = $message;
+                                        }
+                                    } else {
+                                        $messages[] = $err;
+                                    }
+                                }
+                            } else {
+                                $messages[] = $error;
+                            }
+
+                            echo implode('<br>', array_map('esc', $messages));
+                            ?>
+                        </div>
                         <?php endif ?>
 
                         <?php if (session('errors')) : ?>
-                            <div class="alert alert-danger" role="alert"><?= implode('<br>', session('errors')) ?></div>
+                            <div class="alert alert-danger" role="alert">
+                                <?php
+                                $errors = session('errors');
+                                $messages = [];
+
+                                if (is_array($errors)) {
+                                    foreach ($errors as $error) {
+                                        if (is_array($error)) {
+                                            foreach ($error as $message) {
+                                                $messages[] = $message;
+                                            }
+                                        } else {
+                                            $messages[] = $error;
+                                        }
+                                    }
+                                } else {
+                                    $messages[] = $errors;
+                                }
+
+                                echo implode('<br>', array_map('esc', $messages));
+                                ?>
+                            </div>
                         <?php endif ?>
 
                         <div class="text-center mb-11">
@@ -56,8 +103,23 @@ $langFlag = $isMs ? 'malaysia.svg' : 'united-states.svg';
                             <div class="text-gray-500 fw-semibold fs-6"><?= esc($subtitle) ?></div>
                         </div>
 
-                        <div class="fv-row mb-8">
-                            <input type="password" placeholder="<?= esc($passLabel) ?>" name="password" autocomplete="off" class="form-control bg-transparent" required />
+                        <div class="fv-row mb-8" data-kt-password-meter="true">
+                            <div class="mb-1">
+                                <div class="position-relative mb-3">
+                                    <input type="password" placeholder="<?= esc($passLabel) ?>" name="password" autocomplete="off" class="form-control bg-transparent" required />
+                                    <span class="btn btn-sm btn-icon position-absolute translate-middle top-50 end-0 me-n2" data-kt-password-meter-control="visibility">
+                                        <i class="ki-duotone ki-eye-slash fs-2"></i>
+                                        <i class="ki-duotone ki-eye fs-2 d-none"></i>
+                                    </span>
+                                </div>
+                                <div class="d-flex align-items-center mb-3" data-kt-password-meter-control="highlight">
+                                    <div class="flex-grow-1 bg-secondary bg-active-success rounded h-5px me-2"></div>
+                                    <div class="flex-grow-1 bg-secondary bg-active-success rounded h-5px me-2"></div>
+                                    <div class="flex-grow-1 bg-secondary bg-active-success rounded h-5px me-2"></div>
+                                    <div class="flex-grow-1 bg-secondary bg-active-success rounded h-5px"></div>
+                                </div>
+                            </div>
+                            <div class="text-muted fs-7"><?= esc($passwordHint) ?></div>
                         </div>
 
                         <div class="fv-row mb-8">
@@ -105,5 +167,27 @@ $langFlag = $isMs ? 'malaysia.svg' : 'united-states.svg';
 </div>
 <script src="<?= $metronic ?>plugins/global/plugins.bundle.js"></script>
 <script src="<?= $metronic ?>js/scripts.bundle.js"></script>
+<script id="lang-switch-ajax">
+document.addEventListener('DOMContentLoaded', function () {
+    const langLinks = document.querySelectorAll('a[href*="lang?lang="]');
+    langLinks.forEach(function (link) {
+        link.addEventListener('click', function (e) {
+            e.preventDefault();
+            fetch(link.href, {
+                method: 'GET',
+                headers: {
+                    'X-Requested-With': 'XMLHttpRequest',
+                    'Accept': 'application/json'
+                },
+                credentials: 'same-origin'
+            })
+            .then(function () { window.location.reload(); })
+            .catch(function () { window.location.href = link.href; });
+        });
+    });
+});
+</script>
 </body>
 </html>
+
+

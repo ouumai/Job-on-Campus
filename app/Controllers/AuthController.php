@@ -161,8 +161,25 @@ class AuthController extends BaseController
         ]);
 
         // 4. SIMPAN KE DATABASE
-        $users->save($user);
-        $user = $users->findById($users->getInsertID());
+        if (! $users->save($user)) {
+            return redirect()->back()
+                ->withInput()
+                ->with('error', 'Pendaftaran gagal. Sila cuba lagi.');
+        }
+
+        $userId = (int) $users->getInsertID();
+        if ($userId === 0) {
+            return redirect()->back()
+                ->withInput()
+                ->with('error', 'Pendaftaran gagal. Sila cuba lagi.');
+        }
+
+        $user = $users->findById($userId);
+        if (! $user) {
+            return redirect()->back()
+                ->withInput()
+                ->with('error', 'Pengguna tidak ditemui selepas pendaftaran.');
+        }
 
         // 5. TAMBAH GROUP
         $category = $this->request->getPost('user_category');
@@ -172,7 +189,7 @@ class AuthController extends BaseController
         /** @var \CodeIgniter\Shield\Authentication\Authenticators\Session $authenticator */
         $authenticator = auth('session')->getAuthenticator();
 
-        $authenticator->loginById($user->id);
+        $authenticator->loginById($userId);
 
         // 7-9. GENERATE, SIMPAN DAN HANTAR OTP
         $this->issueAndSendOtp($user, $language);
@@ -286,16 +303,39 @@ class AuthController extends BaseController
 
     private function issueAndSendOtp($user, string $language): bool
     {
+        $userId = null;
+        $userEmail = null;
+
+        if (is_object($user)) {
+            $userId = $user->id ?? null;
+            $userEmail = $user->email ?? null;
+        } elseif (is_array($user)) {
+            $userId = $user['id'] ?? null;
+            $userEmail = $user['email'] ?? null;
+        }
+
+        if (empty($userId)) {
+            $userId = auth()->id();
+        }
+
+        if (empty($userEmail) && auth()->loggedIn()) {
+            $userEmail = auth()->user()->email ?? null;
+        }
+
+        if (empty($userId) || empty($userEmail)) {
+            return false;
+        }
+
         $otp = (string) random_int(100000, 999999);
         $db = db_connect();
 
         $db->table('auth_identities')
-            ->where('user_id', $user->id)
+            ->where('user_id', $userId)
             ->where('type', 'email_otp')
             ->delete();
 
         $db->table('auth_identities')->insert([
-            'user_id' => $user->id,
+            'user_id' => $userId,
             'type'    => 'email_otp',
             'secret'  => $otp,
             'secret2' => null,
@@ -303,7 +343,7 @@ class AuthController extends BaseController
         ]);
 
         $otpRecord = $db->table('auth_identities')
-            ->where('user_id', $user->id)
+            ->where('user_id', $userId)
             ->where('type', 'email_otp')
             ->orderBy('id', 'DESC')
             ->get()
@@ -311,7 +351,7 @@ class AuthController extends BaseController
         $otpFromDb = (string) ($otpRecord->secret ?? '');
 
         $email = service('email');
-        $email->setTo($user->email);
+        $email->setTo($userEmail);
         $email->setSubject(
             $language === 'ms'
                 ? 'Kod Pengesahan Akaun'

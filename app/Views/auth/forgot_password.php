@@ -129,5 +129,27 @@ $loginText = $currentLang === 'ms' ? 'Log Masuk' : 'Login';
 </div>
 <script src="<?= $metronic ?>plugins/global/plugins.bundle.js"></script>
 <script src="<?= $metronic ?>js/scripts.bundle.js"></script>
+<script id="lang-switch-ajax">
+document.addEventListener('DOMContentLoaded', function () {
+    const langLinks = document.querySelectorAll('a[href*="lang?lang="]');
+    langLinks.forEach(function (link) {
+        link.addEventListener('click', function (e) {
+            e.preventDefault();
+            fetch(link.href, {
+                method: 'GET',
+                headers: {
+                    'X-Requested-With': 'XMLHttpRequest',
+                    'Accept': 'application/json'
+                },
+                credentials: 'same-origin'
+            })
+            .then(function () { window.location.reload(); })
+            .catch(function () { window.location.href = link.href; });
+        });
+    });
+});
+</script>
 </body>
 </html>
+
+
