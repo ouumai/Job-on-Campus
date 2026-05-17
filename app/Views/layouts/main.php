@@ -50,6 +50,56 @@
             color: #009ef7 !important;
         }
 
+        .notification-button {
+            transition: color .2s ease-in-out;
+            background-color: transparent !important;
+            border: none !important;
+            box-shadow: none !important;
+            width: 48px !important;
+            height: 48px !important;
+            min-width: 48px !important;
+            min-height: 48px !important;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0 !important;
+            font-size: 1.6rem;
+        }
+
+        .notification-button i {
+            transition: color .2s ease-in-out;
+            font-size: 1.6rem;
+            display: block;
+            width: 100%;
+            text-align: center;
+        }
+
+        .notification-button:hover,
+        .notification-button:focus,
+        .notification-button:active {
+            color: #009ef7 !important;
+            background-color: transparent !important;
+            border: none !important;
+            box-shadow: none !important;
+        }
+
+        .notification-button:hover i,
+        .notification-button:focus i,
+        .notification-button:active i {
+            color: #009ef7 !important;
+        }
+
+        .language-toggle {
+            transition: background-color .2s ease-in-out;
+            min-width: 90px;
+        }
+
+        .language-toggle .lang-label {
+            margin-left: 0.35rem;
+            font-weight: 500;
+            color: #444;
+        }
+
 		#kt_footer {
         background: rgba(255, 255, 255, 0.15) !important; /* Background lutsinar */
         backdrop-filter: blur(10px);
@@ -79,32 +129,174 @@
                             <div class="header-menu align-items-stretch">
                                 <div class="menu menu-lg-rounded menu-column menu-lg-row menu-state-bg menu-title-gray-700 menu-state-title-primary fw-bold my-5 my-lg-0" id="#kt_header_menu" data-kt-menu="true">
                                     
-                                    <div class="menu-item me-lg-1">
-                                        <a class="menu-link py-3" href="<?= site_url('dashboard') ?>">
-                                            <span class="menu-title"><?= lang('Joc.nav_dashboard') ?></span>
-                                        </a>
-                                    </div>
-
                                     <?php if (auth()->user()->inGroup('student')): ?>
                                         <div class="menu-item me-lg-1">
-                                            <a class="menu-link py-3" href="<?= site_url('pelajar/mohon') ?>">
-                                                <span class="menu-title"><?= lang('Joc.nav_job_ads') ?></span>
+                                            <a class="menu-link py-3" href="<?= site_url('semakan') ?>">
+                                                <span class="menu-title"><?= lang('Joc.nav_main_dashboard') ?></span>
                                             </a>
                                         </div>
+
+                                        <div data-kt-menu-trigger="click" data-kt-menu-placement="bottom-start" class="menu-item menu-lg-down-accordion me-lg-1">
+                                            <span class="menu-link py-3">
+                                                <span class="menu-title"><?= lang('Joc.nav_search_jobs') ?></span>
+                                                <span class="menu-arrow d-lg-none"></span>
+                                            </span>
+                                            <div class="menu-sub menu-sub-lg-down-accordion menu-sub-lg-dropdown menu-rounded-0 py-lg-4 w-lg-225px">
+                                                <div class="menu-item px-3">
+                                                    <a class="menu-link py-3" href="<?= site_url('pelajar/iklan_senarai') ?>">
+                                                        <span class="menu-title"><?= lang('Joc.nav_active_ads') ?></span>
+                                                    </a>
+                                                </div>
+                                                <div class="menu-item px-3">
+                                                    <a class="menu-link py-3" href="<?= site_url('pelajar/permohonan_senarai') ?>">
+                                                        <span class="menu-title"><?= lang('Joc.nav_application_records') ?></span>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+
                                         <div class="menu-item me-lg-1">
-                                            <a class="menu-link py-3" href="<?= site_url('pelajar/semakan') ?>">
-                                                <span class="menu-title"><?= lang('Joc.nav_my_status') ?></span>
+                                            <a class="menu-link py-3" href="<?= site_url('pelajar/surat_senarai') ?>">
+                                                <span class="menu-title"><?= lang('Joc.nav_job_offers') ?></span>
                                             </a>
                                         </div>
+
+                                        <div data-kt-menu-trigger="click" data-kt-menu-placement="bottom-start" class="menu-item menu-lg-down-accordion me-lg-1">
+                                            <span class="menu-link py-3">
+                                                <span class="menu-title"><?= lang('Joc.nav_job_log') ?></span>
+                                                <span class="menu-arrow d-lg-none"></span>
+                                            </span>
+                                            <div class="menu-sub menu-sub-lg-down-accordion menu-sub-lg-dropdown menu-rounded-0 py-lg-4 w-lg-225px">
+                                                <div class="menu-item px-3">
+                                                    <a class="menu-link py-3" href="<?= site_url('pelajar/timesheet_form') ?>">
+                                                        <span class="menu-title"><?= lang('Joc.nav_timesheet_form') ?></span>
+                                                    </a>
+                                                </div>
+                                                <div class="menu-item px-3">
+                                                    <a class="menu-link py-3" href="<?= site_url('pelajar/claim_form') ?>">
+                                                        <span class="menu-title"><?= lang('Joc.nav_claim_form') ?></span>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+
                                     <?php elseif (auth()->user()->inGroup('supervisor')): ?>
+                                        <div data-kt-menu-trigger="click" data-kt-menu-placement="bottom-start" class="menu-item menu-lg-down-accordion me-lg-1">
+                                            <span class="menu-link py-3">
+                                                <span class="menu-title"><?= lang('Joc.nav_job_management') ?></span>
+                                                <span class="menu-arrow d-lg-none"></span>
+                                            </span>
+                                            <div class="menu-sub menu-sub-lg-down-accordion menu-sub-lg-dropdown menu-rounded-0 py-lg-4 w-lg-225px">
+                                                <div class="menu-item px-3">
+                                                    <a class="menu-link py-3" href="<?= site_url('penyelia/iklan/senarai') ?>">
+                                                        <span class="menu-title"><?= lang('Joc.nav_my_ads') ?></span>
+                                                    </a>
+                                                </div>
+                                                <div class="menu-item px-3">
+                                                    <a class="menu-link py-3" href="<?= site_url('penyelia/iklan/form') ?>">
+                                                        <span class="menu-title"><?= lang('Joc.nav_create_ad') ?></span>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div data-kt-menu-trigger="click" data-kt-menu-placement="bottom-start" class="menu-item menu-lg-down-accordion me-lg-1">
+                                            <span class="menu-link py-3">
+                                                <span class="menu-title"><?= lang('Joc.nav_candidate_recruitment') ?></span>
+                                                <span class="menu-arrow d-lg-none"></span>
+                                            </span>
+                                            <div class="menu-sub menu-sub-lg-down-accordion menu-sub-lg-dropdown menu-rounded-0 py-lg-4 w-lg-225px">
+                                                <div class="menu-item px-3">
+                                                    <a class="menu-link py-3" href="<?= site_url('penyelia/calon/senarai') ?>">
+                                                        <span class="menu-title"><?= lang('Joc.nav_candidate_list') ?></span>
+                                                    </a>
+                                                </div>
+                                                <div class="menu-item px-3">
+                                                    <a class="menu-link py-3" href="<?= site_url('penyelia/calon/import') ?>">
+                                                        <span class="menu-title"><?= lang('Joc.nav_import_candidates') ?></span>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div data-kt-menu-trigger="click" data-kt-menu-placement="bottom-start" class="menu-item menu-lg-down-accordion me-lg-1">
+                                            <span class="menu-link py-3">
+                                                <span class="menu-title"><?= lang('Joc.nav_ptj_approval') ?></span>
+                                                <span class="menu-arrow d-lg-none"></span>
+                                            </span>
+                                            <div class="menu-sub menu-sub-lg-down-accordion menu-sub-lg-dropdown menu-rounded-0 py-lg-4 w-lg-225px">
+                                                <div class="menu-item px-3">
+                                                    <a class="menu-link py-3" href="<?= site_url('penyelia/bajet_ptj') ?>">
+                                                        <span class="menu-title"><?= lang('Joc.nav_ptj_ad_approval') ?></span>
+                                                    </a>
+                                                </div>
+                                                <div class="menu-item px-3">
+                                                    <a class="menu-link py-3" href="<?= site_url('penyelia/ketua_projek') ?>">
+                                                        <span class="menu-title"><?= lang('Joc.nav_fund_approval') ?></span>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div data-kt-menu-trigger="click" data-kt-menu-placement="bottom-start" class="menu-item menu-lg-down-accordion me-lg-1">
+                                            <span class="menu-link py-3">
+                                                <span class="menu-title"><?= lang('Joc.nav_review_reports') ?></span>
+                                                <span class="menu-arrow d-lg-none"></span>
+                                            </span>
+                                            <div class="menu-sub menu-sub-lg-down-accordion menu-sub-lg-dropdown menu-rounded-0 py-lg-4 w-lg-225px">
+                                                <div class="menu-item px-3">
+                                                    <a class="menu-link py-3" href="<?= site_url('penyelia/semakan') ?>">
+                                                        <span class="menu-title"><?= lang('Joc.nav_student_work_verification') ?></span>
+                                                    </a>
+                                                </div>
+                                                <div class="menu-item px-3">
+                                                    <a class="menu-link py-3" href="<?= site_url('penyelia/laporan_ptj') ?>">
+                                                        <span class="menu-title"><?= lang('Joc.nav_ptj_report') ?></span>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    <?php elseif (auth()->user()->inGroup('career')): ?>
                                         <div class="menu-item me-lg-1">
-                                            <a class="menu-link py-3" href="<?= site_url('penyelia/iklan') ?>">
-                                                <span class="menu-title"><?= lang('Joc.nav_my_ads') ?></span>
+                                            <a class="menu-link py-3" href="<?= site_url('pengguna/dashboard') ?>">
+                                                <span class="menu-title"><?= lang('Joc.nav_main_statistics') ?></span>
                                             </a>
                                         </div>
+
+                                        <div data-kt-menu-trigger="click" data-kt-menu-placement="bottom-start" class="menu-item menu-lg-down-accordion me-lg-1">
+                                            <span class="menu-link py-3">
+                                                <span class="menu-title"><?= lang('Joc.nav_ads_monitoring') ?></span>
+                                                <span class="menu-arrow d-lg-none"></span>
+                                            </span>
+                                            <div class="menu-sub menu-sub-lg-down-accordion menu-sub-lg-dropdown menu-rounded-0 py-lg-4 w-lg-225px">
+                                                <div class="menu-item px-3">
+                                                    <a class="menu-link py-3" href="<?= site_url('urusetia/iklan/senarai') ?>">
+                                                        <span class="menu-title"><?= lang('Joc.nav_all_system_ads') ?></span>
+                                                    </a>
+                                                </div>
+                                                <div class="menu-item px-3">
+                                                    <a class="menu-link py-3" href="<?= site_url('urusetia/iklan/form') ?>">
+                                                        <span class="menu-title"><?= lang('Joc.nav_career_ad_form') ?></span>
+                                                    </a>
+                                                </div>
+                                                <div class="menu-item px-3">
+                                                    <a class="menu-link py-3" href="<?= site_url('urusetia/iklan/calon_senarai') ?>">
+                                                        <span class="menu-title"><?= lang('Joc.nav_applicant_audit') ?></span>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+
                                         <div class="menu-item me-lg-1">
-                                            <a class="menu-link py-3" href="<?= site_url('penyelia/semakan') ?>">
-                                                <span class="menu-title"><?= lang('Joc.nav_verification') ?></span>
+                                            <a class="menu-link py-3" href="<?= site_url('kelulusan/senarai') ?>">
+                                                <span class="menu-title"><?= lang('Joc.nav_approval_inbox') ?></span>
+                                            </a>
+                                        </div>
+
+                                        <div class="menu-item me-lg-1">
+                                            <a class="menu-link py-3" href="<?= site_url('pengguna/bajet') ?>">
+                                                <span class="menu-title"><?= lang('Joc.nav_budget_management') ?></span>
                                             </a>
                                         </div>
                                     <?php endif; ?>
@@ -114,41 +306,41 @@
 
                         <div class="d-flex align-items-center flex-shrink-0">
                             
-                            <div class="d-flex align-items-center ms-1 ms-lg-3">
+                            <div class="d-flex align-items-center ms-0 ms-lg-0">
                                 <?php 
                                     $notifModel = model(NotifikasiModel::class);
                                     $user = auth()->user();
                                     $unreadCount = $notifModel->countUnread($user->matrik ?? $user->id);
                                 ?>
-                                <div class="btn btn-icon btn-active-light-primary position-relative w-30px h-30px w-md-40px h-md-40px" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">
+                                <div class="btn btn-icon position-relative notification-button" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">
                                     <i class="fa-duotone fa-solid fa-bell"></i>
-                                        <span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span><span class="path5"></span>
-                                    </i>
                                     <?php if ($unreadCount > 0): ?>
                                         <span class="badge badge-circle badge-danger position-absolute top-0 start-100 translate-middle fs-9">
-                                            <?= $unreadCount > 99 ? '99+' : $unreadCount ?> 
+                                            <?= $unreadCount > 99 ? '99+' : $unreadCount ?>
                                         </span>
                                     <?php endif; ?>
                                 </div>
                             </div>
 
-                            <div class="d-flex align-items-center ms-1 ms-lg-3">
+                            <div class="d-flex align-items-center ms-1 ms-lg-1">
                                 <?php 
                                     $currentLang = session('lang') ?? 'ms';
                                     $flag = ($currentLang == 'en') ? 'united-states.svg' : 'malaysia.svg';
+                                    $langName = ($currentLang == 'en') ? lang('Joc.language_english') : lang('Joc.language_malay');
                                 ?>
-                                <button class="btn btn-icon btn-active-light-primary w-30px h-30px w-md-40px h-md-40px" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">
+                                <button class="btn btn-active-light-primary d-flex align-items-center language-toggle" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">
                                     <img class="h-20px w-20px rounded-sm" src="<?= base_url('assets/media/flags/' . $flag) ?>" alt="lang" />
+                                    <span class="lang-label d-none d-md-inline"><?= esc($langName) ?></span>
                                 </button>
                                 <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-800 menu-state-bg menu-state-primary fw-bold py-4 fs-6 w-200px" data-kt-menu="true">
                                     <div class="menu-item px-3">
                                         <a href="<?= site_url('lang?lang=en') ?>" class="menu-link d-flex px-5 <?= ($currentLang == 'en') ? 'active' : '' ?>">
-                                            <span class="symbol symbol-20px me-4"><img class="rounded-1" src="<?= base_url('assets/media/flags/united-states.svg') ?>" /></span>English
+                                            <span class="symbol symbol-20px me-4"><img class="rounded-1" src="<?= base_url('assets/media/flags/united-states.svg') ?>" /></span><?= lang('Joc.language_english') ?>
                                         </a>
                                     </div>
                                     <div class="menu-item px-3">
                                         <a href="<?= site_url('lang?lang=ms') ?>" class="menu-link d-flex px-5 <?= ($currentLang == 'ms') ? 'active' : '' ?>">
-                                            <span class="symbol symbol-20px me-4"><img class="rounded-1" src="<?= base_url('assets/media/flags/malaysia.svg') ?>" /></span>Bahasa Melayu
+                                            <span class="symbol symbol-20px me-4"><img class="rounded-1" src="<?= base_url('assets/media/flags/malaysia.svg') ?>" /></span><?= lang('Joc.language_malay') ?>
                                         </a>
                                     </div>
                                 </div>
@@ -170,9 +362,27 @@
                                             </div>
                                             <div class="d-flex flex-column">
                                                 <div class="fw-bold d-flex align-items-center fs-5"><?= esc($user->first_name . ' ' . $user->last_name) ?></div>
+                                                <?php 
+                                                    $roleGroups = $user->getGroups() ?: ['guest'];
+                                                    $roleMap = [
+                                                        'student' => 'Joc.role_student',
+                                                        'supervisor' => 'Joc.role_supervisor',
+                                                        'career' => 'Joc.role_career',
+                                                        'admin' => 'Joc.role_admin',
+                                                        'guest' => 'Joc.role_guest',
+                                                    ];
+                                                    $roleLabels = array_map(function ($group) use ($roleMap) {
+                                                        $key = strtolower($group);
+                                                        if (isset($roleMap[$key])) {
+                                                            return lang($roleMap[$key]);
+                                                        }
+                                                        return ucfirst(str_replace(['-', '_'], ' ', $group));
+                                                    }, $roleGroups);
+                                                    $roleText = implode(', ', $roleLabels);
+                                                ?>
                                                 <div class="mt-1">
                                                     <span class="badge badge-light-info fw-bold fs-8 px-2 py-1 text-capitalize">
-                                                        <?= esc(strtolower($user->group ?? 'guest')) ?>
+                                                        <?= esc($roleText) ?>
                                                     </span>
                                                 </div>
                                                 <a href="#" class="fw-semibold text-muted text-hover-primary fs-7 mt-1"><?= esc($user->email) ?></a>
@@ -180,9 +390,9 @@
                                         </div>
                                     </div>
                                     <div class="separator my-2"></div>
-                                    <div class="menu-item px-5"><a href="<?= site_url('user/profile') ?>" class="menu-link px-5">Profil Saya</a></div>
+                                    <div class="menu-item px-5"><a href="<?= site_url('user/profile') ?>" class="menu-link px-5"><?= lang('Joc.nav_profile') ?></a></div>
                                     <div class="separator my-2"></div>
-                                    <div class="menu-item px-5"><a href="<?= site_url('logout') ?>" class="menu-link px-5 text-danger">Log Keluar</a></div>
+                                    <div class="menu-item px-5"><a href="<?= site_url('logout') ?>" class="menu-link px-5 text-danger"><?= lang('Joc.nav_logout') ?></a></div>
                                 </div>
                             </div>
                         </div>
@@ -194,7 +404,7 @@
                         <div class="page-title d-flex flex-column me-3">
                             <h1 class="d-flex text-white fw-bold my-1 fs-3"><?= $this->renderSection('page-title') ?></h1>
                             <ul class="breadcrumb breadcrumb-separatorless fw-semibold fs-7 my-1">
-                                <li class="breadcrumb-item text-white opacity-75"><a href="<?= site_url('dashboard') ?>" class="text-white text-hover-primary">Home</a></li>
+                                <li class="breadcrumb-item text-white opacity-75"><a href="<?= site_url('dashboard') ?>" class="text-white text-hover-primary"><?= lang('Joc.nav_home') ?></a></li>
                                 <li class="breadcrumb-item"><span class="bullet bg-white opacity-75 w-5px h-2px"></span></li>
                                 <li class="breadcrumb-item text-white opacity-75"><?= $this->renderSection('breadcrumb') ?></li>
                             </ul>

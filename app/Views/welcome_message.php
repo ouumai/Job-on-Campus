@@ -3,12 +3,12 @@
 <?= $this->section('content') ?>
     <div class="card shadow-sm">
         <div class="card-header">
-            <h3 class="card-title">Selamat Datang, <?= $currentUser->username ?? 'User' ?>!</h3>
+            <h3 class="card-title">Selamat datang kembali, <?= esc($currentUser->username ?? 'Pengguna') ?>!</h3>
         </div>
         <div class="card-body">
-            <p>Tahniah Mai! Layout Metronic v8.3.3 kau dah berjaya diintegrasikan dengan CodeIgniter 4.7.0.</p>
+            <p>Integrasi Metronic v8.3.3 dengan CodeIgniter 4.7.0 telah berjaya disiapkan.</p>
             <div class="alert alert-primary">
-                Sistem JoC kini sedia untuk pembangunan modul seterusnya.
+                Sistem JoC kini berada pada fasa sedia untuk pembangunan modul-modul seterusnya.
             </div>
         </div>
     </div>
