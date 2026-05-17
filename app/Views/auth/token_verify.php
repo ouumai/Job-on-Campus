@@ -128,17 +128,24 @@
                             <button class="btn btn-flex btn-link btn-color-gray-700 btn-active-color-primary fs-base px-0" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-start">
                                 <img class="w-20px h-20px rounded me-3" src="<?= base_url('assets/media/flags/' . $langFlag) ?>" />
                                 <span class="me-1"><?= esc($langName) ?></span>
-                            </button>
-                            <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-800 w-200px py-4" data-kt-menu="true">
-                                <div class="menu-item px-3">
-                                    <a href="<?= base_url('lang?lang=en') ?>" class="menu-link px-5">English</a>
-                                </div>
-                                <div class="menu-item px-3">
-                                    <a href="<?= base_url('lang?lang=ms') ?>" class="menu-link px-5">Bahasa Melayu</a>
-                                </div>
-                            </div>
-                        </div>
-
+                                    <span class="svg-icon svg-icon-5 text-muted rotate-180 m-0" aria-hidden="true">
+                                        <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M3 4.5L6 7.5L9 4.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                        </svg>
+                                    </span>
+                                </button>
+                                <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-800 menu-state-bg-light-primary fw-semibold w-200px py-4 fs-7" data-kt-menu="true">
+                                    <div class="menu-item px-3">
+                                        <a href="<?= base_url('lang?lang=en') ?>" class="menu-link d-flex px-5" data-kt-lang="en">
+                                            <span class="symbol symbol-20px me-4"><img class="rounded-1" src="<?= base_url('assets/media/flags/united-states.svg') ?>" alt="English" /></span>
+                                            <span>English</span>
+                                        </a>
+                                    </div>
+                                    <div class="menu-item px-3">
+                                        <a href="<?= base_url('lang?lang=ms') ?>" class="menu-link d-flex px-5" data-kt-lang="ms">
+                                            <span class="symbol symbol-20px me-4"><img class="rounded-1" src="<?= base_url('assets/media/flags/malaysia.svg') ?>" alt="Bahasa Melayu" /></span>
+                                            <span>Bahasa Melayu</span>
+                                        </a>
                     </div>
                 </div>
             </div>

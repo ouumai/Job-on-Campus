@@ -123,8 +123,8 @@ class AuthController extends BaseController
             $authenticator->remember();
         }
 
-        // 6. Selesai, redirect ke dashboard
-        return redirect()->to(config('Auth')->loginRedirect())->withCookies();
+        // 6. Selesai, redirect terus ke dashboard selepas log masuk berjaya
+        return redirect()->to(site_url('dashboard'))->withCookies();
     }
 
     /**
