@@ -122,7 +122,7 @@
                 <?= $currentLang === 'en' ? 'Campus Career Management System' : 'Sistem Pengurusan Kerjaya Kampus' ?>
             </h3>
 
-            <div class="text-gray-700 fs-4 fw-medium leading-xl text-center mx-auto mb-8" style="max-width: 900px;">
+            <div class="text-gray-700 fs-4 fw-medium leading-xl mx-auto mb-8" style="max-width: 900px; text-align: justify;">
                 <?php if ($currentLang === 'en'): ?>
                     Welcome to the digital platform of the <b>Pusat Teknologi Digital (DigitalUKM)</b>. 
                     The Job on Campus (JoC) system is specially designed as an integrated career hub to manage short-term employment opportunities on campus through three main functions:
@@ -140,8 +140,8 @@
                             <?= $currentLang === 'en' ? 'Student Exploration' : 'Eksplorasi Pelajar' ?>
                         </h4>
                     </div>
-                    <p class="text-gray-600 fs-6">
-                        <?= $currentLang === 'en' ? 'Search for active job ads, monitor application status, receive digital offer letters, and maintain daily timesheets.' : 'Carian iklan aktif, pemantauan status permohonan, penerimaan surat tawaran digital, serta log jam bekerja (<i>timesheet</i>) harian.' ?>
+                    <p class="text-gray-600 fs-6" style="text-align: justify;">
+                        <?= $currentLang === 'en' ? 'Search for active job ads, monitor application status, receive digital offer letters and maintain daily timesheets.' : 'Carian iklan aktif, pemantauan status permohonan, penerimaan surat tawaran digital, serta log jam bekerja (<i>timesheet</i>) harian.' ?>
                     </p>
                 </div>
 
@@ -152,8 +152,8 @@
                             <?= $currentLang === 'en' ? 'PTJ Management' : 'Pengurusan PTJ' ?>
                         </h4>
                     </div>
-                    <p class="text-gray-600 fs-6">
-                        <?= $currentLang === 'en' ? 'Job advertising, applicant data management (manual/Excel batch), job budget approval, and student task verification.' : 'Pengiklanan jawatan kosong, pengurusan data pemohon (manual/batch Excel), kelulusan bajet jawatan, dan pengesahan tugasan pelajar.' ?>
+                    <p class="text-gray-600 fs-6" style="text-align: justify;">
+                        <?= $currentLang === 'en' ? 'Job advertising, applicant data management (manual/Excel batch), job budget approval and student task verification.' : 'Pengiklanan jawatan kosong, pengurusan data pemohon (manual/batch Excel), kelulusan bajet jawatan dan pengesahan tugasan pelajar.' ?>
                     </p>
                 </div>
 
@@ -164,8 +164,8 @@
                             <?= $currentLang === 'en' ? 'Control & Finance' : 'Kawalan & Kewangan' ?>
                         </h4>
                     </div>
-                    <p class="text-gray-600 fs-6">
-                        <?= $currentLang === 'en' ? 'Cross-monitoring of Career Unit annual budget allocation, applicant audit review, and final approval of monthly allowance payments (Payroll).' : 'Pemantauan silang agihan peruntukan tahunan Unit Kerjaya, semakan audit pemohon, serta kelulusan akhir bayaran elaun bulanan (<i>Payroll</i>).' ?>
+                    <p class="text-gray-600 fs-6" style="text-align: justify;">
+                        <?= $currentLang === 'en' ? 'Cross-monitoring of Career Unit annual budget allocation, applicant audit review and final approval of monthly allowance payments (Payroll).' : 'Pemantauan silang agihan peruntukan tahunan Unit Kerjaya, semakan audit pemohon, serta kelulusan akhir bayaran elaun bulanan (<i>Payroll</i>).' ?>
                     </p>
                 </div>
             </div>
