@@ -41,17 +41,35 @@
         }
 
         /* Ejas sikit warna text menu supaya kontra dengan background cerah */
-        .menu-link .menu-title {
+        .menu-link .menu-title, .menu-link i.fa-chevron-down {
             color: #444 !important;
         }
         
         .menu-item:hover > .menu-link .menu-title,
-        .menu-item.here > .menu-link .menu-title {
+        .menu-item.here > .menu-link .menu-title,
+        .menu-item:hover > .menu-link i.fa-chevron-down,
+        .menu-item.here > .menu-link i.fa-chevron-down {
+            color: #ffffff !important;
+        }
+
+        /* Style hover submenu macam language switcher (bg biru cair, text biru) */
+        .menu-sub .menu-item > .menu-link {
+            border-radius: 0.475rem;
+            transition: all 0.2s ease;
+        }
+
+        .menu-sub .menu-item:hover > .menu-link,
+        .menu-sub .menu-item.here > .menu-link {
+            background-color: #f1faff !important;
+        }
+
+        .menu-sub .menu-item:hover > .menu-link .menu-title,
+        .menu-sub .menu-item.here > .menu-link .menu-title {
             color: #009ef7 !important;
         }
 
         .notification-button {
-            transition: color .2s ease-in-out;
+            transition: all .2s ease-in-out;
             background-color: transparent !important;
             border: none !important;
             box-shadow: none !important;
@@ -64,6 +82,7 @@
             justify-content: center;
             padding: 0 !important;
             font-size: 1.6rem;
+            color: #444 !important;
         }
 
         .notification-button i {
@@ -75,29 +94,45 @@
         }
 
         .notification-button:hover,
+        .notification-button.show,
         .notification-button:focus,
         .notification-button:active {
-            color: #009ef7 !important;
+            color: #ffffff !important;
             background-color: transparent !important;
             border: none !important;
             box-shadow: none !important;
         }
 
         .notification-button:hover i,
+        .notification-button.show i,
         .notification-button:focus i,
         .notification-button:active i {
-            color: #009ef7 !important;
+            color: #ffffff !important;
         }
 
         .language-toggle {
-            transition: background-color .2s ease-in-out;
+            transition: all .2s ease-in-out;
             min-width: 90px;
+            color: #444 !important;
+        }
+        
+        .language-toggle span {
+            color: inherit;
         }
 
-        .language-toggle .lang-label {
-            margin-left: 0.35rem;
-            font-weight: 500;
-            color: #444;
+        .language-toggle:hover,
+        .language-toggle.show,
+        .language-toggle:focus,
+        .language-toggle:active {
+            color: #ffffff !important;
+            background-color: transparent !important;
+        }
+
+        .language-toggle:hover span,
+        .language-toggle.show span,
+        .language-toggle:focus span,
+        .language-toggle:active span {
+            color: #ffffff !important;
         }
 
 		#kt_footer {
@@ -149,7 +184,7 @@
                                         <div data-kt-menu-trigger="click" data-kt-menu-placement="bottom-start" class="menu-item menu-lg-down-accordion me-lg-1">
                                             <span class="menu-link py-3">
                                                 <span class="menu-title"><?= lang('Joc.nav_search_jobs') ?></span>
-                                                <span class="menu-arrow d-lg-none"></span>
+                                                <i class="fa-solid fa-chevron-down ms-2 fs-8"></i>
                                             </span>
                                             <div class="menu-sub menu-sub-lg-down-accordion menu-sub-lg-dropdown menu-rounded-0 py-lg-4 w-lg-225px">
                                                 <div class="menu-item px-3">
@@ -174,7 +209,7 @@
                                         <div data-kt-menu-trigger="click" data-kt-menu-placement="bottom-start" class="menu-item menu-lg-down-accordion me-lg-1">
                                             <span class="menu-link py-3">
                                                 <span class="menu-title"><?= lang('Joc.nav_job_log') ?></span>
-                                                <span class="menu-arrow d-lg-none"></span>
+                                                <i class="fa-solid fa-chevron-down ms-2 fs-8"></i>
                                             </span>
                                             <div class="menu-sub menu-sub-lg-down-accordion menu-sub-lg-dropdown menu-rounded-0 py-lg-4 w-lg-225px">
                                                 <div class="menu-item px-3">
@@ -194,7 +229,7 @@
                                         <div data-kt-menu-trigger="click" data-kt-menu-placement="bottom-start" class="menu-item menu-lg-down-accordion me-lg-1">
                                             <span class="menu-link py-3">
                                                 <span class="menu-title"><?= lang('Joc.nav_job_management') ?></span>
-                                                <span class="menu-arrow d-lg-none"></span>
+                                                <i class="fa-solid fa-chevron-down ms-2 fs-8"></i>
                                             </span>
                                             <div class="menu-sub menu-sub-lg-down-accordion menu-sub-lg-dropdown menu-rounded-0 py-lg-4 w-lg-225px">
                                                 <div class="menu-item px-3">
@@ -213,7 +248,7 @@
                                         <div data-kt-menu-trigger="click" data-kt-menu-placement="bottom-start" class="menu-item menu-lg-down-accordion me-lg-1">
                                             <span class="menu-link py-3">
                                                 <span class="menu-title"><?= lang('Joc.nav_candidate_recruitment') ?></span>
-                                                <span class="menu-arrow d-lg-none"></span>
+                                                <i class="fa-solid fa-chevron-down ms-2 fs-8"></i>
                                             </span>
                                             <div class="menu-sub menu-sub-lg-down-accordion menu-sub-lg-dropdown menu-rounded-0 py-lg-4 w-lg-225px">
                                                 <div class="menu-item px-3">
@@ -232,7 +267,7 @@
                                         <div data-kt-menu-trigger="click" data-kt-menu-placement="bottom-start" class="menu-item menu-lg-down-accordion me-lg-1">
                                             <span class="menu-link py-3">
                                                 <span class="menu-title"><?= lang('Joc.nav_ptj_approval') ?></span>
-                                                <span class="menu-arrow d-lg-none"></span>
+                                                <i class="fa-solid fa-chevron-down ms-2 fs-8"></i>
                                             </span>
                                             <div class="menu-sub menu-sub-lg-down-accordion menu-sub-lg-dropdown menu-rounded-0 py-lg-4 w-lg-225px">
                                                 <div class="menu-item px-3">
@@ -251,7 +286,7 @@
                                         <div data-kt-menu-trigger="click" data-kt-menu-placement="bottom-start" class="menu-item menu-lg-down-accordion me-lg-1">
                                             <span class="menu-link py-3">
                                                 <span class="menu-title"><?= lang('Joc.nav_review_reports') ?></span>
-                                                <span class="menu-arrow d-lg-none"></span>
+                                                <i class="fa-solid fa-chevron-down ms-2 fs-8"></i>
                                             </span>
                                             <div class="menu-sub menu-sub-lg-down-accordion menu-sub-lg-dropdown menu-rounded-0 py-lg-4 w-lg-225px">
                                                 <div class="menu-item px-3">
@@ -277,7 +312,7 @@
                                         <div data-kt-menu-trigger="click" data-kt-menu-placement="bottom-start" class="menu-item menu-lg-down-accordion me-lg-1">
                                             <span class="menu-link py-3">
                                                 <span class="menu-title"><?= lang('Joc.nav_ads_monitoring') ?></span>
-                                                <span class="menu-arrow d-lg-none"></span>
+                                                <i class="fa-solid fa-chevron-down ms-2 fs-8"></i>
                                             </span>
                                             <div class="menu-sub menu-sub-lg-down-accordion menu-sub-lg-dropdown menu-rounded-0 py-lg-4 w-lg-225px">
                                                 <div class="menu-item px-3">
@@ -338,10 +373,10 @@
                                     $flag = ($currentLang == 'en') ? 'united-states.svg' : 'malaysia.svg';
                                     $langName = ($currentLang == 'en') ? lang('Joc.language_english') : lang('Joc.language_malay');
                                 ?>
-                                <button class="btn btn-flex btn-link btn-color-gray-700 btn-active-color-primary rotate fs-base px-0 language-toggle" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end" data-kt-menu-offset="0px,0px">
+                                <button class="btn btn-flex btn-link rotate fs-base px-0 language-toggle" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end" data-kt-menu-offset="0px,0px">
                                     <img class="w-20px h-20px rounded me-3" src="<?= base_url('assets/media/flags/' . $flag) ?>" alt="lang" />
                                     <span class="me-1 d-none d-md-inline"><?= esc($langName) ?></span>
-                                    <span class="svg-icon svg-icon-5 text-muted rotate-180 m-0" aria-hidden="true">
+                                    <span class="svg-icon svg-icon-5 rotate-180 m-0" aria-hidden="true">
                                         <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
                                             <path d="M3 4.5L6 7.5L9 4.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                                         </svg>
