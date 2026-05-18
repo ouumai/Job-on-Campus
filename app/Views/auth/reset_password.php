@@ -24,19 +24,37 @@ $langFlag = $isMs ? 'malaysia.svg' : 'united-states.svg';
     <link href="<?= $metronic ?>plugins/global/plugins.bundle.css" rel="stylesheet" type="text/css" />
     <link href="<?= $metronic ?>css/style.bundle.css" rel="stylesheet" type="text/css" />
     <style>
-        body, #kt_body { background: linear-gradient(135deg, #87CEEB 0%, #B0C4DE 50%, #ADD8E6 100%) !important; min-height: 100vh !important; margin: 0; }
-        .auth-panel { max-width: 600px !important; box-shadow: 0 10px 40px rgba(0,0,0,0.06) !important; border-radius: 1.25rem !important; }
+        body, #kt_body {
+            background: linear-gradient(135deg, #87CEEB 0%, #B0C4DE 50%, #ADD8E6 100%) !important;
+            min-height: 100vh !important;
+            margin: 0;
+            filter: none !important;
+        }
+        body::before, #kt_body::before, body::after, #kt_body::after { display:none !important; content:none !important; }
+        .auth-panel { max-width: 600px !important; box-shadow: 0 10px 40px rgba(0,0,0,0.06) !important; border-radius: 1.25rem !important; position: relative; z-index: 10; }
+        .flex-root { position: relative; z-index: 1; }
+        .auth-left-pane { position: relative; overflow: hidden; }
+        .auth-left-glass {
+            width: min(600px, 100%);
+            padding: 2.25rem;
+            border: 1px solid rgba(255, 255, 255, .35);
+            border-radius: 1.25rem;
+            background: rgba(255, 255, 255, .18);
+            box-shadow: 0 24px 70px rgba(0, 32, 96, .24);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+        }
     </style>
 </head>
 <body id="kt_body" class="auth-bg bgi-size-cover bgi-attachment-fixed bgi-position-center">
 <div class="d-flex flex-column flex-root">
     <div class="d-flex flex-column flex-lg-row flex-column-fluid">
         <div class="d-flex flex-lg-row-fluid">
-            <div class="d-flex flex-column flex-center pb-0 pb-lg-10 p-10 w-100">
-                <div style="width:min(600px,100%); padding:2.25rem; border:1px solid rgba(255,255,255,.35); border-radius:1.25rem; background:rgba(255,255,255,.18); backdrop-filter:blur(14px); -webkit-backdrop-filter:blur(14px);" class="text-center">
+            <div class="d-flex flex-column flex-center pb-0 pb-lg-10 p-10 w-100 auth-left-pane">
+                <div class="auth-left-glass text-center">
                     <img class="mx-auto mw-100 w-150px w-lg-300px mb-5 mb-lg-10" src="<?= $metronic ?>media/auth/JobSearch.png" alt="" />
-                    <h1 class="text-gray-800 fs-2qx fw-bold text-center mb-3">Job on Campus</h1>
-                    <div class="text-gray-600 fs-base text-center fw-semibold"><?= esc($subtitle) ?></div>
+                    <h1 class="text-gray-800 fs-2qx fw-bold text-center mb-3 auth-left-title">Job on Campus</h1>
+                    <div class="text-gray-600 fs-base text-center fw-semibold auth-left-text"><?= esc($subtitle) ?></div>
                 </div>
             </div>
         </div>

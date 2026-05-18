@@ -134,15 +134,9 @@
                 border: 1px solid rgba(255, 255, 255, .35); 
                 border-radius: 1.25rem; 
                 background: rgba(255, 255, 255, .18); 
-                box-shadow: none !important;
+                box-shadow: 0 24px 70px rgba(0, 32, 96, .24) !important;
                 backdrop-filter: blur(14px); 
                 -webkit-backdrop-filter: blur(14px); 
-            }
-
-            .auth-left-glass .auth-left-title, 
-            .auth-left-glass .auth-left-text { 
-                color: #fff !important; 
-                text-shadow: 0 1px 18px rgba(0, 26, 76, .25); 
             }
 
             /* 7. FOOTER & SOCIAL BUTTONS[cite: 4] */
