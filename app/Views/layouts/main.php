@@ -125,11 +125,21 @@
                 <div id="kt_header" class="header align-items-stretch" data-kt-sticky="true" data-kt-sticky-name="header" data-kt-sticky-offset="{default: '200px', lg: '300px'}">
                     <div class="container-xxl d-flex align-items-center justify-content-between">
                         
+                        <div class="d-flex align-items-center gap-3 me-5">
+                            <i class="ki-duotone ki-teacher fs-1 text-primary">
+                                <span class="path1"></span><span class="path2"></span>
+                            </i>
+                            <span class="fs-4 fw-bolder text-gray-900 tracking-tight d-none d-sm-inline">Job on Campus (JoC)</span>
+                        </div>
+
                         <div class="d-flex align-items-stretch" id="kt_header_nav">
                             <div class="header-menu align-items-stretch">
                                 <div class="menu menu-lg-rounded menu-column menu-lg-row menu-state-bg menu-title-gray-700 menu-state-title-primary fw-bold my-5 my-lg-0" id="#kt_header_menu" data-kt-menu="true">
                                     
-                                    <?php if (auth()->user()->inGroup('student')): ?>
+                                    <?php 
+                                        $user = auth()->user();
+                                        if ($user && $user->inGroup('student')): 
+                                    ?>
                                         <div class="menu-item me-lg-1">
                                             <a class="menu-link py-3" href="<?= site_url('semakan') ?>">
                                                 <span class="menu-title"><?= lang('Joc.nav_main_dashboard') ?></span>
@@ -355,7 +365,16 @@
 
                             <div class="d-flex align-items-center ms-1 ms-lg-3" id="kt_header_user_menu_toggle">
                                 <?php 
-                                    $initials = strtoupper(substr($user->first_name, 0, 1) . substr($user->last_name, 0, 1));
+                                    if ($user) {
+                                        $firstName = $user->first_name ?? '';
+                                        $lastName = $user->last_name ?? '';
+                                        $initials = strtoupper(substr($firstName, 0, 1) . substr($lastName, 0, 1));
+                                        if (empty(trim($initials))) {
+                                            $initials = strtoupper(substr($user->username ?? 'U', 0, 2));
+                                        }
+                                    } else {
+                                        $initials = 'G';
+                                    }
                                 ?>
                                 <div class="cursor-pointer symbol symbol-30px symbol-md-40px" data-kt-menu-trigger="click" data-kt-menu-attach="parent" data-kt-menu-placement="bottom-end">
                                     <div class="symbol-label fs-3 bg-light-primary text-primary fw-bold"><?= esc($initials) ?></div>
@@ -368,9 +387,9 @@
                                                 <div class="symbol-label fs-2 bg-light-primary text-primary fw-bold"><?= esc($initials) ?></div>
                                             </div>
                                             <div class="d-flex flex-column">
-                                                <div class="fw-bold d-flex align-items-center fs-5"><?= esc($user->first_name . ' ' . $user->last_name) ?></div>
+                                                <div class="fw-bold d-flex align-items-center fs-5"><?= esc($user ? trim(($user->first_name ?? '') . ' ' . ($user->last_name ?? '')) : 'Guest') ?></div>
                                                 <?php 
-                                                    $roleGroups = $user->getGroups() ?: ['guest'];
+                                                    $roleGroups = $user ? ($user->getGroups() ?: ['guest']) : ['guest'];
                                                     $roleMap = [
                                                         'student' => 'Joc.role_student',
                                                         'supervisor' => 'Joc.role_supervisor',
@@ -392,7 +411,7 @@
                                                         <?= esc($roleText) ?>
                                                     </span>
                                                 </div>
-                                                <a href="#" class="fw-semibold text-muted text-hover-primary fs-7 mt-1"><?= esc($user->email) ?></a>
+                                                <a href="#" class="fw-semibold text-muted text-hover-primary fs-7 mt-1"><?= esc($user->email ?? '') ?></a>
                                             </div>
                                         </div>
                                     </div>
