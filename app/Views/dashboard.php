@@ -1,7 +1,7 @@
 <?= $this->extend('layouts/main') ?>
 
 <?= $this->section('title') ?>
-    Halaman Utama
+    <?= lang('Joc.title_dashboard') ?>
 <?= $this->endSection() ?>
 
 <?= $this->section('extra-css') ?>
@@ -30,76 +30,76 @@
             }
         ?>
         <h1 class="fw-bolder text-gray-900 mb-6 fs-1 text-start mt-4">
-            Selamat Datang, <?= esc($fullName) ?>!
+            <?= lang('Joc.welcome_greeting') ?>, <?= esc($fullName) ?>!
         </h1>
         
         <div class="separator separator-dashed border-gray-300 my-6"></div>
 
         <div class="text-gray-800 fs-4 mb-8 text-start" style="line-height: 1.8; text-align: justify !important;">
             <?php if ($user->inGroup('student')): ?>
-                Dalam sistem ini, sebagai <span class="badge badge-light-info fw-bold fs-5 px-3 py-2 text-capitalize">Pelajar</span>, anda boleh:
+                <?= lang('Joc.welcome_student_intro') ?>
                 <ul class="list-unstyled mt-4 ms-6">
                     <li class="d-flex align-items-center mb-3">
                         <i class="ki-duotone ki-check-circle fs-3 text-success me-3"><span class="path1"></span><span class="path2"></span></i>
-                        Menerokai tawaran jawatan kosong yang aktif di dalam kampus.
+                        <?= lang('Joc.welcome_student_1') ?>
                     </li>
                     <li class="d-flex align-items-center mb-3">
                         <i class="ki-duotone ki-check-circle fs-3 text-success me-3"><span class="path1"></span><span class="path2"></span></i>
-                        Memantau status permohonan secara masa nyata.
+                        <?= lang('Joc.welcome_student_2') ?>
                     </li>
                     <li class="d-flex align-items-center mb-3">
                         <i class="ki-duotone ki-check-circle fs-3 text-success me-3"><span class="path1"></span><span class="path2"></span></i>
-                        Menerima dan menyemak surat tawaran pelantikan digital.
+                        <?= lang('Joc.welcome_student_3') ?>
                     </li>
                     <li class="d-flex align-items-center mb-3">
                         <i class="ki-duotone ki-check-circle fs-3 text-success me-3"><span class="path1"></span><span class="path2"></span></i>
-                        Merekodkan log jam bekerja harian melalui <i class="ms-1">Borang Timesheet</i>.
+                        <?= lang('Joc.welcome_student_4') ?>
                     </li>
                     <li class="d-flex align-items-center mb-3">
                         <i class="ki-duotone ki-check-circle fs-3 text-success me-3"><span class="path1"></span><span class="path2"></span></i>
-                        Menguruskan tuntutan elaun bulanan anda dengan mudah.
+                        <?= lang('Joc.welcome_student_5') ?>
                     </li>
                 </ul>
                 
             <?php elseif ($user->inGroup('supervisor')): ?>
-                Dalam sistem ini, sebagai <span class="badge badge-light-info fw-bold fs-5 px-3 py-2 text-capitalize">Penyelia PTJ</span>, anda boleh:
+                <?= lang('Joc.welcome_supervisor_intro') ?>
                 <ul class="list-unstyled mt-4 ms-6">
                     <li class="d-flex align-items-center mb-3">
                         <i class="ki-duotone ki-check-circle fs-3 text-success me-3"><span class="path1"></span><span class="path2"></span></i>
-                        Mengurus dan mengiklankan kekosongan jawatan di bawah jabatan anda.
+                        <?= lang('Joc.welcome_supervisor_1') ?>
                     </li>
                     <li class="d-flex align-items-center mb-3">
                         <i class="ki-duotone ki-check-circle fs-3 text-success me-3"><span class="path1"></span><span class="path2"></span></i>
-                        Memproses pengambilan calon (termasuk fungsi import data pemohon melalui Excel).
+                        <?= lang('Joc.welcome_supervisor_2') ?>
                     </li>
                     <li class="d-flex align-items-center mb-3">
                         <i class="ki-duotone ki-check-circle fs-3 text-success me-3"><span class="path1"></span><span class="path2"></span></i>
-                        Menyemak peruntukan dana tabung berkaitan jawatan.
+                        <?= lang('Joc.welcome_supervisor_3') ?>
                     </li>
                     <li class="d-flex align-items-center mb-3">
                         <i class="ki-duotone ki-check-circle fs-3 text-success me-3"><span class="path1"></span><span class="path2"></span></i>
-                        Melakukan pengesahan tugasan dan kehadiran mingguan pelajar sebelum dihantar untuk proses pembayaran.
+                        <?= lang('Joc.welcome_supervisor_4') ?>
                     </li>
                 </ul>
                 
             <?php elseif ($user->inGroup('career')): ?>
-                Dalam sistem ini, sebagai <span class="badge badge-light-info fw-bold fs-5 px-3 py-2 text-capitalize">Urusetia (Unit Kerjaya)</span>, anda boleh:
+                <?= lang('Joc.welcome_career_intro') ?>
                 <ul class="list-unstyled mt-4 ms-6">
                     <li class="d-flex align-items-center mb-3">
                         <i class="ki-duotone ki-check-circle fs-3 text-success me-3"><span class="path1"></span><span class="path2"></span></i>
-                        Memantau keseluruhan aktiviti pengiklanan di dalam sistem.
+                        <?= lang('Joc.welcome_career_1') ?>
                     </li>
                     <li class="d-flex align-items-center mb-3">
                         <i class="ki-duotone ki-check-circle fs-3 text-success me-3"><span class="path1"></span><span class="path2"></span></i>
-                        Menjalankan semakan audit ke atas profil pemohon.
+                        <?= lang('Joc.welcome_career_2') ?>
                     </li>
                     <li class="d-flex align-items-center mb-3">
                         <i class="ki-duotone ki-check-circle fs-3 text-success me-3"><span class="path1"></span><span class="path2"></span></i>
-                        Menguruskan agihan peruntukan bajet tahunan universiti.
+                        <?= lang('Joc.welcome_career_3') ?>
                     </li>
                     <li class="d-flex align-items-center mb-3">
                         <i class="ki-duotone ki-check-circle fs-3 text-success me-3"><span class="path1"></span><span class="path2"></span></i>
-                        Memberikan kelulusan akhir ke atas pemprosesan bayaran elaun bulanan (<i class="ms-1">Payroll</i>) pelajar.
+                        <?= lang('Joc.welcome_career_4') ?>
                     </li>
                 </ul>
             <?php endif; ?>
