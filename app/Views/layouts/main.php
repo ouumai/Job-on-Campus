@@ -68,6 +68,11 @@
             color: #009ef7 !important;
         }
 
+        .menu-item .menu-link.logout-link:hover {
+            background-color: rgba(241, 65, 108, 0.1) !important;
+            color: #f1416c !important;
+        }
+
         .notification-button {
             transition: all .2s ease-in-out;
             background-color: transparent !important;
@@ -176,7 +181,7 @@
                                         if ($user && $user->inGroup('student')): 
                                     ?>
                                         <div class="menu-item me-lg-1">
-                                            <a class="menu-link py-3" href="<?= site_url('semakan') ?>">
+                                            <a class="menu-link py-3" href="<?= site_url('dashboard') ?>">
                                                 <span class="menu-title"><?= lang('Joc.nav_main_dashboard') ?></span>
                                             </a>
                                         </div>
@@ -226,6 +231,12 @@
                                         </div>
 
                                     <?php elseif (auth()->user()->inGroup('supervisor')): ?>
+                                        <div class="menu-item me-lg-1">
+                                            <a class="menu-link py-3" href="<?= site_url('dashboard') ?>">
+                                                <span class="menu-title"><?= lang('Joc.nav_main_dashboard') ?></span>
+                                            </a>
+                                        </div>
+
                                         <div data-kt-menu-trigger="click" data-kt-menu-placement="bottom-start" class="menu-item menu-lg-down-accordion me-lg-1">
                                             <span class="menu-link py-3">
                                                 <span class="menu-title"><?= lang('Joc.nav_job_management') ?></span>
@@ -304,7 +315,7 @@
 
                                     <?php elseif (auth()->user()->inGroup('career')): ?>
                                         <div class="menu-item me-lg-1">
-                                            <a class="menu-link py-3" href="<?= site_url('pengguna/dashboard') ?>">
+                                            <a class="menu-link py-3" href="<?= site_url('dashboard') ?>">
                                                 <span class="menu-title"><?= lang('Joc.nav_main_statistics') ?></span>
                                             </a>
                                         </div>
@@ -453,7 +464,7 @@
                                     <div class="separator my-2"></div>
                                     <div class="menu-item px-5"><a href="<?= site_url('user/profile') ?>" class="menu-link px-5"><?= lang('Joc.nav_profile') ?></a></div>
                                     <div class="separator my-2"></div>
-                                    <div class="menu-item px-5"><a href="<?= site_url('logout') ?>" class="menu-link px-5 text-danger"><?= lang('Joc.nav_logout') ?></a></div>
+                                    <div class="menu-item px-5"><a href="<?= site_url('logout') ?>" class="menu-link px-5 text-danger logout-link"><?= lang('Joc.nav_logout') ?></a></div>
                                 </div>
                             </div>
                         </div>
@@ -463,11 +474,11 @@
                 <div class="toolbar py-5 py-lg-15" id="kt_toolbar">
                     <div id="kt_toolbar_container" class="container-xxl d-flex flex-stack flex-wrap">
                         <div class="page-title d-flex flex-column me-3">
-                            <h1 class="d-flex text-white fw-bold my-1 fs-3"><?= $this->renderSection('page-title') ?></h1>
+                            <h1 class="d-flex text-dark fw-bold my-1 fs-3"><?= $this->renderSection('page-title') ?></h1>
                             <ul class="breadcrumb breadcrumb-separatorless fw-semibold fs-7 my-1">
-                                <li class="breadcrumb-item text-white opacity-75"><a href="<?= site_url('dashboard') ?>" class="text-white text-hover-primary"><?= lang('Joc.nav_home') ?></a></li>
-                                <li class="breadcrumb-item"><span class="bullet bg-white opacity-75 w-5px h-2px"></span></li>
-                                <li class="breadcrumb-item text-white opacity-75"><?= $this->renderSection('breadcrumb') ?></li>
+                                <li class="breadcrumb-item text-dark opacity-75"><a href="<?= site_url('dashboard') ?>" class="text-dark text-hover-primary"><?= lang('Joc.nav_home') ?></a></li>
+                                <li class="breadcrumb-item"><span class="bullet bg-dark opacity-75 w-5px h-2px"></span></li>
+                                <li class="breadcrumb-item text-dark opacity-75"><?= $this->renderSection('breadcrumb') ?></li>
                             </ul>
                         </div>
                     </div>
