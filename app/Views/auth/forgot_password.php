@@ -7,6 +7,7 @@ $langFlag = $currentLang === 'ms' ? 'malaysia.svg' : 'united-states.svg';
 $title = $currentLang === 'ms' ? 'Lupa Kata Laluan' : 'Forgot Password';
 $heroTitle = 'Job on Campus';
 $subtitle = $currentLang === 'ms' ? 'Menyokong Kerjaya Pelajar Dalam Komuniti Universiti.' : 'Supporting Student Careers Within the University Community.';
+$sendEmail = $currentLang === 'ms' ? 'Emel' : 'Email';
 $sendText = $currentLang === 'ms' ? 'Hantar Pautan Tetapan Semula' : 'Send Reset Link';
 $backText = $currentLang === 'ms' ? 'Kembali ke' : 'Back to';
 $loginText = $currentLang === 'ms' ? 'Log Masuk' : 'Login';
@@ -80,7 +81,7 @@ $loginText = $currentLang === 'ms' ? 'Log Masuk' : 'Login';
                             </div>
 
                             <div class="fv-row mb-8">
-                                <input type="email" placeholder="Email" name="email" autocomplete="off" class="form-control bg-transparent" required />
+                                <input type="email" placeholder="<?= esc($sendEmail) ?>" name="email" autocomplete="off" class="form-control bg-transparent" required />
                             </div>
 
                             <div class="d-grid mb-6">

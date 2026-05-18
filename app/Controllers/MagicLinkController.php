@@ -26,6 +26,13 @@ class MagicLinkController extends \CodeIgniter\Shield\Controllers\MagicLinkContr
         return parent::loginView();
     }
 
+    public function forgotPasswordView()
+    {
+        $this->applyLocaleFromSession();
+
+        return view('auth/forgot_password');
+    }
+
     public function loginAction()
     {
         $postedLang = strtolower((string) $this->request->getPost('fp_lang'));
