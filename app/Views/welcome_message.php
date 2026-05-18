@@ -25,7 +25,19 @@
             backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px);
             border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-            box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.03);
+            box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.05);
+            z-index: 1000 !important;
+        }
+
+        .language-toggle {
+            transition: background-color .2s ease-in-out;
+            min-width: 90px;
+        }
+
+        .language-toggle .lang-label {
+            margin-left: 0.35rem;
+            font-weight: 500;
+            color: #444;
         }
 
         /* Glassmorphism Content Card */
@@ -36,12 +48,12 @@
             border: 1px solid rgba(255, 255, 255, 0.4);
             box-shadow: 0 20px 50px rgba(0,0,0,0.06) !important;
             border-radius: 1.5rem !important;
-            max-width: 780px;
+            max-width: 1100px;
             width: 100%;
         }
 
         .joc-logo-text {
-            font-size: 3.8rem;
+            font-size: 4.8rem;
             background: linear-gradient(to right, #0052D4, #4364F7, #6FB1FC);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
@@ -49,6 +61,12 @@
     </style>
 </head>
 <body>
+
+<?php 
+    $currentLang = session('lang') ?? 'ms';
+    $flag = ($currentLang == 'en') ? 'united-states.svg' : 'malaysia.svg';
+    $langName = ($currentLang == 'en') ? 'English' : 'Bahasa Melayu';
+?>
 
 <nav class="navbar welcome-navbar py-4">
     <div class="container-xxl d-flex align-items-center justify-content-between">
@@ -62,22 +80,26 @@
         <div class="d-flex align-items-center gap-4">
             
             <div class="me-2">
-                <?php 
-                    $currentLang = session('lang') ?? 'ms';
-                    $flag = ($currentLang == 'en') ? 'united-states.svg' : 'malaysia.svg';
-                ?>
-                <button class="btn btn-icon btn-active-light-primary w-35px h-35px rounded-circle" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">
-                    <img class="h-20px w-20px rounded-sm" src="<?= base_url('assets/media/flags/' . $flag) ?>" alt="lang" />
+                <button class="btn btn-flex btn-link btn-color-gray-700 btn-active-color-primary rotate fs-base px-0 language-toggle" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end" data-kt-menu-offset="0px,0px">
+                    <img class="w-20px h-20px rounded me-3" src="<?= base_url('assets/media/flags/' . $flag) ?>" alt="lang" />
+                    <span class="me-1 d-none d-md-inline"><?= esc($langName) ?></span>
+                    <span class="svg-icon svg-icon-5 text-muted rotate-180 m-0" aria-hidden="true">
+                        <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M3 4.5L6 7.5L9 4.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </span>
                 </button>
-                <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-800 menu-state-bg menu-state-primary fw-bold py-4 fs-6 w-175px" data-kt-menu="true">
+                <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-800 menu-state-bg-light-primary fw-semibold py-4 fs-7 w-200px" data-kt-menu="true">
                     <div class="menu-item px-3">
-                        <a href="<?= site_url('lang/en') ?>" class="menu-link d-flex px-5 <?= ($currentLang == 'en') ? 'active' : '' ?>">
-                            <span class="symbol symbol-20px me-4"><img class="rounded-1" src="<?= base_url('assets/media/flags/united-states.svg') ?>" /></span>English
+                        <a href="<?= site_url('lang?lang=en') ?>" class="menu-link d-flex px-5 <?= ($currentLang == 'en') ? 'active' : '' ?>" data-kt-lang="en">
+                            <span class="symbol symbol-20px me-4"><img class="rounded-1" src="<?= base_url('assets/media/flags/united-states.svg') ?>" alt="English" /></span>
+                            <span>English</span>
                         </a>
                     </div>
                     <div class="menu-item px-3">
-                        <a href="<?= site_url('lang/ms') ?>" class="menu-link d-flex px-5 <?= ($currentLang == 'ms') ? 'active' : '' ?>">
-                            <span class="symbol symbol-20px me-4"><img class="rounded-1" src="<?= base_url('assets/media/flags/malaysia.svg') ?>" /></span>Bahasa Melayu
+                        <a href="<?= site_url('lang?lang=ms') ?>" class="menu-link d-flex px-5 <?= ($currentLang == 'ms') ? 'active' : '' ?>" data-kt-lang="ms">
+                            <span class="symbol symbol-20px me-4"><img class="rounded-1" src="<?= base_url('assets/media/flags/malaysia.svg') ?>" alt="Bahasa Melayu" /></span>
+                            <span>Bahasa Melayu</span>
                         </a>
                     </div>
                 </div>
@@ -85,7 +107,7 @@
 
             <div>
                 <a href="<?= site_url('login') ?>" class="btn btn-primary fw-bold px-6 py-2.5 fs-6 shadow-sm text-hover-white">
-                    Log Masuk <i class="ki-duotone ki-entrance-right fs-4 ms-1"><span class="path1"></span><span class="path2"></span></i>
+                    <?= $currentLang === 'en' ? 'Login' : 'Log Masuk' ?> <i class="ki-duotone ki-entrance-right fs-4 ms-1"><span class="path1"></span><span class="path2"></span></i>
                 </a>
             </div>
         </div>
@@ -94,20 +116,58 @@
 <div class="container d-flex flex-grow-1 align-items-center justify-content-center p-5 my-10">
     <div class="card welcome-card p-8 p-lg-15 text-center animate__animated animate__fadeIn">
         <div class="card-body">
-            <div class="mb-5">
-                <span class="badge badge-light-primary fw-bold px-4 py-2.5 fs-7 text-uppercase tracking-wider">
-                    Portal Rasmi DigitalUKM
-                </span>
+            <h1 class="fw-bolder mb-3 joc-logo-text">Job on Campus</h1>
+            <h3 class="text-gray-800 fw-bold mb-8 fs-2">
+                <?= $currentLang === 'en' ? 'Campus Career Management System' : 'Sistem Pengurusan Kerjaya Kampus' ?>
+            </h3>
+
+            <div class="text-gray-700 fs-4 fw-medium leading-xl text-center mx-auto mb-8" style="max-width: 900px;">
+                <?php if ($currentLang === 'en'): ?>
+                    Welcome to the digital platform of the <b>Pusat Teknologi Digital (DigitalUKM)</b>. 
+                    The Job on Campus (JoC) system is specially designed as an integrated career hub to manage short-term employment opportunities on campus through three main functions:
+                <?php else: ?>
+                    Selamat datang ke platform digital <b>Pusat Teknologi Digital (DigitalUKM)</b>. 
+                    Sistem Job on Campus (JoC) direka khas sebagai hab kerjaya bersepadu bagi menguruskan peluang pekerjaan jangka pendek dalam kampus melalui tiga fungsi utama:
+                <?php endif; ?>
             </div>
 
-            <h1 class="fw-bolder mb-3 joc-logo-text">Job on Campus</h1>
-            <h3 class="text-gray-800 fw-bold mb-8 fs-2">Sistem Pengurusan Kerjaya Kampus</h3>
+            <div class="row g-8 text-start justify-content-center my-8 mx-auto" style="max-width: 1000px;">
+                <div class="col-md-4">
+                    <div class="d-flex align-items-center mb-3">
+                        <i class="ki-duotone ki-compass fs-2x text-primary me-3"><span class="path1"></span><span class="path2"></span></i>
+                        <h4 class="text-gray-900 fw-bolder mb-0 d-flex align-items-center">
+                            <?= $currentLang === 'en' ? 'Student Exploration' : 'Eksplorasi Pelajar' ?>
+                        </h4>
+                    </div>
+                    <p class="text-gray-600 fs-6">
+                        <?= $currentLang === 'en' ? 'Search for active job ads, monitor application status, receive digital offer letters, and maintain daily timesheets.' : 'Carian iklan aktif, pemantauan status permohonan, penerimaan surat tawaran digital, serta log jam bekerja (<i>timesheet</i>) harian.' ?>
+                    </p>
+                </div>
 
-            <p class="text-gray-700 fs-5 fw-medium leading-xl mb-0 mx-auto" style="max-width: 650px;">
-                Selamat datang ke platform digital **Pusat Teknologi Digital (DigitalUKM)**. 
-                Sistem JoC menghubungkan pelajar secara terus dengan peluang pekerjaan aktif di dalam kampus, 
-                memudahkan proses permohonan, log log kerja (*timesheet*), serta pengurusan tuntutan bayaran secara sistematik.
-            </p>
+                <div class="col-md-4">
+                    <div class="d-flex align-items-center mb-3">
+                        <i class="ki-duotone ki-briefcase fs-2x text-primary me-3"><span class="path1"></span><span class="path2"></span></i>
+                        <h4 class="text-gray-900 fw-bolder mb-0">
+                            <?= $currentLang === 'en' ? 'PTJ Management' : 'Pengurusan PTJ' ?>
+                        </h4>
+                    </div>
+                    <p class="text-gray-600 fs-6">
+                        <?= $currentLang === 'en' ? 'Job advertising, applicant data management (manual/Excel batch), job budget approval, and student task verification.' : 'Pengiklanan jawatan kosong, pengurusan data pemohon (manual/batch Excel), kelulusan bajet jawatan, dan pengesahan tugasan pelajar.' ?>
+                    </p>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="d-flex align-items-center mb-3">
+                        <i class="ki-duotone ki-chart-line fs-2x text-primary me-3"><span class="path1"></span><span class="path2"></span></i>
+                        <h4 class="text-gray-900 fw-bolder mb-0">
+                            <?= $currentLang === 'en' ? 'Control & Finance' : 'Kawalan & Kewangan' ?>
+                        </h4>
+                    </div>
+                    <p class="text-gray-600 fs-6">
+                        <?= $currentLang === 'en' ? 'Cross-monitoring of Career Unit annual budget allocation, applicant audit review, and final approval of monthly allowance payments (Payroll).' : 'Pemantauan silang agihan peruntukan tahunan Unit Kerjaya, semakan audit pemohon, serta kelulusan akhir bayaran elaun bulanan (<i>Payroll</i>).' ?>
+                    </p>
+                </div>
+            </div>
 
             <div class="separator separator-dashed border-gray-300 w-100 mt-10 mb-8"></div>
 
@@ -119,5 +179,23 @@
 </div>
 <script src="<?= base_url('assets/plugins/global/plugins.bundle.js') ?>"></script>
 <script src="<?= base_url('assets/js/scripts.bundle.js') ?>"></script>
-</body>
-</html>
+<script id="lang-switch-ajax">
+document.addEventListener('DOMContentLoaded', function () {
+    const langLinks = document.querySelectorAll('a[href*="lang?lang="]');
+    langLinks.forEach(function (link) {
+        link.addEventListener('click', function (e) {
+            e.preventDefault();
+            fetch(link.href, {
+                method: 'GET',
+                headers: {
+                    'X-Requested-With': 'XMLHttpRequest',
+                    'Accept': 'application/json'
+                },
+                credentials: 'same-origin'
+            })
+            .then(function () { window.location.reload(); })
+            .catch(function () { window.location.href = link.href; });
+        });
+    });
+});
+</script>
