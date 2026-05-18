@@ -12,7 +12,7 @@ $passwordHint = $isMs
     ? 'Gunakan 8 atau lebih aksara dengan gabungan huruf, nombor dan simbol.'
     : 'Use 8 or more characters with a mix of letters, numbers & symbols.';
 $langName = $isMs ? 'Bahasa Melayu' : 'English';
-$langFlag = $isMs ? 'malaysia.svg' : 'united-states.svg';
+$langFlag = $isMs ? 'malaysia.svg' : 'united-kingdom.svg';
 ?>
 <!DOCTYPE html>
 <html lang="<?= esc($currentLang) ?>">
@@ -165,7 +165,7 @@ $langFlag = $isMs ? 'malaysia.svg' : 'united-states.svg';
                             <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-800 menu-state-bg-light-primary fw-semibold w-200px py-4 fs-7" data-kt-menu="true">
                                 <div class="menu-item px-3">
                                     <a href="<?= base_url('lang?lang=en') ?>" class="menu-link d-flex px-5">
-                                        <span class="symbol symbol-20px me-4"><img class="rounded-1" src="<?= $metronic ?>media/flags/united-states.svg" alt="EN" /></span>
+                                        <span class="symbol symbol-20px me-4"><img class="rounded-1" src="<?= $metronic ?>media/flags/united-kingdom.svg" alt="EN" /></span>
                                         <span>English</span>
                                     </a>
                                 </div>

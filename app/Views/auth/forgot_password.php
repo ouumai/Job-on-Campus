@@ -3,7 +3,7 @@ $metronic = base_url('assets/');
 $sessionLang = session()->get('lang');
 $currentLang = is_string($sessionLang) ? $sessionLang : 'ms';
 $langName = $currentLang === 'ms' ? 'Bahasa Melayu' : 'English';
-$langFlag = $currentLang === 'ms' ? 'malaysia.svg' : 'united-states.svg';
+$langFlag = $currentLang === 'ms' ? 'malaysia.svg' : 'united-kingdom.svg';
 $title = $currentLang === 'ms' ? 'Lupa Kata Laluan' : 'Forgot Password';
 $heroTitle = 'Job on Campus';
 $subtitle = $currentLang === 'ms' ? 'Menyokong Kerjaya Pelajar Dalam Komuniti Universiti.' : 'Supporting Student Careers Within the University Community.';
@@ -110,7 +110,7 @@ $loginText = $currentLang === 'ms' ? 'Log Masuk' : 'Login';
                                 <div class="menu-item px-3">
                                     <a href="<?= base_url('lang?lang=en') ?>" class="menu-link d-flex px-5">
                                         <span class="symbol symbol-20px me-4">
-                                            <img class="rounded-1" src="<?= $metronic ?>media/flags/united-states.svg" alt="EN" />
+                                            <img class="rounded-1" src="<?= $metronic ?>media/flags/united-kingdom.svg" alt="EN" />
                                         </span>
                                         <span>English</span>
                                     </a>

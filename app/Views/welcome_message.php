@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 <html lang="<?= session('lang') ?? 'ms' ?>">
 <head>
+    <?php $currentLang = session('lang') ?? 'ms'; ?>
     <meta charset="utf-8" />
-    <title>Selamat Datang | Job on Campus (JoC)</title>
+    <title><?= $currentLang === 'ms' ? 'Selamat Datang' : 'Welcome' ?> | Job on Campus (JoC)</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="shortcut icon" href="<?= base_url('assets/media/logos/JoCLogo.png') ?>" />
     
@@ -65,7 +66,7 @@
 
 <?php 
     $currentLang = session('lang') ?? 'ms';
-    $flag = ($currentLang == 'en') ? 'united-states.svg' : 'malaysia.svg';
+    $flag = ($currentLang == 'en') ? 'united-kingdom.svg' : 'malaysia.svg';
     $langName = ($currentLang == 'en') ? 'English' : 'Bahasa Melayu';
 ?>
 
@@ -93,7 +94,7 @@
                 <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-800 menu-state-bg-light-primary fw-semibold py-4 fs-7 w-200px" data-kt-menu="true">
                     <div class="menu-item px-3">
                         <a href="<?= site_url('lang?lang=en') ?>" class="menu-link d-flex px-5 <?= ($currentLang == 'en') ? 'active' : '' ?>" data-kt-lang="en">
-                            <span class="symbol symbol-20px me-4"><img class="rounded-1" src="<?= base_url('assets/media/flags/united-states.svg') ?>" alt="English" /></span>
+                            <span class="symbol symbol-20px me-4"><img class="rounded-1" src="<?= base_url('assets/media/flags/united-kingdom.svg') ?>" alt="English" /></span>
                             <span>English</span>
                         </a>
                     </div>

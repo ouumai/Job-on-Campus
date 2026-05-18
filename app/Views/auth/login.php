@@ -1,15 +1,16 @@
 <?php
     $metronic = $metronic ?? base_url('assets/');
-    $asset = $asset ?? $metronic;
+	$asset = $asset ?? $metronic;
 	$currentLang = session()->get('lang') ?? 'ms';
 	$currentLangName = $currentLang === 'ms' ? 'Bahasa Melayu' : 'English';
-	$currentLangFlag = $currentLang === 'ms' ? 'malaysia.svg' : 'united-states.svg';
+	$currentLangFlag = $currentLang === 'ms' ? 'malaysia.svg' : 'united-kingdom.svg';
+	$tabTitle = $currentLang === 'ms' ? 'Log Masuk' : 'Login';
 ?>
 <!DOCTYPE html>
 <html lang="eng">
 	<!--begin::Head-->
 	<head>
-		<title>JoC System | Login</title>
+		<title>JoC System | <?= esc($tabTitle) ?></title>
 		<meta charset="utf-8" />
 		<meta name="description" content="The most advanced Tailwind CSS & Bootstrap 5 Admin Theme with 40 unique prebuilt layouts on Themeforest trusted by 100,000 beginners and professionals. Multi-demo, Dark Mode, RTL support and complete React, Angular, Vue, Asp.Net Core, Rails, Spring, Blazor, Django, Express.js, Node.js, Flask, Symfony & Laravel versions. Grab your copy now and get life-time updates for free." />
 		<meta name="keywords" content="tailwind, tailwindcss, metronic, bootstrap, bootstrap 5, angular, VueJs, React, Asp.Net Core, Rails, Spring, Blazor, Django, Express.js, Node.js, Flask, Symfony & Laravel starter kits, admin themes, web design, figma, web development, free templates, free admin themes, bootstrap theme, bootstrap template, bootstrap dashboard, bootstrap dak mode, bootstrap button, bootstrap datepicker, bootstrap timepicker, fullcalendar, datatables, flaticon" />
@@ -258,7 +259,7 @@
 										<div class="menu-item px-3">
 											<a href="<?= base_url('lang?lang=en') ?>" class="menu-link d-flex px-5" data-kt-lang="en">
 												<span class="symbol symbol-20px me-4">
-													<img data-kt-element="lang-flag" class="rounded-1" src="<?= $metronic ?>media/flags/united-states.svg" alt="" />
+													<img data-kt-element="lang-flag" class="rounded-1" src="<?= $metronic ?>media/flags/united-kingdom.svg" alt="" />
 												</span>
 												<span data-kt-element="lang-name">English</span>
 											</a>

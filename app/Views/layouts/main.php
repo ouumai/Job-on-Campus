@@ -381,7 +381,7 @@
                             <div class="d-flex align-items-center ms-1 ms-lg-1">
                                 <?php 
                                     $currentLang = session('lang') ?? 'ms';
-                                    $flag = ($currentLang == 'en') ? 'united-states.svg' : 'malaysia.svg';
+                                    $flag = ($currentLang == 'en') ? 'united-kingdom.svg' : 'malaysia.svg';
                                     $langName = ($currentLang == 'en') ? lang('Joc.language_english') : lang('Joc.language_malay');
                                 ?>
                                 <button class="btn btn-flex btn-link rotate fs-base px-0 language-toggle" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end" data-kt-menu-offset="0px,0px">
@@ -396,7 +396,7 @@
                                 <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-800 menu-state-bg-light-primary fw-semibold py-4 fs-7 w-200px" data-kt-menu="true">
                                     <div class="menu-item px-3">
                                         <a href="<?= site_url('lang?lang=en') ?>" class="menu-link d-flex px-5 <?= ($currentLang == 'en') ? 'active' : '' ?>" data-kt-lang="en">
-                                            <span class="symbol symbol-20px me-4"><img class="rounded-1" src="<?= base_url('assets/media/flags/united-states.svg') ?>" alt="English" /></span>
+                                            <span class="symbol symbol-20px me-4"><img class="rounded-1" src="<?= base_url('assets/media/flags/united-kingdom.svg') ?>" alt="English" /></span>
                                             <span><?= lang('Joc.language_english') ?></span>
                                         </a>
                                     </div>

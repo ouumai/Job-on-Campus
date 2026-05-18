@@ -3,11 +3,12 @@
     $asset = $asset ?? $metronic;
     $sessionLang = session()->get('lang');
     $currentLang = is_string($sessionLang) ? $sessionLang : 'ms';
+    $tabTitle = $currentLang === 'ms' ? 'Daftar Akaun' : 'Create an Account';
 ?>
 <!DOCTYPE html>
 <html lang="eng">
 	<head>
-		<title>JoC System | Create an Account</title>
+		<title>JoC System | <?= esc($tabTitle) ?></title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<link rel="icon" type="image/png" sizes="512x512" href="<?= base_url('assets/media/logos/JoCLogo.png') ?>" />
@@ -318,7 +319,7 @@
 								<div class="d-flex flex-stack">
 									<div class="me-10">
 										<button class="btn btn-flex btn-link btn-color-gray-700 btn-active-color-primary rotate fs-base px-0" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-start" data-kt-menu-offset="0px, 0px">
-											<img data-kt-element="current-lang-flag" class="w-20px h-20px rounded me-3" src="<?= $metronic ?>media/flags/united-states.svg" alt="" />
+											<img data-kt-element="current-lang-flag" class="w-20px h-20px rounded me-3" src="<?= $metronic ?>media/flags/united-kingdom.svg" alt="" />
 											<span data-kt-element="current-lang-name" class="me-1">English</span>
 											<span class="svg-icon svg-icon-5 text-muted rotate-180 m-0 signup-lang-chevron" aria-hidden="true">
 												<svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -330,7 +331,7 @@
 											<div class="menu-item px-3">
 												<a href="<?= base_url('lang?lang=en') ?>" class="menu-link d-flex px-5" data-kt-lang="en">
 													<span class="symbol symbol-20px me-4">
-														<img data-kt-element="lang-flag" class="rounded-1" src="<?= $metronic ?>media/flags/united-states.svg" alt="" />
+														<img data-kt-element="lang-flag" class="rounded-1" src="<?= $metronic ?>media/flags/united-kingdom.svg" alt="" />
 													</span>
 													<span data-kt-element="lang-name">English</span>
 												</a>

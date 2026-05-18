@@ -1,7 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <title>JoC System | Verify Account</title>
+        <?php
+            $lang = session()->get('lang') ?? 'ms';
+            $isMs = ($lang === 'ms');
+            $tabTitle = $isMs ? 'Sahkan Akaun' : 'Verify Account';
+        ?>
+        <title>JoC System | <?= esc($tabTitle) ?></title>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,400,500,600,700" />
@@ -39,8 +44,6 @@
 
     <body id="kt_body" class="auth-bg">
         <?php
-            $lang = session()->get('lang') ?? 'ms';
-            $isMs = ($lang === 'ms');
             $pageTitle = $isMs ? 'Sahkan Emel Anda' : 'Verify Your Email';
             $subTitle = $isMs ? 'Masukkan kod pengesahan yang dihantar ke' : 'Enter the verification code sent to';
             $otpLabel = $isMs ? 'Taipkan kod keselamatan 6 digit anda' : 'Type your 6-digit security code';
@@ -49,7 +52,7 @@
             $resendText = $isMs ? 'Hantar Semula Emel' : 'Resend Email';
             $fallbackEmail = $isMs ? 'emel berdaftar anda' : 'your registered email';
             $langName = $isMs ? 'Bahasa Melayu' : 'English';
-            $langFlag = $isMs ? 'malaysia.svg' : 'united-states.svg';
+            $langFlag = $isMs ? 'malaysia.svg' : 'united-kingdom.svg';
 
             // Fixed User Email Logic
             $userEmail = '';
@@ -137,7 +140,7 @@
                                 <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-800 menu-state-bg-light-primary fw-semibold w-200px py-4 fs-7" data-kt-menu="true">
                                     <div class="menu-item px-3">
                                         <a href="<?= base_url('lang?lang=en') ?>" class="menu-link d-flex px-5" data-kt-lang="en">
-                                            <span class="symbol symbol-20px me-4"><img class="rounded-1" src="<?= base_url('assets/media/flags/united-states.svg') ?>" alt="English" /></span>
+                                            <span class="symbol symbol-20px me-4"><img class="rounded-1" src="<?= base_url('assets/media/flags/united-kingdom.svg') ?>" alt="English" /></span>
                                             <span>English</span>
                                         </a>
                                     </div>

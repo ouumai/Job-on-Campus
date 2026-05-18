@@ -7,7 +7,7 @@ $desc = $currentLang === 'ms'
     : 'If the email exists in our system, a password reset link has been sent.';
 $backBtn = $currentLang === 'ms' ? 'Kembali ke Log Masuk' : 'Back to Login';
 $langName = $currentLang === 'ms' ? 'Bahasa Melayu' : 'English';
-$langFlag = $currentLang === 'ms' ? 'malaysia.svg' : 'united-states.svg';
+$langFlag = $currentLang === 'ms' ? 'malaysia.svg' : 'united-kingdom.svg';
 ?>
 <!DOCTYPE html>
 <html lang="<?= esc($currentLang) ?>">
@@ -68,7 +68,7 @@ $langFlag = $currentLang === 'ms' ? 'malaysia.svg' : 'united-states.svg';
                             <div class="menu-item px-3">
                                 <a href="<?= base_url('lang?lang=en') ?>" class="menu-link d-flex px-5">
                                     <span class="symbol symbol-20px me-4">
-                                        <img class="rounded-1" src="<?= $metronic ?>media/flags/united-states.svg" alt="EN" />
+                                        <img class="rounded-1" src="<?= $metronic ?>media/flags/united-kingdom.svg" alt="EN" />
                                     </span>
                                     <span>English</span>
                                 </a>
