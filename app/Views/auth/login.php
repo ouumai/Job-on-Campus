@@ -20,8 +20,8 @@
 		<meta property="og:url" content="https://keenthemes.com/metronic" />
 		<meta property="og:site_name" content="Metronic by Keenthemes" />
 		<link rel="canonical" href="http://preview.keenthemes.com/authentication/layouts/overlay/sign-in.html" />
-		<link rel="icon" type="image/png" sizes="512x512" href="<?= base_url('assets/media/logos/JoCLogo-favicon.png?v=3') ?>" />
-		<link rel="shortcut icon" href="<?= base_url('assets/media/logos/JoCLogo-favicon.png?v=3') ?>" />
+		<link rel="icon" type="image/png" sizes="512x512" href="<?= base_url('assets/media/logos/JoCLogo.png') ?>" />
+		<link rel="shortcut icon" href="<?= base_url('assets/media/logos/JoCLogo.png') ?>" />
 		<!--begin::Fonts(mandatory for all pages)-->
 		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,400,500,600,700" />
 		<!--end::Fonts-->

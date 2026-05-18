@@ -4,7 +4,7 @@
     <meta charset="utf-8" />
     <title>Selamat Datang | Job on Campus (JoC)</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="shortcut icon" href="<?= base_url('assets/media/logos/favicon.ico') ?>" />
+    <link rel="shortcut icon" href="<?= base_url('assets/media/logos/JoCLogo.png') ?>" />
     
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,400,500,600,700" />
     <link href="<?= base_url('assets/plugins/global/plugins.bundle.css') ?>" rel="stylesheet" type="text/css" />

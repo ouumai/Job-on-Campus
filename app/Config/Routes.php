@@ -36,8 +36,7 @@ $routes->post('auth/a/verify', '\CodeIgniter\Shield\Controllers\ActionController
 # ============================================================================
 
 // Penghalaan Utama Selepas Log Masuk Berjaya
-$routes->get('dashboard', 'Dashboard::index', ['filter' => 'auth']); 
-
+$routes->get('dashboard', 'DashboardController::index', ['filter' => 'auth']);
 
 // 1. KUMPULAN PERANAN: PELAJAR (STUDENT)
 $routes->group('pelajar', ['filter' => 'group:student'], static function ($routes) {
