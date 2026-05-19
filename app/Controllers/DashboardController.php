@@ -60,6 +60,8 @@ class DashboardController extends BaseController
             'first_name' => trim((string) $this->request->getPost('first_name')),
             'last_name'  => trim((string) $this->request->getPost('last_name')),
         ];
+        $existingProfileImage = trim((string) ($user->profile_image ?? ''));
+        $removeProfileImage = $this->request->getPost('remove_profile_image') === '1';
 
         $avatar = $this->request->getFile('profile_image');
         if ($avatar && $avatar->getError() !== UPLOAD_ERR_NO_FILE) {
@@ -79,6 +81,19 @@ class DashboardController extends BaseController
             $newName = $avatar->getRandomName();
             $avatar->move($uploadPath, $newName);
             $updateData['profile_image'] = 'uploads/profile/' . $newName;
+
+            if ($existingProfileImage !== '') {
+                $oldFile = FCPATH . ltrim($existingProfileImage, '/\\');
+                if (is_file($oldFile)) {
+                    @unlink($oldFile);
+                }
+            }
+        } elseif ($removeProfileImage && $existingProfileImage !== '') {
+            $oldFile = FCPATH . ltrim($existingProfileImage, '/\\');
+            if (is_file($oldFile)) {
+                @unlink($oldFile);
+            }
+            $updateData['profile_image'] = null;
         }
 
         $currentPassword = (string) $this->request->getPost('current_password');
