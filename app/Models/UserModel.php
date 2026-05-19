@@ -17,6 +17,7 @@ class UserModel extends ShieldUserModel
             'last_name',
             'identity_no',
             'user_category',
+            'profile_image',
         ]);
     }
 }

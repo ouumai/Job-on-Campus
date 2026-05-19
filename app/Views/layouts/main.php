@@ -415,22 +415,33 @@
                                         $firstName = $user->first_name ?? '';
                                         $lastName = $user->last_name ?? '';
                                         $initials = strtoupper(substr($firstName, 0, 1) . substr($lastName, 0, 1));
+                                        $profileImage = trim((string) ($user->profile_image ?? ''));
+                                        $avatarUrl = $profileImage !== '' ? base_url($profileImage) : null;
                                         if (empty(trim($initials))) {
                                             $initials = strtoupper(substr($user->username ?? 'U', 0, 2));
                                         }
                                     } else {
                                         $initials = 'G';
+                                        $avatarUrl = null;
                                     }
                                 ?>
                                 <div class="cursor-pointer symbol symbol-30px symbol-md-40px" data-kt-menu-trigger="click" data-kt-menu-attach="parent" data-kt-menu-placement="bottom-end">
-                                    <div class="symbol-label fs-3 bg-light-primary text-primary fw-bold"><?= esc($initials) ?></div>
+                                    <?php if ($avatarUrl): ?>
+                                        <img src="<?= esc($avatarUrl) ?>" alt="Avatar" class="symbol-label object-fit-cover" />
+                                    <?php else: ?>
+                                        <div class="symbol-label fs-3 bg-light-primary text-primary fw-bold"><?= esc($initials) ?></div>
+                                    <?php endif; ?>
                                 </div>
 
                                 <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-800 menu-state-bg menu-state-primary fw-bold py-4 fs-6 w-275px" data-kt-menu="true">
                                     <div class="menu-item px-3">
                                         <div class="menu-content d-flex align-items-center px-3">
                                             <div class="symbol symbol-50px me-5">
-                                                <div class="symbol-label fs-2 bg-light-primary text-primary fw-bold"><?= esc($initials) ?></div>
+                                                <?php if ($avatarUrl): ?>
+                                                    <img src="<?= esc($avatarUrl) ?>" alt="Avatar" class="symbol-label object-fit-cover" />
+                                                <?php else: ?>
+                                                    <div class="symbol-label fs-2 bg-light-primary text-primary fw-bold"><?= esc($initials) ?></div>
+                                                <?php endif; ?>
                                             </div>
                                             <div class="d-flex flex-column">
                                                 <div class="fw-bold d-flex align-items-center fs-5"><?= esc($user ? trim(($user->first_name ?? '') . ' ' . ($user->last_name ?? '')) : 'Guest') ?></div>
@@ -462,7 +473,7 @@
                                         </div>
                                     </div>
                                     <div class="separator my-2"></div>
-                                    <div class="menu-item px-5"><a href="<?= site_url('user/profile') ?>" class="menu-link px-5"><?= lang('Joc.nav_profile') ?></a></div>
+                                    <div class="menu-item px-5"><a href="<?= site_url('profil') ?>" class="menu-link px-5"><?= lang('Joc.nav_profile') ?></a></div>
                                     <div class="separator my-2"></div>
                                     <div class="menu-item px-5"><a href="<?= site_url('logout') ?>" class="menu-link px-5 text-danger logout-link"><?= lang('Joc.nav_logout') ?></a></div>
                                 </div>

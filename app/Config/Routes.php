@@ -38,6 +38,11 @@ $routes->post('auth/a/verify', '\CodeIgniter\Shield\Controllers\ActionController
 // Penghalaan Utama Selepas Log Masuk Berjaya
 $routes->get('dashboard', 'DashboardController::index', ['filter' => 'auth']);
 
+// Profil Pengguna
+$routes->get('profil', 'DashboardController::profil', ['filter' => 'auth']);
+$routes->post('profil', 'DashboardController::updateProfil', ['filter' => 'auth']);
+$routes->get('user/profile', 'DashboardController::profil', ['filter' => 'auth']);
+
 // 1. KUMPULAN PERANAN: PELAJAR (STUDENT)
 $routes->group('pelajar', ['filter' => 'group:student'], static function ($routes) {
     $routes->get('iklan_senarai', 'Pelajar::iklan_senarai');          // iklan_senarai.php 
