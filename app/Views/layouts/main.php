@@ -35,6 +35,15 @@
             background: transparent !important;
         }
 
+        .page-heading {
+            color: #1f2937 !important;
+            font-size: 2rem !important;
+            font-weight: 700 !important;
+            line-height: 1.2;
+            margin-bottom: 0.35rem !important;
+        }
+
+
         /* Buang lapisan geometri asal Metronic */
         .wrapper::before, .wrapper::after {
             display: none !important;
@@ -484,13 +493,17 @@
 
                 <div class="toolbar py-5 py-lg-15" id="kt_toolbar">
                     <div id="kt_toolbar_container" class="container-xxl d-flex flex-stack flex-wrap">
+                        <?php
+                            $pageTitle = trim($this->renderSection('page-title'));
+                            if ($pageTitle === '') {
+                                $pageTitle = trim($this->renderSection('title'));
+                            }
+                            if ($pageTitle === '') {
+                                $pageTitle = 'Dashboard';
+                            }
+                        ?>
                         <div class="page-title d-flex flex-column me-3">
-                            <h1 class="d-flex text-dark fw-bold my-1 fs-3"><?= $this->renderSection('page-title') ?></h1>
-                            <ul class="breadcrumb breadcrumb-separatorless fw-semibold fs-7 my-1">
-                                <li class="breadcrumb-item text-dark opacity-75"><a href="<?= site_url('dashboard') ?>" class="text-dark text-hover-primary"><?= lang('Joc.nav_home') ?></a></li>
-                                <li class="breadcrumb-item"><span class="bullet bg-dark opacity-75 w-5px h-2px"></span></li>
-                                <li class="breadcrumb-item text-dark opacity-75"><?= $this->renderSection('breadcrumb') ?></li>
-                            </ul>
+                            <h1 class="page-heading"><?= esc($pageTitle) ?></h1>
                         </div>
                     </div>
                 </div>
