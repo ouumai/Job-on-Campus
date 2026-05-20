@@ -174,11 +174,11 @@
         : ($isMs ? 'Kakitangan (Penyelia PTJ)' : 'Staff (PTJ Supervisor)');
     $authDesc = $isUrusetia
         ? ($isMs
-            ? 'Akses kuasa penuh kelulusan dana, agihan bajet & payroll universiti.'
-            : 'Full authority access for fund approvals, budget distribution, and university payroll.')
+            ? 'Akses kuasa penuh kelulusan dana, agihan bajet dan payroll universiti.'
+            : 'Full authority access for fund approvals, budget distribution and university payroll.')
         : ($isMs
-            ? 'Akses kuasa penyeliaan iklan, pengambilan calon & pengesahan jam kerja.'
-            : 'Supervisory access for job postings, candidate intake, and work-hour verification.');
+            ? 'Akses kuasa penyeliaan iklan, pengambilan calon dan pengesahan jam kerja.'
+            : 'Supervisory access for job postings, candidate intake and work-hour verification.');
     $authBadgeClass = $isUrusetia ? 'badge-light-warning text-warning' : 'badge-light-success text-success';
     $authBadgeText = $isMs ? 'Penyelia PTJ' : 'PTJ Supervisor';
     if ($isUrusetia) {
@@ -366,7 +366,7 @@
                             <div class="flex-grow-1 bg-secondary bg-active-success rounded h-5px"></div>
                         </div>
                         <div class="text-muted fs-8 fw-semibold leading-sm mt-2">
-                            <?= $isMs ? 'Minimum 8 aksara, gabungan huruf besar, huruf kecil, nombor, dan simbol.' : 'Minimum 8 characters, with uppercase, lowercase, number, and symbol.' ?>
+                            <?= $isMs ? 'Minimum 8 aksara, gabungan huruf besar, huruf kecil, nombor dan simbol.' : 'Minimum 8 characters, with uppercase, lowercase, number and symbol.' ?>
                         </div>
                     </div>
                     
