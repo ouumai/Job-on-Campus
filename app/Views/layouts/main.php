@@ -210,6 +210,17 @@
                                     
                                     <?php 
                                         $user = auth()->user();
+                                        $isMsNav = (session('lang') ?? 'ms') === 'ms';
+                                        if (! isset($isUrusetia)) {
+                                            $isUrusetia = false;
+                                            if ($user && ! $user->inGroup('student')) {
+                                                $urusetiaModel = model(\App\Models\UrusetiaModel::class);
+                                                $checkUrusetia = $urusetiaModel->getByUkmper((string) ($user->username ?? ''));
+                                                if ($checkUrusetia && (int) (($checkUrusetia->aktif ?? 0)) === 1) {
+                                                    $isUrusetia = true;
+                                                }
+                                            }
+                                        }
                                         if ($user && $user->inGroup('student')): 
                                     ?>
                                         <div class="menu-item me-lg-1">
@@ -262,131 +273,137 @@
                                             </div>
                                         </div>
 
-                                    <?php elseif (auth()->user()->inGroup('supervisor')): ?>
+                                    <?php elseif ($user && ! $user->inGroup('student')): ?>
                                         <div class="menu-item me-lg-1">
                                             <a class="menu-link py-3" href="<?= site_url('dashboard') ?>">
                                                 <span class="menu-title"><?= lang('Joc.nav_main_dashboard') ?></span>
                                             </a>
                                         </div>
 
-                                        <div data-kt-menu-trigger="click" data-kt-menu-placement="bottom-start" class="menu-item menu-lg-down-accordion me-lg-1">
-                                            <span class="menu-link py-3">
-                                                <span class="menu-title"><?= lang('Joc.nav_job_management') ?></span>
-                                                <i class="fa-solid fa-chevron-down ms-2 fs-8"></i>
-                                            </span>
-                                            <div class="menu-sub menu-sub-lg-down-accordion menu-sub-lg-dropdown menu-rounded-0 py-lg-4 w-lg-225px">
-                                                <div class="menu-item px-3">
-                                                    <a class="menu-link py-3" href="<?= site_url('penyelia/iklan/senarai') ?>">
-                                                        <span class="menu-title"><?= lang('Joc.nav_my_ads') ?></span>
-                                                    </a>
-                                                </div>
-                                                <div class="menu-item px-3">
-                                                    <a class="menu-link py-3" href="<?= site_url('penyelia/iklan/form') ?>">
-                                                        <span class="menu-title"><?= lang('Joc.nav_create_ad') ?></span>
-                                                    </a>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div data-kt-menu-trigger="click" data-kt-menu-placement="bottom-start" class="menu-item menu-lg-down-accordion me-lg-1">
-                                            <span class="menu-link py-3">
-                                                <span class="menu-title"><?= lang('Joc.nav_candidate_recruitment') ?></span>
-                                                <i class="fa-solid fa-chevron-down ms-2 fs-8"></i>
-                                            </span>
-                                            <div class="menu-sub menu-sub-lg-down-accordion menu-sub-lg-dropdown menu-rounded-0 py-lg-4 w-lg-225px">
-                                                <div class="menu-item px-3">
-                                                    <a class="menu-link py-3" href="<?= site_url('penyelia/calon/senarai') ?>">
-                                                        <span class="menu-title"><?= lang('Joc.nav_candidate_list') ?></span>
-                                                    </a>
-                                                </div>
-                                                <div class="menu-item px-3">
-                                                    <a class="menu-link py-3" href="<?= site_url('penyelia/calon/import') ?>">
-                                                        <span class="menu-title"><?= lang('Joc.nav_import_candidates') ?></span>
-                                                    </a>
+                                        <?php if ($isUrusetia): ?>
+                                            <div data-kt-menu-trigger="click" data-kt-menu-placement="bottom-start" class="menu-item menu-lg-down-accordion me-lg-1">
+                                                <span class="menu-link py-3">
+                                                    <span class="menu-title"><?= $isMsNav ? 'Pemantauan Iklan' : 'Ad Monitoring' ?></span>
+                                                    <i class="fa-solid fa-chevron-down ms-2 fs-8"></i>
+                                                </span>
+                                                <div class="menu-sub menu-sub-lg-down-accordion menu-sub-lg-dropdown menu-rounded-0 py-lg-4 w-lg-225px">
+                                                    <div class="menu-item px-3">
+                                                        <a class="menu-link py-3" href="<?= site_url('urusetia/iklan/senarai') ?>">
+                                                            <span class="menu-title"><?= $isMsNav ? 'Semua Iklan (Sistem)' : 'All Ads (System)' ?></span>
+                                                        </a>
+                                                    </div>
+                                                    <div class="menu-item px-3">
+                                                        <a class="menu-link py-3" href="<?= site_url('urusetia/iklan/calon_senarai') ?>">
+                                                            <span class="menu-title"><?= $isMsNav ? 'Semakan Pemohon (Audit)' : 'Applicant Review (Audit)' ?></span>
+                                                        </a>
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
 
-                                        <div data-kt-menu-trigger="click" data-kt-menu-placement="bottom-start" class="menu-item menu-lg-down-accordion me-lg-1">
-                                            <span class="menu-link py-3">
-                                                <span class="menu-title"><?= lang('Joc.nav_ptj_approval') ?></span>
-                                                <i class="fa-solid fa-chevron-down ms-2 fs-8"></i>
-                                            </span>
-                                            <div class="menu-sub menu-sub-lg-down-accordion menu-sub-lg-dropdown menu-rounded-0 py-lg-4 w-lg-225px">
-                                                <div class="menu-item px-3">
-                                                    <a class="menu-link py-3" href="<?= site_url('penyelia/bajet_ptj') ?>">
-                                                        <span class="menu-title"><?= lang('Joc.nav_ptj_ad_approval') ?></span>
-                                                    </a>
-                                                </div>
-                                                <div class="menu-item px-3">
-                                                    <a class="menu-link py-3" href="<?= site_url('penyelia/ketua_projek') ?>">
-                                                        <span class="menu-title"><?= lang('Joc.nav_fund_approval') ?></span>
-                                                    </a>
+                                            <div data-kt-menu-trigger="click" data-kt-menu-placement="bottom-start" class="menu-item menu-lg-down-accordion me-lg-1">
+                                                <span class="menu-link py-3">
+                                                    <span class="menu-title"><?= $isMsNav ? 'Kelulusan' : 'Approvals' ?></span>
+                                                    <i class="fa-solid fa-chevron-down ms-2 fs-8"></i>
+                                                </span>
+                                                <div class="menu-sub menu-sub-lg-down-accordion menu-sub-lg-dropdown menu-rounded-0 py-lg-4 w-lg-225px">
+                                                    <div class="menu-item px-3">
+                                                        <a class="menu-link py-3" href="<?= site_url('kelulusan/senarai') ?>">
+                                                            <span class="menu-title"><?= $isMsNav ? 'Kelulusan Iklan & Payroll' : 'Ad & Payroll Approval' ?></span>
+                                                        </a>
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
 
-                                        <div data-kt-menu-trigger="click" data-kt-menu-placement="bottom-start" class="menu-item menu-lg-down-accordion me-lg-1">
-                                            <span class="menu-link py-3">
-                                                <span class="menu-title"><?= lang('Joc.nav_review_reports') ?></span>
-                                                <i class="fa-solid fa-chevron-down ms-2 fs-8"></i>
-                                            </span>
-                                            <div class="menu-sub menu-sub-lg-down-accordion menu-sub-lg-dropdown menu-rounded-0 py-lg-4 w-lg-225px">
-                                                <div class="menu-item px-3">
-                                                    <a class="menu-link py-3" href="<?= site_url('penyelia/semakan') ?>">
-                                                        <span class="menu-title"><?= lang('Joc.nav_student_work_verification') ?></span>
-                                                    </a>
-                                                </div>
-                                                <div class="menu-item px-3">
-                                                    <a class="menu-link py-3" href="<?= site_url('penyelia/laporan_ptj') ?>">
-                                                        <span class="menu-title"><?= lang('Joc.nav_ptj_report') ?></span>
-                                                    </a>
+                                            <div data-kt-menu-trigger="click" data-kt-menu-placement="bottom-start" class="menu-item menu-lg-down-accordion me-lg-1">
+                                                <span class="menu-link py-3">
+                                                    <span class="menu-title"><?= $isMsNav ? 'Kewangan' : 'Finance' ?></span>
+                                                    <i class="fa-solid fa-chevron-down ms-2 fs-8"></i>
+                                                </span>
+                                                <div class="menu-sub menu-sub-lg-down-accordion menu-sub-lg-dropdown menu-rounded-0 py-lg-4 w-lg-225px">
+                                                    <div class="menu-item px-3">
+                                                        <a class="menu-link py-3" href="<?= site_url('pengguna/bajet') ?>">
+                                                            <span class="menu-title"><?= $isMsNav ? 'Pengurusan Bajet Kerjaya' : 'Career Budget Management' ?></span>
+                                                        </a>
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
-
-                                    <?php elseif (auth()->user()->inGroup('career')): ?>
-                                        <div class="menu-item me-lg-1">
-                                            <a class="menu-link py-3" href="<?= site_url('dashboard') ?>">
-                                                <span class="menu-title"><?= lang('Joc.nav_main_statistics') ?></span>
-                                            </a>
-                                        </div>
-
-                                        <div data-kt-menu-trigger="click" data-kt-menu-placement="bottom-start" class="menu-item menu-lg-down-accordion me-lg-1">
-                                            <span class="menu-link py-3">
-                                                <span class="menu-title"><?= lang('Joc.nav_ads_monitoring') ?></span>
-                                                <i class="fa-solid fa-chevron-down ms-2 fs-8"></i>
-                                            </span>
-                                            <div class="menu-sub menu-sub-lg-down-accordion menu-sub-lg-dropdown menu-rounded-0 py-lg-4 w-lg-225px">
-                                                <div class="menu-item px-3">
-                                                    <a class="menu-link py-3" href="<?= site_url('urusetia/iklan/senarai') ?>">
-                                                        <span class="menu-title"><?= lang('Joc.nav_all_system_ads') ?></span>
-                                                    </a>
-                                                </div>
-                                                <div class="menu-item px-3">
-                                                    <a class="menu-link py-3" href="<?= site_url('urusetia/iklan/form') ?>">
-                                                        <span class="menu-title"><?= lang('Joc.nav_career_ad_form') ?></span>
-                                                    </a>
-                                                </div>
-                                                <div class="menu-item px-3">
-                                                    <a class="menu-link py-3" href="<?= site_url('urusetia/iklan/calon_senarai') ?>">
-                                                        <span class="menu-title"><?= lang('Joc.nav_applicant_audit') ?></span>
-                                                    </a>
+                                        <?php else: ?>
+                                            <div data-kt-menu-trigger="click" data-kt-menu-placement="bottom-start" class="menu-item menu-lg-down-accordion me-lg-1">
+                                                <span class="menu-link py-3">
+                                                    <span class="menu-title"><?= $isMsNav ? 'Pengurusan Iklan' : 'Ad Management' ?></span>
+                                                    <i class="fa-solid fa-chevron-down ms-2 fs-8"></i>
+                                                </span>
+                                                <div class="menu-sub menu-sub-lg-down-accordion menu-sub-lg-dropdown menu-rounded-0 py-lg-4 w-lg-225px">
+                                                    <div class="menu-item px-3">
+                                                        <a class="menu-link py-3" href="<?= site_url('penyelia/iklan/senarai') ?>">
+                                                            <span class="menu-title"><?= $isMsNav ? 'Iklan Saya' : 'My Ads' ?></span>
+                                                        </a>
+                                                    </div>
+                                                    <div class="menu-item px-3">
+                                                        <a class="menu-link py-3" href="<?= site_url('penyelia/iklan/form') ?>">
+                                                            <span class="menu-title"><?= $isMsNav ? 'Cipta Iklan Baru' : 'Create New Ad' ?></span>
+                                                        </a>
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
 
-                                        <div class="menu-item me-lg-1">
-                                            <a class="menu-link py-3" href="<?= site_url('kelulusan/senarai') ?>">
-                                                <span class="menu-title"><?= lang('Joc.nav_approval_inbox') ?></span>
-                                            </a>
-                                        </div>
+                                            <div data-kt-menu-trigger="click" data-kt-menu-placement="bottom-start" class="menu-item menu-lg-down-accordion me-lg-1">
+                                                <span class="menu-link py-3">
+                                                    <span class="menu-title"><?= $isMsNav ? 'Pengambilan Calon' : 'Candidate Intake' ?></span>
+                                                    <i class="fa-solid fa-chevron-down ms-2 fs-8"></i>
+                                                </span>
+                                                <div class="menu-sub menu-sub-lg-down-accordion menu-sub-lg-dropdown menu-rounded-0 py-lg-4 w-lg-225px">
+                                                    <div class="menu-item px-3">
+                                                        <a class="menu-link py-3" href="<?= site_url('penyelia/calon/senarai') ?>">
+                                                            <span class="menu-title"><?= $isMsNav ? 'Senarai Calon' : 'Candidate List' ?></span>
+                                                        </a>
+                                                    </div>
+                                                    <div class="menu-item px-3">
+                                                        <a class="menu-link py-3" href="<?= site_url('penyelia/calon/import') ?>">
+                                                            <span class="menu-title"><?= $isMsNav ? 'Import Calon (Excel)' : 'Import Candidates (Excel)' ?></span>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </div>
 
-                                        <div class="menu-item me-lg-1">
-                                            <a class="menu-link py-3" href="<?= site_url('pengguna/bajet') ?>">
-                                                <span class="menu-title"><?= lang('Joc.nav_budget_management') ?></span>
-                                            </a>
-                                        </div>
+                                            <div data-kt-menu-trigger="click" data-kt-menu-placement="bottom-start" class="menu-item menu-lg-down-accordion me-lg-1">
+                                                <span class="menu-link py-3">
+                                                    <span class="menu-title"><?= $isMsNav ? 'Kelulusan (Peringkat PTJ)' : 'Approvals (PTJ Level)' ?></span>
+                                                    <i class="fa-solid fa-chevron-down ms-2 fs-8"></i>
+                                                </span>
+                                                <div class="menu-sub menu-sub-lg-down-accordion menu-sub-lg-dropdown menu-rounded-0 py-lg-4 w-lg-225px">
+                                                    <div class="menu-item px-3">
+                                                        <a class="menu-link py-3" href="<?= site_url('penyelia/bajet_ptj') ?>">
+                                                            <span class="menu-title"><?= $isMsNav ? 'Kelulusan Iklan PTJ (Ketua Projek)' : 'PTJ Ad Approval (Project Lead)' ?></span>
+                                                        </a>
+                                                    </div>
+                                                    <div class="menu-item px-3">
+                                                        <a class="menu-link py-3" href="<?= site_url('penyelia/ketua_projek') ?>">
+                                                            <span class="menu-title"><?= $isMsNav ? 'Kelulusan Dana Tabung (Ketua Projek)' : 'Fund Approval (Project Lead)' ?></span>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div data-kt-menu-trigger="click" data-kt-menu-placement="bottom-start" class="menu-item menu-lg-down-accordion me-lg-1">
+                                                <span class="menu-link py-3">
+                                                    <span class="menu-title"><?= $isMsNav ? 'Semakan & Laporan' : 'Review & Reports' ?></span>
+                                                    <i class="fa-solid fa-chevron-down ms-2 fs-8"></i>
+                                                </span>
+                                                <div class="menu-sub menu-sub-lg-down-accordion menu-sub-lg-dropdown menu-rounded-0 py-lg-4 w-lg-225px">
+                                                    <div class="menu-item px-3">
+                                                        <a class="menu-link py-3" href="<?= site_url('penyelia/semakan') ?>">
+                                                            <span class="menu-title"><?= $isMsNav ? 'Pengesahan Kerja Pelajar' : 'Student Work Verification' ?></span>
+                                                        </a>
+                                                    </div>
+                                                    <div class="menu-item px-3">
+                                                        <a class="menu-link py-3" href="<?= site_url('penyelia/laporan_ptj') ?>">
+                                                            <span class="menu-title"><?= $isMsNav ? 'Laporan Statistik PTJ' : 'PTJ Statistical Report' ?></span>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        <?php endif; ?>
                                     <?php endif; ?>
                                 </div>
                             </div>
