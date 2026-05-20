@@ -29,6 +29,15 @@
             if (empty($fullName)) {
                 $fullName = $user->username ?? lang('Joc.role_guest');
             }
+
+            $isUrusetia = false;
+            if ($user && ! $user->inGroup('student')) {
+                $urusetiaModel = model(\App\Models\UrusetiaModel::class);
+                $checkUrusetia = $urusetiaModel->getByUkmper((string) ($user->username ?? ''));
+                if ($checkUrusetia && (int) (($checkUrusetia->aktif ?? 0)) === 1) {
+                    $isUrusetia = true;
+                }
+            }
         ?>
         <h1 class="fw-bolder text-gray-900 mb-3 fs-1 text-start mt-2">
             <?= lang('Joc.welcome_greeting') ?>, <?= esc($fullName) ?>!
@@ -73,11 +82,11 @@
                     </div>
                 </ul>
                 
+            <?php elseif ($isUrusetia || $user->inGroup('career')): ?>
+                <?= lang('Joc.welcome_career_intro') ?>
+                
             <?php elseif ($user->inGroup('supervisor')): ?>
                 <?= lang('Joc.welcome_supervisor_intro') ?>
-                
-            <?php elseif ($user->inGroup('career')): ?>
-                <?= lang('Joc.welcome_career_intro') ?>
             <?php endif; ?>
         </div>
         
