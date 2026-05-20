@@ -76,6 +76,24 @@ class DashboardController extends BaseController
         }
 
         $newIdentityNo = strtoupper(trim((string) $this->request->getPost('identity_no')));
+        $userCategory = strtolower((string) ($user->user_category ?? ''));
+
+        if ($userCategory === 'pelajar') {
+            if (! preg_match('/^(A|P)\d{6}$/', $newIdentityNo)) {
+                return redirect()->back()->withInput()->with(
+                    'error',
+                    'Format No. Matrik tidak sah. Gunakan format A123456 atau P123456.'
+                );
+            }
+        } else {
+            if (! preg_match('/^(K|KS|KQ)\d{6}$/', $newIdentityNo)) {
+                return redirect()->back()->withInput()->with(
+                    'error',
+                    'Format No. UKMPer tidak sah. Gunakan format K123456, KS123456, atau KQ123456.'
+                );
+            }
+        }
+
         $identityExists = $db->table('users')
             ->where('identity_no', $newIdentityNo)
             ->where('id !=', (int) $user->id)

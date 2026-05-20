@@ -285,7 +285,16 @@
                                     ? ($isMs ? 'No. Matrik' : 'Matric No.')
                                     : ($isMs ? 'No. UKMPer' : 'UKMPer No.') ?>
                             </label>
-                            <input type="text" name="identity_no" class="form-control glass-input" value="<?= esc(old('identity_no', $user->identity_no ?? '')) ?>" required>
+                            <input
+                                type="text"
+                                name="identity_no"
+                                class="form-control glass-input"
+                                value="<?= esc(old('identity_no', $user->identity_no ?? '')) ?>"
+                                pattern="<?= $user->inGroup('student') ? '^(A|P)[0-9]{6}$' : '^(K|KS|KQ)[0-9]{6}$' ?>"
+                                title="<?= $user->inGroup('student') ? 'Format: A123456 atau P123456' : 'Format: K123456, KS123456, atau KQ123456' ?>"
+                                style="text-transform:uppercase;"
+                                required
+                            >
                         </div>
 
                         <div class="col-md-12">
