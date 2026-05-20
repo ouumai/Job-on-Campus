@@ -169,13 +169,29 @@
     $avatar = trim((string) ($user->profile_image ?? ''));
     $avatarUrl = $avatar !== '' ? base_url($avatar) : null;
 
-    $authIconClass = $isUrusetia ? 'ki-setting-3 fs-1 text-warning' : 'ki-shield-search fs-1 text-success';
-    $authTitle = $isUrusetia ? 'Kakitangan (Unit Kerjaya)' : 'Kakitangan (Penyelia PTJ)';
+    $authTitle = $isUrusetia ? 'Kakitangan (Urusetia Unit Kerjaya)' : 'Kakitangan (Penyelia PTJ)';
     $authDesc = $isUrusetia
-        ? 'Kuasa Kelulusan Akhir & Payroll Sistem'
-        : 'Kuasa Pengurusan Calon & Dana Jabatan';
+        ? 'Akses kuasa penuh kelulusan dana, agihan bajet & payroll universiti.'
+        : 'Akses kuasa penyeliaan iklan, pengambilan calon & pengesahan jam kerja.';
     $authBadgeClass = $isUrusetia ? 'badge-light-warning text-warning' : 'badge-light-success text-success';
-    $authBadgeText = $isUrusetia ? 'Urusetia' : 'Penyelia';
+    $authBadgeText = $isMs ? 'Penyelia PTJ' : 'PTJ Supervisor';
+    if ($isUrusetia) {
+        $tahapAkses = (int) ($urusetiaInfo['tahap_akses'] ?? 0);
+        switch ($tahapAkses) {
+            case 1:
+                $authBadgeText = 'Urusetia (' . ($isMs ? 'Pegawai' : 'Officer') . ')';
+                break;
+            case 2:
+                $authBadgeText = 'Urusetia (' . ($isMs ? 'Penyelia Urusetia' : 'Secretariat Supervisor') . ')';
+                break;
+            case 3:
+                $authBadgeText = 'Urusetia (' . ($isMs ? 'Pentadbir' : 'Administrator') . ')';
+                break;
+            default:
+                $authBadgeText = 'Urusetia';
+                break;
+        }
+    }
 ?>
 
 <div class="card glass-card-lg w-100 max-w-1100px mx-auto animate__animated animate__fadeIn">
@@ -268,10 +284,10 @@
                                 <?php if ($user->inGroup('student')): ?>
                                     <span class="badge badge-light-info fw-bolder px-4 py-2 fs-7 text-uppercase tracking-wide"><?= $isMs ? 'Pelajar' : 'Student' ?></span>
                                 <?php endif; ?>
-                                <?php if ($user->inGroup('supervisor')): ?>
+                                <?php if ($user->inGroup('supervisor') && ! $isUrusetia): ?>
                                     <span class="badge badge-light-success fw-bolder px-4 py-2 fs-7 text-uppercase tracking-wide"><?= $isMs ? 'Penyelia' : 'Supervisor' ?></span>
                                 <?php endif; ?>
-                                <?php if ($user->inGroup('career')): ?>
+                                <?php if ($user->inGroup('career') || $isUrusetia): ?>
                                     <span class="badge badge-light-warning fw-bolder px-4 py-2 fs-7 text-uppercase tracking-wide"><?= $isMs ? 'Urusetia' : 'Career Secretariat' ?></span>
                                 <?php endif; ?>
                             </div>
@@ -293,7 +309,11 @@
                         <div class="d-flex align-items-center gap-4">
                             <div class="symbol symbol-65px">
                                 <span class="symbol-label bg-light">
-                                    <i class="ki-duotone <?= esc($authIconClass) ?>"><span class="path1"></span><span class="path2"></span><span class="path3"></span></i>
+                                    <?php if ($isUrusetia): ?>
+                                        <i class="ki-duotone ki-setting-3 fs-1 text-warning"><span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span></i>
+                                    <?php else: ?>
+                                        <i class="ki-duotone ki-shield-search fs-1 text-success"><span class="path1"></span><span class="path2"></span></i>
+                                    <?php endif; ?>
                                 </span>
                             </div>
                             <div>

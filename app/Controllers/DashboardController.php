@@ -18,11 +18,21 @@ class DashboardController extends BaseController
     public function profil()
     {
         $user = auth()->user();
+        $isUrusetia = false;
+        $urusetiaInfo = null;
 
-        $ukmper = trim((string) ($user->identity_no ?? $user->username ?? ''));
-        $urusetiaModel = model(UrusetiaModel::class);
-        $urusetiaInfo = $ukmper !== '' ? $urusetiaModel->getByUkmper($ukmper) : null;
-        $isUrusetia = $urusetiaInfo !== null && (int) ($urusetiaInfo->aktif ?? 0) === 1;
+        if ($user && ! $user->inGroup('student')) {
+            $urusetiaModel = model(UrusetiaModel::class);
+            $checkUrusetia = $urusetiaModel->getByUkmper((string) ($user->username ?? ''));
+
+            if ($checkUrusetia) {
+                $checkUrusetiaArray = (array) $checkUrusetia;
+                if ((int) ($checkUrusetiaArray['aktif'] ?? 0) === 1) {
+                    $isUrusetia = true;
+                    $urusetiaInfo = $checkUrusetiaArray;
+                }
+            }
+        }
 
         return view('profile', [
             'user' => $user,
