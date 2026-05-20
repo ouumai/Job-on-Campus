@@ -18,6 +18,17 @@
             background-attachment: fixed !important;
             display: flex;
             flex-direction: column;
+            min-height: 100vh;
+        }
+
+        #kt_wrapper {
+            min-height: 100vh;
+        }
+
+        #kt_content_container {
+            flex: 1 0 auto;
+            width: 100%;
+            padding-bottom: 1rem;
         }
 
         /* 2. Nav Bar (Header) dengan Background Glassmorphism */
@@ -154,6 +165,9 @@
         backdrop-filter: blur(10px);
         -webkit-backdrop-filter: blur(10px);
         border-top: 1px solid rgba(255, 255, 255, 0.2);
+        margin-top: auto;
+        position: relative;
+        z-index: 2;
     }
 
         .footer-text {
