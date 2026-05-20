@@ -280,6 +280,15 @@
                         </div>
                         
                         <div class="col-md-12">
+                            <label class="form-label required fw-bold text-gray-700 fs-7">
+                                <?= $user->inGroup('student')
+                                    ? ($isMs ? 'No. Matrik' : 'Matric No.')
+                                    : ($isMs ? 'No. UKMPer' : 'UKMPer No.') ?>
+                            </label>
+                            <input type="text" name="identity_no" class="form-control glass-input" value="<?= esc(old('identity_no', $user->identity_no ?? '')) ?>" required>
+                        </div>
+
+                        <div class="col-md-12">
                             <label class="form-label required fw-bold text-gray-700 fs-7"><?= $isMs ? 'Alamat Emel Rasmi' : 'Official Email Address' ?></label>
                             <input type="email" name="email" class="form-control glass-input" value="<?= esc(old('email', $user->email ?? '')) ?>" required>
                         </div>

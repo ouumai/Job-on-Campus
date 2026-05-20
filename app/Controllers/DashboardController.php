@@ -51,6 +51,7 @@ class DashboardController extends BaseController
         $rules = [
             'first_name' => 'required|min_length[2]|max_length[100]',
             'last_name'  => 'required|min_length[2]|max_length[100]',
+            'identity_no' => 'required|min_length[3]|max_length[20]',
             'email'      => 'required|valid_email|max_length[255]',
             'current_password' => 'permit_empty|min_length[8]',
             'new_password' => 'permit_empty|strong_password',
@@ -74,9 +75,20 @@ class DashboardController extends BaseController
             return redirect()->back()->withInput()->with('error', 'Emel tersebut telah digunakan oleh pengguna lain.');
         }
 
+        $newIdentityNo = strtoupper(trim((string) $this->request->getPost('identity_no')));
+        $identityExists = $db->table('users')
+            ->where('identity_no', $newIdentityNo)
+            ->where('id !=', (int) $user->id)
+            ->countAllResults();
+
+        if ($identityExists > 0) {
+            return redirect()->back()->withInput()->with('error', 'No. Matrik/UKMPer tersebut telah digunakan oleh pengguna lain.');
+        }
+
         $updateData = [
             'first_name' => trim((string) $this->request->getPost('first_name')),
             'last_name'  => trim((string) $this->request->getPost('last_name')),
+            'identity_no' => $newIdentityNo,
         ];
         $existingProfileImage = trim((string) ($user->profile_image ?? ''));
         $removeProfileImage = $this->request->getPost('remove_profile_image') === '1';
