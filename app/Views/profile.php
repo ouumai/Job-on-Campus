@@ -296,36 +296,38 @@
                 </div>
             </div>
 
-            <div class="separator separator-dashed border-gray-400 my-8"></div>
+            <?php if (! $user->inGroup('student')): ?>
+                <div class="separator separator-dashed border-gray-400 my-8"></div>
 
-            <div class="text-start">
-                <h3 class="fw-bolder text-gray-900 mb-5 fs-4 d-flex align-items-center">
-                    <i class="ki-duotone ki-security-user fs-2 text-info me-2"><span class="path1"></span><span class="path2"></span><span class="path3"></span></i>
-                    Akaun Autentikasi Kumpulan
-                </h3>
+                <div class="text-start">
+                    <h3 class="fw-bolder text-gray-900 mb-5 fs-4 d-flex align-items-center">
+                        <i class="ki-duotone ki-security-user fs-2 text-info me-2"><span class="path1"></span><span class="path2"></span><span class="path3"></span></i>
+                        Akaun Autentikasi Kumpulan
+                    </h3>
 
-                <div class="card glass-card-lg border-0 shadow-sm">
-                    <div class="card-body p-6 d-flex align-items-center justify-content-between flex-wrap gap-4">
-                        <div class="d-flex align-items-center gap-4">
-                            <div class="symbol symbol-65px">
-                                <span class="symbol-label bg-light">
-                                    <?php if ($isUrusetia): ?>
-                                        <i class="ki-duotone ki-setting-3 fs-1 text-warning"><span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span></i>
-                                    <?php else: ?>
-                                        <i class="ki-duotone ki-shield-search fs-1 text-success"><span class="path1"></span><span class="path2"></span></i>
-                                    <?php endif; ?>
-                                </span>
+                    <div class="card glass-card-lg border-0 shadow-sm">
+                        <div class="card-body p-6 d-flex align-items-center justify-content-between flex-wrap gap-4">
+                            <div class="d-flex align-items-center gap-4">
+                                <div class="symbol symbol-65px">
+                                    <span class="symbol-label bg-light">
+                                        <?php if ($isUrusetia): ?>
+                                            <i class="ki-duotone ki-setting-3 fs-1 text-warning"><span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span></i>
+                                        <?php else: ?>
+                                            <i class="ki-duotone ki-shield-search fs-1 text-success"><span class="path1"></span><span class="path2"></span></i>
+                                        <?php endif; ?>
+                                    </span>
+                                </div>
+                                <div>
+                                    <div class="fw-bolder text-gray-900 fs-5 mb-1"><?= esc($authTitle) ?></div>
+                                    <div class="text-muted fs-7"><?= esc($authDesc) ?></div>
+                                </div>
                             </div>
-                            <div>
-                                <div class="fw-bolder text-gray-900 fs-5 mb-1"><?= esc($authTitle) ?></div>
-                                <div class="text-muted fs-7"><?= esc($authDesc) ?></div>
-                            </div>
+
+                            <span class="badge <?= esc($authBadgeClass) ?> fw-bolder px-4 py-2 fs-7"><?= esc($authBadgeText) ?></span>
                         </div>
-
-                        <span class="badge <?= esc($authBadgeClass) ?> fw-bolder px-4 py-2 fs-7"><?= esc($authBadgeText) ?></span>
                     </div>
                 </div>
-            </div>
+            <?php endif; ?>
 
             <div class="separator separator-dashed border-gray-400 my-8"></div>
 
