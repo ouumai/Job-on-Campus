@@ -156,10 +156,19 @@
         border-top: 1px solid rgba(255, 255, 255, 0.2);
     }
 
-    .footer-text {
+        .footer-text {
         color: #444 !important; /* Warna text supaya jelas */
         font-weight: 500;
 		z-index: 900 !important;
+    }
+
+    .user-email-dropdown {
+        display: block;
+        max-width: 100%;
+        overflow-wrap: anywhere;
+        word-break: break-word;
+        white-space: normal;
+        line-height: 1.35;
     }
     </style>
 
@@ -477,7 +486,7 @@
                                                         <?= esc($roleText) ?>
                                                     </span>
                                                 </div>
-                                                <a href="#" class="fw-semibold text-muted text-hover-primary fs-7 mt-1"><?= esc($user->email ?? '') ?></a>
+                                                <a href="#" class="fw-semibold text-muted text-hover-primary fs-7 mt-1 user-email-dropdown"><?= esc($user->email ?? '') ?></a>
                                             </div>
                                         </div>
                                     </div>

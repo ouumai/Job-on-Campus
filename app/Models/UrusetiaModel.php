@@ -49,4 +49,9 @@ class UrusetiaModel extends Model
         return $this->where(['ukmper' => $id, 'aktif' => 1])->first() !== null;
     }
 
+    public function getByUkmper(string $ukmper): ?object
+    {
+        return $this->where('ukmper', trim($ukmper))->first();
+    }
+
 }

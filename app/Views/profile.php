@@ -156,6 +156,8 @@
 <?= $this->section('content') ?>
 <?php
     $user = $user ?? auth()->user();
+    $isUrusetia = (bool) ($isUrusetia ?? false);
+    $urusetiaInfo = $urusetiaInfo ?? null;
     $fullName = trim(($user->first_name ?? '') . ' ' . ($user->last_name ?? ''));
     $fullName = $fullName !== '' ? $fullName : ($user->username ?? ($isMs ? 'Pengguna' : 'User'));
     $firstName = trim((string) ($user->first_name ?? ''));
@@ -166,6 +168,14 @@
     }
     $avatar = trim((string) ($user->profile_image ?? ''));
     $avatarUrl = $avatar !== '' ? base_url($avatar) : null;
+
+    $authIconClass = $isUrusetia ? 'ki-setting-3 fs-1 text-warning' : 'ki-shield-search fs-1 text-success';
+    $authTitle = $isUrusetia ? 'Kakitangan (Unit Kerjaya)' : 'Kakitangan (Penyelia PTJ)';
+    $authDesc = $isUrusetia
+        ? 'Kuasa Kelulusan Akhir & Payroll Sistem'
+        : 'Kuasa Pengurusan Calon & Dana Jabatan';
+    $authBadgeClass = $isUrusetia ? 'badge-light-warning text-warning' : 'badge-light-success text-success';
+    $authBadgeText = $isUrusetia ? 'Urusetia' : 'Penyelia';
 ?>
 
 <div class="card glass-card-lg w-100 max-w-1100px mx-auto animate__animated animate__fadeIn">
@@ -273,6 +283,33 @@
             <div class="separator separator-dashed border-gray-400 my-8"></div>
 
             <div class="text-start">
+                <h3 class="fw-bolder text-gray-900 mb-5 fs-4 d-flex align-items-center">
+                    <i class="ki-duotone ki-security-user fs-2 text-info me-2"><span class="path1"></span><span class="path2"></span><span class="path3"></span></i>
+                    Akaun Autentikasi Kumpulan
+                </h3>
+
+                <div class="card glass-card-lg border-0 shadow-sm">
+                    <div class="card-body p-6 d-flex align-items-center justify-content-between flex-wrap gap-4">
+                        <div class="d-flex align-items-center gap-4">
+                            <div class="symbol symbol-65px">
+                                <span class="symbol-label bg-light">
+                                    <i class="ki-duotone <?= esc($authIconClass) ?>"><span class="path1"></span><span class="path2"></span><span class="path3"></span></i>
+                                </span>
+                            </div>
+                            <div>
+                                <div class="fw-bolder text-gray-900 fs-5 mb-1"><?= esc($authTitle) ?></div>
+                                <div class="text-muted fs-7"><?= esc($authDesc) ?></div>
+                            </div>
+                        </div>
+
+                        <span class="badge <?= esc($authBadgeClass) ?> fw-bolder px-4 py-2 fs-7"><?= esc($authBadgeText) ?></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="separator separator-dashed border-gray-400 my-8"></div>
+
+            <div class="text-start">
                 <h3 class="fw-bolder text-gray-900 mb-2 fs-4 d-flex align-items-center">
                     <i class="ki-duotone ki-key fs-2 text-warning me-2"><span class="path1"></span><span class="path2"></span></i>
                     <?= $isMs ? 'Tukar Kata Laluan Keselamatan' : 'Change Security Password' ?>
@@ -320,6 +357,58 @@
                 </button>
             </div>
         </form>
+
+        <div class="mt-8">
+            <div class="card glass-card-lg border-0 shadow-sm">
+                <div class="card-body p-6">
+                    <?php if ($isUrusetia): ?>
+                        <div class="d-flex align-items-center justify-content-between flex-wrap gap-3 mb-4">
+                            <h4 class="fw-bolder text-gray-900 fs-5 mb-0">Ringkasan Peruntukan Bajet (<?= date('Y') ?>)</h4>
+                            <span class="badge badge-light-warning text-warning fw-bolder">Urusetia</span>
+                        </div>
+                        <div class="row g-5">
+                            <div class="col-md-4">
+                                <div class="bg-white bg-opacity-50 rounded-3 p-4 h-100">
+                                    <div class="text-muted fs-8 mb-1">Bajet Tahunan</div>
+                                    <div class="fw-bolder fs-3 text-gray-900">RM 1,200,000</div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="bg-white bg-opacity-50 rounded-3 p-4 h-100">
+                                    <div class="text-muted fs-8 mb-1">Telah Diguna</div>
+                                    <div class="fw-bolder fs-3 text-warning">RM 846,500</div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="bg-white bg-opacity-50 rounded-3 p-4 h-100">
+                                    <div class="text-muted fs-8 mb-1">Baki Semasa</div>
+                                    <div class="fw-bolder fs-3 text-success">RM 353,500</div>
+                                </div>
+                            </div>
+                        </div>
+                    <?php else: ?>
+                        <div class="d-flex align-items-center justify-content-between flex-wrap gap-3 mb-4">
+                            <h4 class="fw-bolder text-gray-900 fs-5 mb-0">Statistik Operasi Penyelia PTJ</h4>
+                            <span class="badge badge-light-success text-success fw-bolder">Penyelia</span>
+                        </div>
+                        <div class="row g-5">
+                            <div class="col-md-6">
+                                <div class="bg-white bg-opacity-50 rounded-3 p-4 h-100">
+                                    <div class="text-muted fs-8 mb-1">Iklan Kerja Aktif</div>
+                                    <div class="fw-bolder fs-3 text-success">12</div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="bg-white bg-opacity-50 rounded-3 p-4 h-100">
+                                    <div class="text-muted fs-8 mb-1">Timesheet Menunggu Pengesahan</div>
+                                    <div class="fw-bolder fs-3 text-primary">34</div>
+                                </div>
+                            </div>
+                        </div>
+                    <?php endif; ?>
+                </div>
+            </div>
+        </div>
         
     </div>
 </div>

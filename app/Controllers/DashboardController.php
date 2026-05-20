@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use App\Controllers\BaseController;
+use App\Models\UrusetiaModel;
 use App\Models\UserModel;
 use CodeIgniter\HTTP\RedirectResponse;
 
@@ -18,8 +19,15 @@ class DashboardController extends BaseController
     {
         $user = auth()->user();
 
+        $ukmper = trim((string) ($user->identity_no ?? $user->username ?? ''));
+        $urusetiaModel = model(UrusetiaModel::class);
+        $urusetiaInfo = $ukmper !== '' ? $urusetiaModel->getByUkmper($ukmper) : null;
+        $isUrusetia = $urusetiaInfo !== null && (int) ($urusetiaInfo->aktif ?? 0) === 1;
+
         return view('profile', [
             'user' => $user,
+            'isUrusetia' => $isUrusetia,
+            'urusetiaInfo' => $urusetiaInfo,
         ]);
     }
 
