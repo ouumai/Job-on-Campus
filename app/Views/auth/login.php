@@ -43,7 +43,6 @@
 		<div class="d-flex flex-column flex-root">
 			<!--begin::Page bg image-->
 			<style>
-				/* Target terus body atau id kt_body untuk gradient yang bersih */
 				body, #kt_body { 
 					background: linear-gradient(135deg, #87CEEB 0%, #B0C4DE 50%, #ADD8E6 100%) !important;
 					min-height: 100vh !important;
@@ -52,7 +51,6 @@
 					filter: none !important;
 				}
 
-				/* Paksa hilangkan sebarang lapisan overlay gelap dari Metronic */
 				body::before, #kt_body::before, 
 				body::after, #kt_body::after { 
 					display: none !important; 
@@ -60,16 +58,13 @@
 				}
 
 				.auth-panel { 
-					/* Samakan dengan signup-shell (600px atau 620px ikut citarasa kau) */
 					max-width: 600px !important; 
 					position: relative; 
 					z-index: 10; 
-					/* Guna shadow yang nipis macam kita buat kat signup tadi */
 					box-shadow: 0 10px 40px rgba(0,0,0,0.06) !important; 
 					border-radius: 1.25rem !important;
 				}
 
-				/* Kekalkan styling lain */
 				.flex-root { position: relative; z-index: 1; }
 				.auth-left-pane { position: relative; overflow: hidden; }
 				.auth-left-glass { 
@@ -83,7 +78,6 @@
 					-webkit-backdrop-filter: blur(14px); 
 				}
 
-				/* Guna styling ni supaya 'Or with email' duduk dalam satu baris dengan garis */
 				.separator.separator-content {
 					display: flex;
 					align-items: center;
@@ -95,19 +89,19 @@
 				.separator.separator-content::after {
 					content: "";
 					flex: 1;
-					border-bottom: 1px solid var(--bs-gray-300); /* Garis nipis */
+					border-bottom: 1px solid var(--bs-gray-300); 
 				}
 
 				.separator.separator-content::before {
-					margin-right: 1rem; /* Jarak antara garis kiri dengan teks */
+					margin-right: 1rem; 
 				}
 
 				.separator.separator-content::after {
-					margin-left: 1rem; /* Jarak antara garis kanan dengan teks */
+					margin-left: 1rem; 
 				}
 
 				.auth-separator-label {
-					white-space: nowrap; /* Paksa teks duduk dalam satu baris sahaja */
+					white-space: nowrap; 
 					padding: 0 !important;
 				}
 
@@ -208,12 +202,20 @@
 									</div>
 									<!--end::Input group=-->
 									<!--begin::Wrapper-->
-									<div class="d-flex flex-stack flex-wrap gap-3 fs-base fw-semibold mb-8">
-										<div></div>
-										<!--begin::Link-->
-										<a href="<?= base_url('forgot-password') ?>" class="link-primary" data-kt-translate="sign-in-forgot-password"><?= $currentLang === 'ms' ? 'Lupa Kata Laluan?' : 'Forgot Password?' ?></a>
-										<!--end::Link-->
+									<div class="d-flex flex-column gap-3 fs-base fw-semibold mb-8">
+									<div class="d-flex justify-content-end">
+										<a href="<?= base_url('forgot-password') ?>" class="link-primary" data-kt-translate="sign-in-forgot-password">
+											<?= $currentLang === 'ms' ? 'Lupa Kata Laluan?' : 'Forgot Password?' ?>
+										</a>
 									</div>
+									
+									<div class="d-flex justify-content-start">
+										<label class="form-check form-check-custom form-check-solid align-items-center m-0">
+											<input class="form-check-input me-2" type="checkbox" name="remember" value="1" <?= old('remember') ? 'checked' : '' ?> />
+											<span class="text-gray-700 fs-7"><?= $currentLang === 'ms' ? 'Ingat Saya' : 'Remember Me' ?></span>
+										</label>
+									</div>
+								</div>
 									<!--end::Wrapper-->
 									<!--begin::Submit button-->
 									<div class="d-grid mb-10">
