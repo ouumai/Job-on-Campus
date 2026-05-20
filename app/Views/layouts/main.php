@@ -524,7 +524,15 @@
                                     <div class="separator my-2"></div>
                                     <div class="menu-item px-5"><a href="<?= site_url('profil') ?>" class="menu-link px-5"><?= lang('Joc.nav_profile') ?></a></div>
                                     <div class="separator my-2"></div>
-                                    <div class="menu-item px-5"><a href="<?= site_url('logout') ?>" class="menu-link px-5 text-danger logout-link"><?= lang('Joc.nav_logout') ?></a></div>
+                                    <div class="menu-item px-5">
+                                        <a
+                                            href="<?= site_url('logout') ?>"
+                                            class="menu-link px-5 text-danger logout-link"
+                                            data-risk-confirm="1"
+                                            data-confirm-message-ms="Adakah anda pasti mahu log keluar?"
+                                            data-confirm-message-en="Are you sure you want to log out?"
+                                        ><?= lang('Joc.nav_logout') ?></a>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -571,6 +579,47 @@
     <script src="<?= base_url('assets/plugins/global/plugins.bundle.js') ?>"></script>
     <script src="<?= base_url('assets/js/scripts.bundle.js') ?>"></script>
     <script>
+    window.JocConfirmRisk = function (options) {
+        const opts = options || {};
+        const title = opts.title || 'Are you sure?';
+        const text = opts.text || '';
+        const confirmText = opts.confirmText || 'Yes';
+        const cancelText = opts.cancelText || 'Cancel';
+
+        if (typeof window.Swal !== 'undefined') {
+            return window.Swal.fire({
+                title: title,
+                text: text,
+                icon: 'warning',
+                showCloseButton: true,
+                showCancelButton: true,
+                reverseButtons: true,
+                buttonsStyling: false,
+                confirmButtonText: confirmText,
+                cancelButtonText: cancelText,
+                width: 460,
+                padding: '1.75rem',
+                customClass: {
+                    popup: 'joc-risk-popup',
+                    title: 'joc-risk-popup-title',
+                    htmlContainer: 'joc-risk-popup-text',
+                    confirmButton: 'btn joc-risk-confirm-btn',
+                    cancelButton: 'btn btn-light joc-risk-cancel-btn',
+                    closeButton: 'joc-risk-close-btn',
+                    actions: 'joc-risk-actions'
+                },
+                didOpen: function (el) {
+                    const closeBtn = el.querySelector('.swal2-close');
+                    if (closeBtn) closeBtn.setAttribute('aria-label', 'Close');
+                }
+            }).then(function (result) {
+                return !!result.isConfirmed;
+            });
+        }
+
+        return Promise.resolve(window.confirm([title, text].filter(Boolean).join('\n')));
+    };
+
     document.addEventListener('DOMContentLoaded', function () {
         const langLinks = document.querySelectorAll('a[href*="lang?lang="]');
         langLinks.forEach(function (link) {
@@ -588,8 +637,100 @@
                 .catch(function () { window.location.href = link.href; });
             });
         });
+
+        document.addEventListener('click', function (e) {
+            const target = e.target.closest('[data-risk-confirm="1"]');
+            if (!target) return;
+
+            e.preventDefault();
+            e.stopPropagation();
+
+            const isMs = '<?= (session('lang') ?? 'ms') === 'ms' ? '1' : '0' ?>' === '1';
+            const title = isMs ? 'Pengesahan Tindakan' : 'Action Confirmation';
+            const message = isMs
+                ? (target.getAttribute('data-confirm-message-ms') || 'Adakah anda pasti?')
+                : (target.getAttribute('data-confirm-message-en') || 'Are you sure?');
+            const confirmText = isMs ? 'Ya, teruskan' : 'Yes, proceed';
+            const cancelText = isMs ? 'Batal' : 'Cancel';
+
+            window.JocConfirmRisk({
+                title: title,
+                text: message,
+                confirmText: confirmText,
+                cancelText: cancelText
+            }).then(function (confirmed) {
+                if (!confirmed) return;
+
+                const href = target.getAttribute('href');
+                if (href && href !== '#') {
+                    window.location.href = href;
+                    return;
+                }
+
+                if (target.closest('form')) {
+                    target.closest('form').submit();
+                }
+            });
+        }, true);
     });
     </script>
+    <style>
+    .swal2-popup.joc-risk-popup {
+        border-radius: 24px !important;
+        box-shadow: 0 20px 50px rgba(22, 34, 66, 0.18) !important;
+    }
+
+    .joc-risk-popup-title {
+        font-weight: 800 !important;
+        letter-spacing: 0.2px;
+    }
+
+    .joc-risk-popup-text {
+        color: #5e6278 !important;
+        line-height: 1.6 !important;
+    }
+
+    .swal2-actions.joc-risk-actions {
+        width: 100%;
+        display: flex !important;
+        justify-content: center;
+        gap: 14px;
+        margin-top: 1.25rem !important;
+    }
+
+    .joc-risk-confirm-btn,
+    .joc-risk-cancel-btn {
+        min-width: 140px;
+        border-radius: 12px !important;
+        padding: 0.75rem 1rem !important;
+        font-weight: 700 !important;
+    }
+
+    .joc-risk-confirm-btn {
+        background: #4169E1 !important;
+        border: 1px solid #4169E1 !important;
+        color: #ffffff !important;
+    }
+
+    .joc-risk-confirm-btn:hover {
+        background: #6495ED !important;
+        border-color: #6495ED !important;
+        color: #ffffff !important;
+    }
+
+    .swal2-close.joc-risk-close-btn {
+        color: #FF0000 !important;
+        font-size: 1.75rem !important;
+        right: 0.75rem !important;
+        top: 0.6rem !important;
+    }
+
+    .swal2-close.joc-risk-close-btn:hover {
+        color: #FF0000 !important;
+        background: #FFEDF0 !important;
+        border-radius: 100px;
+    }
+    </style>
     <?= $this->renderSection('extra-js') ?>
 </body>
 </html>

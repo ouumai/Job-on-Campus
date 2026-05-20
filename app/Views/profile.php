@@ -398,7 +398,13 @@
             <div class="separator separator-dashed border-gray-400 my-8"></div>
 
             <div class="d-flex justify-content-end gap-3 mt-4">
-                <button type="submit" class="btn btn-primary fw-bold px-8 shadow-sm">
+                <button
+                    type="submit"
+                    class="btn btn-primary fw-bold px-8 shadow-sm"
+                    data-risk-confirm="1"
+                    data-confirm-message-ms="Adakah anda pasti mahu simpan perubahan profil ini?"
+                    data-confirm-message-en="Are you sure you want to save these profile changes?"
+                >
                     <?= $isMs ? 'Simpan Perubahan' : 'Save Changes' ?>
                 </button>
             </div>
@@ -453,24 +459,37 @@ document.addEventListener('DOMContentLoaded', function () {
 
     if (removeBtn) {
         removeBtn.addEventListener('click', function () {
-            closeMenu();
-            removeInput.value = initialHasAvatar ? '1' : '0';
-            uploadInput.value = '';
-            
-            const currentImg = document.getElementById('profile_avatar_img');
-            if (currentImg) {
-                currentImg.remove();
-            }
+            const title = '<?= $isMs ? 'Pengesahan Tindakan' : 'Action Confirmation' ?>';
+            const confirmMsg = '<?= $isMs ? 'Adakah anda pasti mahu buang gambar profil semasa?' : 'Are you sure you want to remove the current profile image?' ?>';
+            const confirmText = '<?= $isMs ? 'Ya, buang' : 'Yes, remove' ?>';
+            const cancelText = '<?= $isMs ? 'Batal' : 'Cancel' ?>';
 
-            if (!document.getElementById('profile_avatar_fallback')) {
-                const fallback = document.createElement('div');
-                fallback.id = 'profile_avatar_fallback';
-                fallback.className = 'profile-photo-fallback';
-                fallback.innerText = '<?= esc($initials) ?>';
-                wrapElement.insertBefore(fallback, removeInput);
-            }
+            const confirmAction = window.JocConfirmRisk
+                ? window.JocConfirmRisk({ title: title, text: confirmMsg, confirmText: confirmText, cancelText: cancelText })
+                : Promise.resolve(window.confirm(confirmMsg));
 
-            setRemoveMenuVisible(false);
+            confirmAction.then(function (confirmed) {
+                if (!confirmed) return;
+
+                closeMenu();
+                removeInput.value = initialHasAvatar ? '1' : '0';
+                uploadInput.value = '';
+
+                const currentImg = document.getElementById('profile_avatar_img');
+                if (currentImg) {
+                    currentImg.remove();
+                }
+
+                if (!document.getElementById('profile_avatar_fallback')) {
+                    const fallback = document.createElement('div');
+                    fallback.id = 'profile_avatar_fallback';
+                    fallback.className = 'profile-photo-fallback';
+                    fallback.innerText = '<?= esc($initials) ?>';
+                    wrapElement.insertBefore(fallback, removeInput);
+                }
+
+                setRemoveMenuVisible(false);
+            });
         });
     }
 
