@@ -540,7 +540,10 @@
                 <div class="footer py-6 d-flex flex-lg-column" id="kt_footer">
 				<div class="container-xxl text-center">
 					<div class="footer-text">
-						<span>&copy; 2026 Pusat Teknologi Digital (DigitalUKM). All rights reserved.</span>
+						<span>
+                            &copy; 2026 Pusat Teknologi Digital (DigitalUKM).
+                            <?= (session('lang') ?? 'ms') === 'ms' ? 'Hak cipta terpelihara.' : 'All rights reserved.' ?>
+                        </span>
 					</div>
 				</div>
 			</div>
