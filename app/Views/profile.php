@@ -171,7 +171,7 @@
 
     $authTitle = $isUrusetia
         ? ($isMs ? 'Kakitangan (Urusetia Unit Kerjaya)' : 'Staff (Career Unit Secretariat)')
-        : ($isMs ? 'Kakitangan (Penyelia PTJ)' : 'Staff (PTJ Supervisor)');
+        : ($isMs ? 'Kakitangan (Penyelia)' : 'Staff (Supervisor)');
     $authDesc = $isUrusetia
         ? ($isMs
             ? 'Akses kuasa penuh kelulusan dana, agihan bajet dan payroll universiti.'
@@ -180,7 +180,7 @@
             ? 'Akses kuasa penyeliaan iklan, pengambilan calon dan pengesahan jam kerja.'
             : 'Supervisory access for job postings, candidate intake and work-hour verification.');
     $authBadgeClass = $isUrusetia ? 'badge-light-warning text-warning' : 'badge-light-success text-success';
-    $authBadgeText = $isMs ? 'Penyelia PTJ' : 'PTJ Supervisor';
+    $authBadgeText = $isMs ? 'Penyelia' : 'Supervisor';
     if ($isUrusetia) {
         $tahapAkses = (int) ($urusetiaInfo['tahap_akses'] ?? 0);
         switch ($tahapAkses) {

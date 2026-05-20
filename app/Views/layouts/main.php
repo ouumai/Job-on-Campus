@@ -500,7 +500,7 @@
                                                         $roleText = $isMsLang ? 'Urusetia' : 'Secretariat';
                                                         $badgeClass = 'badge-light-warning';
                                                     } elseif ($user && $user->inGroup('supervisor')) {
-                                                        $roleText = $isMsLang ? 'Penyelia PTJ' : 'PTJ Supervisor';
+                                                        $roleText = $isMsLang ? 'Penyelia' : 'Supervisor';
                                                         $badgeClass = 'badge-light-success';
                                                     } elseif ($user && $user->inGroup('student')) {
                                                         $roleText = lang('Joc.role_student');
