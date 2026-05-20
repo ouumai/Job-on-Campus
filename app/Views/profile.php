@@ -377,58 +377,6 @@
                 </button>
             </div>
         </form>
-
-        <div class="mt-8">
-            <div class="card glass-card-lg border-0 shadow-sm">
-                <div class="card-body p-6">
-                    <?php if ($isUrusetia): ?>
-                        <div class="d-flex align-items-center justify-content-between flex-wrap gap-3 mb-4">
-                            <h4 class="fw-bolder text-gray-900 fs-5 mb-0">Ringkasan Peruntukan Bajet (<?= date('Y') ?>)</h4>
-                            <span class="badge badge-light-warning text-warning fw-bolder">Urusetia</span>
-                        </div>
-                        <div class="row g-5">
-                            <div class="col-md-4">
-                                <div class="bg-white bg-opacity-50 rounded-3 p-4 h-100">
-                                    <div class="text-muted fs-8 mb-1">Bajet Tahunan</div>
-                                    <div class="fw-bolder fs-3 text-gray-900">RM 1,200,000</div>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="bg-white bg-opacity-50 rounded-3 p-4 h-100">
-                                    <div class="text-muted fs-8 mb-1">Telah Diguna</div>
-                                    <div class="fw-bolder fs-3 text-warning">RM 846,500</div>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="bg-white bg-opacity-50 rounded-3 p-4 h-100">
-                                    <div class="text-muted fs-8 mb-1">Baki Semasa</div>
-                                    <div class="fw-bolder fs-3 text-success">RM 353,500</div>
-                                </div>
-                            </div>
-                        </div>
-                    <?php else: ?>
-                        <div class="d-flex align-items-center justify-content-between flex-wrap gap-3 mb-4">
-                            <h4 class="fw-bolder text-gray-900 fs-5 mb-0">Statistik Operasi Penyelia PTJ</h4>
-                            <span class="badge badge-light-success text-success fw-bolder">Penyelia</span>
-                        </div>
-                        <div class="row g-5">
-                            <div class="col-md-6">
-                                <div class="bg-white bg-opacity-50 rounded-3 p-4 h-100">
-                                    <div class="text-muted fs-8 mb-1">Iklan Kerja Aktif</div>
-                                    <div class="fw-bolder fs-3 text-success">12</div>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="bg-white bg-opacity-50 rounded-3 p-4 h-100">
-                                    <div class="text-muted fs-8 mb-1">Timesheet Menunggu Pengesahan</div>
-                                    <div class="fw-bolder fs-3 text-primary">34</div>
-                                </div>
-                            </div>
-                        </div>
-                    <?php endif; ?>
-                </div>
-            </div>
-        </div>
         
     </div>
 </div>
