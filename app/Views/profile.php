@@ -169,10 +169,16 @@
     $avatar = trim((string) ($user->profile_image ?? ''));
     $avatarUrl = $avatar !== '' ? base_url($avatar) : null;
 
-    $authTitle = $isUrusetia ? 'Kakitangan (Urusetia Unit Kerjaya)' : 'Kakitangan (Penyelia PTJ)';
+    $authTitle = $isUrusetia
+        ? ($isMs ? 'Kakitangan (Urusetia Unit Kerjaya)' : 'Staff (Career Unit Secretariat)')
+        : ($isMs ? 'Kakitangan (Penyelia PTJ)' : 'Staff (PTJ Supervisor)');
     $authDesc = $isUrusetia
-        ? 'Akses kuasa penuh kelulusan dana, agihan bajet & payroll universiti.'
-        : 'Akses kuasa penyeliaan iklan, pengambilan calon & pengesahan jam kerja.';
+        ? ($isMs
+            ? 'Akses kuasa penuh kelulusan dana, agihan bajet & payroll universiti.'
+            : 'Full authority access for fund approvals, budget distribution, and university payroll.')
+        : ($isMs
+            ? 'Akses kuasa penyeliaan iklan, pengambilan calon & pengesahan jam kerja.'
+            : 'Supervisory access for job postings, candidate intake, and work-hour verification.');
     $authBadgeClass = $isUrusetia ? 'badge-light-warning text-warning' : 'badge-light-success text-success';
     $authBadgeText = $isMs ? 'Penyelia PTJ' : 'PTJ Supervisor';
     if ($isUrusetia) {
@@ -188,7 +194,7 @@
                 $authBadgeText = 'Urusetia (' . ($isMs ? 'Pentadbir' : 'Administrator') . ')';
                 break;
             default:
-                $authBadgeText = 'Urusetia';
+                $authBadgeText = $isMs ? 'Urusetia' : 'Secretariat';
                 break;
         }
     }
@@ -302,7 +308,7 @@
                 <div class="text-start">
                     <h3 class="fw-bolder text-gray-900 mb-5 fs-4 d-flex align-items-center">
                         <i class="ki-duotone ki-security-user fs-2 text-info me-2"><span class="path1"></span><span class="path2"></span><span class="path3"></span></i>
-                        Akaun Autentikasi Kumpulan
+                        <?= $isMs ? 'Akaun Autentikasi Kumpulan' : 'Group Authentication Account' ?>
                     </h3>
 
                     <div class="card glass-card-lg border-0 shadow-sm">
