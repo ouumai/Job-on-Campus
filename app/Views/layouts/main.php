@@ -495,25 +495,36 @@
                                             <div class="d-flex flex-column">
                                                 <div class="fw-bold d-flex align-items-center fs-5"><?= esc($user ? trim(($user->first_name ?? '') . ' ' . ($user->last_name ?? '')) : 'Guest') ?></div>
                                                 <?php 
-                                                    $roleGroups = $user ? ($user->getGroups() ?: ['guest']) : ['guest'];
-                                                    $roleMap = [
-                                                        'student' => 'Joc.role_student',
-                                                        'supervisor' => 'Joc.role_supervisor',
-                                                        'career' => 'Joc.role_career',
-                                                        'admin' => 'Joc.role_admin',
-                                                        'guest' => 'Joc.role_guest',
-                                                    ];
-                                                    $roleLabels = array_map(function ($group) use ($roleMap) {
-                                                        $key = strtolower($group);
-                                                        if (isset($roleMap[$key])) {
-                                                            return lang($roleMap[$key]);
-                                                        }
-                                                        return ucfirst(str_replace(['-', '_'], ' ', $group));
-                                                    }, $roleGroups);
-                                                    $roleText = implode(', ', $roleLabels);
+                                                    $isMsLang = (session('lang') ?? 'ms') === 'ms';
+                                                    if (isset($isUrusetia) && $isUrusetia) {
+                                                        $roleText = $isMsLang ? 'Urusetia' : 'Secretariat';
+                                                        $badgeClass = 'badge-light-warning';
+                                                    } elseif ($user && $user->inGroup('supervisor')) {
+                                                        $roleText = $isMsLang ? 'Penyelia PTJ' : 'PTJ Supervisor';
+                                                        $badgeClass = 'badge-light-success';
+                                                    } elseif ($user && $user->inGroup('student')) {
+                                                        $roleText = lang('Joc.role_student');
+                                                        $badgeClass = 'badge-light-info';
+                                                    } else {
+                                                        $roleGroups = $user ? ($user->getGroups() ?: ['guest']) : ['guest'];
+                                                        $roleMap = [
+                                                            'career' => 'Joc.role_career',
+                                                            'admin' => 'Joc.role_admin',
+                                                            'guest' => 'Joc.role_guest',
+                                                        ];
+                                                        $roleLabels = array_map(function ($group) use ($roleMap) {
+                                                            $key = strtolower($group);
+                                                            if (isset($roleMap[$key])) {
+                                                                return lang($roleMap[$key]);
+                                                            }
+                                                            return ucfirst(str_replace(['-', '_'], ' ', $group));
+                                                        }, $roleGroups);
+                                                        $roleText = implode(', ', $roleLabels);
+                                                        $badgeClass = 'badge-light-info';
+                                                    }
                                                 ?>
                                                 <div class="mt-1">
-                                                    <span class="badge badge-light-info fw-bold fs-8 px-2 py-1 text-capitalize">
+                                                    <span class="badge <?= $badgeClass ?> fw-bold fs-8 px-2 py-1 text-capitalize">
                                                         <?= esc($roleText) ?>
                                                     </span>
                                                 </div>
