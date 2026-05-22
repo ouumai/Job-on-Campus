@@ -1,69 +1,71 @@
-# CodeIgniter 4 Application Starter
+# Job on Campus (JoC) System
 
-## What is CodeIgniter?
+Job on Campus (JoC) adalah sebuah aplikasi web pengurusan kerjaya dalam kampus yang direka khusus untuk mempermudah proses pengambilan, pemantauan dan pembayaran elaun pelajar yang bekerja di dalam komuniti universiti. Sistem ini dibina berasaskan seni bina MVC yang dinamik dengan kawalan akses berasaskan peranan (Role-Based Access Control) yang ketat.
 
-CodeIgniter is a PHP full-stack web framework that is light, fast, flexible and secure.
-More information can be found at the [official site](https://codeigniter.com).
+---
 
-This repository holds a composer-installable app starter.
-It has been built from the
-[development repository](https://github.com/codeigniter4/CodeIgniter4).
+## 🚀 Ciri-Ciri Utama Sistem (Core Features)
 
-More information about the plans for version 4 can be found in [CodeIgniter 4](https://forum.codeigniter.com/forumdisplay.php?fid=28) on the forums.
+Sistem ini membahagikan kawalan antaramuka (UI Switching) dan hak capaian secara dinamik kepada tiga kumpulan pengguna utama:
 
-You can read the [user guide](https://codeigniter.com/user_guide/)
-corresponding to the latest version of the framework.
+* **Mod Pelajar (Student):**
+    * Menerokai iklan tawaran jawatan kosong aktif di dalam kampus.
+    * Menerima dan menyemak surat tawaran pelantikan digital (Penjanaan PDF).
+    * Merekodkan log jam bekerja harian melalui komponen Borang Timesheet.
+    * Menguruskan penghantaran tuntutan elaun bulanan (Claim Form).
+* **Mod Penyelia PTJ (Supervisor):**
+    * Mencipta, mengemas kini, dan menguruskan iklan tawaran kerja jabatan.
+    * Menapis profil kelayakan calon pelajar serta melakukan import data pukal melalui Excel.
+    * Membuat pengesahan (*verify*), kelulusan atau penolakan log jam bekerja Timesheet pelajar.
+* **Mod Urusetia Unit Kerjaya (Career Admin):**
+    * Akses kuasa besar sistem (Superuser / Pentadbir).
+    * Memantau agihan dan baki tabung peruntukan dana kewangan tahunan Kerjaya universiti.
+    * Meluluskan permohonan iklan jawatan peringkat induk universiti.
+    * Memproses kelulusan muktamad *payroll* bulanan pelajar dan mengeksport data tuntutan ke format CSV/Excel.
 
-## Installation & updates
+---
 
-`composer create-project codeigniter4/appstarter` then `composer update` whenever
-there is a new release of the framework.
+## 🛠️ Tech Stack & Spesifikasi Teknikal
 
-When updating, check the release notes to see if there are any changes you might need to apply
-to your `app` folder. The affected files can be copied or merged from
-`vendor/codeigniter4/framework/app`.
+Sistem JoC dibina menggunakan gabungan teknologi moden yang berprestasi tinggi:
 
-## Setup
+* **Backend Framework:** CodeIgniter 4 (Version 4.7.0)
+* **Programming Language:** PHP (Version 8.4)
+* **Database:** MySQL (Relational Database Management System)
+* **Frontend UI Template:** Metronic Admin Template (Bootstrap 5)
+* **UI/UX enhancements:** Glassmorphism Layout, ApexCharts (Graf Analitik Dinamik), SweetAlert2, Dropzone
+* **Autentikasi & Sesi:** CodeIgniter Shield (Custom Group Authorization)
 
-Copy `env` to `.env` and tailor for your app, specifically the baseURL
-and any database settings.
+---
 
-## Important Change with index.php
+## 📁 Struktur Pangkalan Data Penting
 
-`index.php` is no longer in the root of the project! It has been moved inside the *public* folder,
-for better security and separation of components.
+Sistem ini menggunakan struktur hubungan entiti (ERD) yang dipetakan secara silang (*cross-reference*) bagi menentukan tahap kuasa akaun kakitangan tanpa mengusik jadual autentikasi utama:
 
-This means that you should configure your web server to "point" to your project's *public* folder, and
-not to the project root. A better practice would be to configure a virtual host to point there. A poor practice would be to point your web server to the project root and expect to enter *public/...*, as the rest of your logic and the
-framework are exposed.
+* `users`: Menyimpan maklumat pendaftaran asas akaun (Pelajar / Kakitangan).
+* `pjoc011murusetia`: Jadual rujukan induk hak akses Urusetia. Jika ID kakitangan (`ukmper`) wujud di sini dan aktif, sistem akan auto-menaikkan pangkat mereka daripada Penyelia PTJ biasa kepada Urusetia Pentadbir.
+    * `tahap_akses`: `1` = Pegawai, `2` = Penyelia Urusetia, `3` = Pentadbir Sistem.
+* `pjoc007mperuntukanbajetcareer`: Menyimpan data rekod transaksi kewangan, peruntukan dana, dan pembayaran *payroll*.
 
-**Please** read the user guide for a better explanation of how CI4 works!
+---
 
-## Repository Management
+## 💻 Panduan Pemasangan (Installation Guide)
 
-We use GitHub issues, in our main repository, to track **BUGS** and to track approved **DEVELOPMENT** work packages.
-We use our [forum](http://forum.codeigniter.com) to provide SUPPORT and to discuss
-FEATURE REQUESTS.
+Ikuti langkah ini untuk menjalankan projek di persekitaran lokal (*Localhost*):
 
-This repository is a "distribution" one, built by our release preparation script.
-Problems with it can be raised on our forum, or as issues in the main repository.
+1. **Klon Repositori:**
+   ```bash
+   git clone [https://github.com/username/joc-system.git](https://github.com/username/joc-system.git)
+   cd joc-system
 
-## Server Requirements
+---
 
-PHP version 8.2 or higher is required, with the following extensions installed:
+## 👥 Maklumat Pembangunan & Penyeliaan (Development Team)
 
-- [intl](http://php.net/manual/en/intl.requirements.php)
-- [mbstring](http://php.net/manual/en/mbstring.installation.php)
+Sistem ini dibangunkan sepenuhnya sebagai projek rasmi Latihan Industri (Industrial Training) di dalam organisasi universiti:
 
-> [!WARNING]
-> - The end of life date for PHP 7.4 was November 28, 2022.
-> - The end of life date for PHP 8.0 was November 26, 2023.
-> - The end of life date for PHP 8.1 was December 31, 2025.
-> - If you are still using below PHP 8.2, you should upgrade immediately.
-> - The end of life date for PHP 8.2 will be December 31, 2026.
+* **Organisasi Klien / Penempatan:** Pusat Teknologi Digital (DigitalUKM), Universiti Kebangsaan Malaysia (UKM).
+* **Developer (Pembangun):** Nur Umairah Binti Mohd Sabri (Pelajar Diploma Teknologi Maklumat (Teknologi Digital) - SAD, Politeknik Balik Pulau).
+* **Penyelia Industri (Supervisor):** Encik Noorulfaiz bin Ateman (Department PMO Aplikasi, DigitalUKM).
 
-Additionally, make sure that the following extensions are enabled in your PHP:
-
-- json (enabled by default - don't turn it off)
-- [mysqlnd](http://php.net/manual/en/mysqlnd.install.php) if you plan to use MySQL
-- [libcurl](http://php.net/manual/en/curl.requirements.php) if you plan to use the HTTP\CURLRequest library
+*Copyright © 2026 Pusat Teknologi Digital (DigitalUKM). All rights reserved.*
